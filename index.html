@@ -1,10 +1,188 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<title>test</title>
+    <meta charset="UTF-8">
+    <title>大屏展示</title>
+    <script type="text/javascript" ></script>
 </head>
 <body>
-    <p>90,0,0,0,90,0</p>
+<div id="mapContainer"><iframe name="footer" width=100% height=100% src="map.html" frameborder=0>
+</iframe></div>
+<div class="nav-top">
+    <span class="nav-top-title">道路可视化</span>
+    <div class="nav-top-time">
+        <span id="date">日期</span>
+        <span id="time">时间</span>
+    </div>
+</div>
+<!--大屏-->
+<script type="text/javascript" src="lib/loadingScript.js"></script>
+<script type="text/javascript">
+    //初始化地图
+
+
+    function checkhHtml5()
+    {
+        if (typeof(Worker) === "undefined")
+        {
+            if(navigator.userAgent.indexOf("MSIE 9.0")<=0)
+            {
+                alert("IE9以下不兼容，推荐使用edge、chrome、firefox、safari、IE10");
+            }
+
+        }
+    }
+    checkhHtml5();
+
+    //时间
+    var timer = null;
+    function setTime(){
+        if(timer !== null){
+            clearTimeout(timer);
+        }
+        setTimeout(function () {
+            $("#date").text(getTime()[0]);
+            $("#time").text(getTime()[1] +"  "+ getTime()[2]);
+            setTime();
+        },1000);
+    }
+    setTime();
+
+    //legend 生成图例
+    function createLegend() {
+        var html = '';
+        html += '<div class="legend-container">';
+            html += '<div class="legend-content"><span><img src="icon/legend.png"/>地图展示区</span></div>';
+            html += '<div class="legend-content"><span><span class="red-legend"></span><span style="font-size: 14px;">安全性</span></span><span><span class="green-legend"></span><span style="font-size: 14px;">畅通性</span><span><span style="margin-right: -10px;"><img src="icon/高亮图标小.png"></span><span style="font-size: 14px;">舒适性</span></span></span></div>';
+        html += '</div>';
+        $("body").append(html);
+        setLegendPos();
+    }
+    function setLegendPos() {
+        var $legendW = $("body").width() - (270 + 16) * 2;
+        $(".legend-container").css({
+            position:"fixed",
+            top:90,
+            left:296,
+            width:$legendW
+        });
+    }
+    createLegend();
+
+
+    //生成卡片
+    //总指标
+    var zhzb =
+        '<ul>' +
+            '<li><span class="zhzb-li-name">Top1<span class="typeStyle">   xx路</span></span><span class="zhzb-li-num">653212</span></li>' +
+            '<li><span class="zhzb-li-name">Top2<span class="typeStyle">   xx路</span></span><span class="zhzb-li-num">4321</span></li>' +
+            '<li><span class="zhzb-li-name">Top3<span class="typeStyle">   xx路</span></span><span class="zhzb-li-num">4213</span></li>' +
+            '<li><span class="zhzb-li-name">Top4<span class="typeStyle">   xx路</span></span><span class="zhzb-li-num">108</span></li>' +
+            '<li><span class="zhzb-li-name">Top5<span class="typeStyle">   xx路</span></span><span class="zhzb-li-num">82.5</span></li>' +
+        '</ul>';
+
+    var zzb = new CreateTip({
+        id:"zongzhibiao",
+        titleName:"道路区间得分Top5",
+        icon:"icon/总指标.png",
+        pos:{position:"fixed",top:90,left:16},
+        width:270,
+//        html:zhzb
+    });
+    zzb.setData(zhzb);
+
+    //占比
+    var yujing =
+        '<ul>' +
+        '</ul>';
+   var yj = new CreateTip({
+        id:"yujing",
+        titleName:"机动车道路情况占比",
+        icon:"icon/预警.png",
+        pos:{position:"fixed",top:330,left:16},
+        width:270,
+        //html:yujing
+    });
+    yj.setData(yujing);
+
+    //照片
+    var kaoqin =
+        '<ul>' +
+
+        '</ul>';
+
+    var kq = new CreateTip({
+        id:"kaoqin",
+        titleName:"照片展示区",
+        icon:"icon/考勤.png",
+        pos:{position:"fixed",top:530,left:16},
+        width:270,
+//        html:kaoqin
+    });
+    kq.setData(kaoqin);
+    <!--大屏-->
+
+var quanzhong =
+        '<ul>' +
+        '</ul>';
+
+    var qz = new CreateTip({
+        id:"quanzhong",
+        titleName:"标准权重",
+        icon:"icon/总指标.png",
+         pos:{position:"fixed",top:90,right:16},
+        width:270,
+    });
+    qz.setData(quanzhong);
+
+    //路
+var road =
+        '<ul>' +
+            '<li><span class="zhzb-li-name">Top1<span class="typeStyle">   xx路</span></span><span class="zhzb-li-num">653212</span></li>' +
+            '<li><span class="zhzb-li-name">Top2<span class="typeStyle">   xx路</span></span><span class="zhzb-li-num">4321</span></li>' +
+            '<li><span class="zhzb-li-name">Top3<span class="typeStyle">   xx路</span></span><span class="zhzb-li-num">4213</span></li>' +
+            '<li><span class="zhzb-li-name">Top4<span class="typeStyle">   xx路</span></span><span class="zhzb-li-num">108</span></li>' +
+            '<li><span class="zhzb-li-name">Top5<span class="typeStyle">   xx路</span></span><span class="zhzb-li-num">82.5</span></li>' +
+            '<li><span class="zhzb-li-name">Top6<span class="typeStyle">   xx路</span></span><span class="zhzb-li-num">653212</span></li>' +
+            '<li><span class="zhzb-li-name">Top7<span class="typeStyle">   xx路</span></span><span class="zhzb-li-num">4321</span></li>' +
+            '<li><span class="zhzb-li-name">Top8<span class="typeStyle">   xx路</span></span><span class="zhzb-li-num">4213</span></li>' +
+            '<li><span class="zhzb-li-name">Top9<span class="typeStyle">   xx路</span></span><span class="zhzb-li-num">108</span></li>' +
+            '<li><span class="zhzb-li-name">Top10<span class="typeStyle">   xx路</span></span><span class="zhzb-li-num">82.5</span></li>' +
+        '</ul>';
+
+    var rtip = new CreateTip({
+        id:"road",
+        titleName:"道路排行Top10",
+        icon:"icon/总指标.png",
+         pos:{position:"fixed",top:300,right:16},
+        width:270,
+    });
+    rtip.setData(road);
+
+
+    //屏幕自适应适配
+//    window.resize = function () {
+//        setTop();
+//    };
+//    function setTop() {
+//        var $bodyH = $("body").height();
+//        var top = ($bodyH - 660 - 90)/3;
+//        if(top > 0){
+//            $("#zongzhibiao").css({
+//                top:top + 90
+//            });
+//            $("#yujing").css({
+//                top:top + 260 +94
+//            });
+//            $("#kaoqin").css({
+//                top:top + 430 +98
+//            });
+//            $("#xxzb").css({
+//                top:top + 90
+//            });
+//        }
+//    }
+//    setTop();
+</script>
 </body>
 </html>
