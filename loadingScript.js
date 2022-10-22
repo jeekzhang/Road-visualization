@@ -27,10 +27,7 @@
     }
     // 加载所有js文件
     var jsFiles = [
-        "lib/jquery-1.10.2.min.js",
-        "lib/getTime.js",
-        "lib/createTip.js",
-        "lib/createSpeed.js"
+        "https://code.jquery.com/jquery-1.12.4.min.js"
     ];
     var scriptTags = new Array(jsFiles.length);
     for (var i = 0, len = jsFiles.length; i < len; i++) {
