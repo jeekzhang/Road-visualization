@@ -27,7 +27,7 @@
     }
     // 加载所有js文件
     var jsFiles = [
-        "jquery-1.10.2.min.js",
+        "lib/jquery-1.10.2.min.js",
         "lib/getTime.js",
         "lib/createTip.js",
         "lib/createSpeed.js"
