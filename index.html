@@ -5,6 +5,82 @@
     <title>大屏展示</title>
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script type="text/javascript" ></script>
+    <script src="https://cdn.bootcss.com/echarts/4.2.1-rc1/echarts.min.js"></script>
+    <script>
+/**
+ * 生成卡片窗口
+ *
+ */
+function CreateTip(option){
+    this.option = option;
+    this.drop = false;
+    this.init();
+}
+CreateTip.prototype = {
+    init:function () {
+        this.createContainer();
+    },
+    createContainer:function () {
+        var _view_ = this;
+        var html = '';
+        html += '<div id="'+_view_.option.id+'" class="tip-container" style="width: '+_view_.option.width+'px;">';
+        html += '<div class="tip-title"><span><img src="'+_view_.option.icon+'"/></span><span>'+_view_.option.titleName+'</span><span class="tip-dropDown"><img src="icon/收起.png"/></span></div>';
+        html += '<div class="tip-content">';
+        // html += _view_.option.html;
+        html += '</div>';
+        html += '</div>';
+        $("body").append(html);
+        var $container = $("#"+_view_.option.id);
+        $container.css(_view_.option.pos);
+        var $containerW = $container.width() - 32;
+        $("#"+_view_.option.id+" .tip-content").width($containerW);
+
+        $("#"+_view_.option.id+" .tip-dropDown").bind("click",function () {
+            var $tipContent =  $("#"+_view_.option.id+" .tip-content");
+            if(!_view_.drop){
+                $tipContent.slideUp();
+                $(this).find("img").attr("src","icon/展开.png");
+                _view_.drop = true;
+            }else{
+                $tipContent.slideDown();
+                $(this).find("img").attr("src","icon/收起.png");
+                _view_.drop = false;
+            }
+        });
+    },
+    setData:function (htmlText) {
+        var _view_ = this;
+        $("#"+_view_.option.id+" .tip-content").html(htmlText);
+    }
+};
+/**
+ * 时间更新模块
+ *
+ */
+function getTime(){
+    var week = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
+    var localToday = '';
+    var d = new Date();
+    localToday = d.getFullYear() + "年" + (d.getMonth() + 1) + "月" + d.getDate() + "日";
+    var time = '';
+    var hh = d.getHours();            //时
+    var mm = d.getMinutes();          //分
+    var ss = d.getSeconds();
+    if(hh < 10)
+        time += "0";
+
+    time += hh + ":";
+
+    if (mm < 10) time += '0';
+    time += mm + ":";
+
+    if (ss < 10) time += '0';
+    time += ss;
+
+    //
+    return {0:localToday ,1:week[d.getDay()],2:time }
+}
+    </script>
 </head>
 <body>
 <div id="mapContainer"><iframe name="footer" width=100% height=100% src="map.html" frameborder=0>
@@ -95,22 +171,27 @@
     //占比
     var yujing =
         '<ul>' +
+            '<div id="main" style="width:100%;height:100%;"></div>'+ 
         '</ul>';
+    
    var yj = new CreateTip({
         id:"yujing",
         titleName:"机动车道路情况占比",
         icon:"icon/预警.png",
         pos:{position:"fixed",top:330,left:16},
         width:270,
+
         //html:yujing
     });
     yj.setData(yujing);
 
     //照片
     var kaoqin =
-        '<ul>' +
-
-        '</ul>';
+    '<ul>' +
+        '<div align="center">' +
+	        '<img src="icon/flag.jpeg" width="100" height="100" />' +
+        '</div>' +
+    '</ul>';
 
     var kq = new CreateTip({
         id:"kaoqin",
@@ -118,14 +199,19 @@
         icon:"icon/考勤.png",
         pos:{position:"fixed",top:530,left:16},
         width:270,
+        body:"icon/考勤.png",
+
 //        html:kaoqin
     });
     kq.setData(kaoqin);
-    <!--大屏-->
+    // 大屏
 
 var quanzhong =
-        '<ul>' +
-        '</ul>';
+    '<ul>' +
+        '<div align="center">' +
+	        '<img src="icon/flag.jpeg" width="100" height="100" />' +
+        '</div>' +
+    '</ul>';
 
     var qz = new CreateTip({
         id:"quanzhong",
@@ -139,16 +225,16 @@ var quanzhong =
     //路
 var road =
         '<ul>' +
-            '<li><span class="zhzb-li-name">Top1<span class="typeStyle">   xx路</span></span><span class="zhzb-li-num">653212</span></li>' +
-            '<li><span class="zhzb-li-name">Top2<span class="typeStyle">   xx路</span></span><span class="zhzb-li-num">4321</span></li>' +
-            '<li><span class="zhzb-li-name">Top3<span class="typeStyle">   xx路</span></span><span class="zhzb-li-num">4213</span></li>' +
-            '<li><span class="zhzb-li-name">Top4<span class="typeStyle">   xx路</span></span><span class="zhzb-li-num">108</span></li>' +
-            '<li><span class="zhzb-li-name">Top5<span class="typeStyle">   xx路</span></span><span class="zhzb-li-num">82.5</span></li>' +
-            '<li><span class="zhzb-li-name">Top6<span class="typeStyle">   xx路</span></span><span class="zhzb-li-num">653212</span></li>' +
-            '<li><span class="zhzb-li-name">Top7<span class="typeStyle">   xx路</span></span><span class="zhzb-li-num">4321</span></li>' +
-            '<li><span class="zhzb-li-name">Top8<span class="typeStyle">   xx路</span></span><span class="zhzb-li-num">4213</span></li>' +
-            '<li><span class="zhzb-li-name">Top9<span class="typeStyle">   xx路</span></span><span class="zhzb-li-num">108</span></li>' +
-            '<li><span class="zhzb-li-name">Top10<span class="typeStyle">   xx路</span></span><span class="zhzb-li-num">82.5</span></li>' +
+            '<li><span class="zhzb-li-name">Top1<span class="typeStyle">     新华路</span></span><span class="zhzb-li-num">73.68 </span></li>' +
+            '<li><span class="zhzb-li-name">Top2<span class="typeStyle">     建设大道</span></span><span class="zhzb-li-num">61.28 </span></li>' +
+            '<li><span class="zhzb-li-name">Top3<span class="typeStyle">     云飞路</span></span><span class="zhzb-li-num">58.27 </span></li>' +
+            '<li><span class="zhzb-li-name">Top4<span class="typeStyle">     万松园路</span></span><span class="zhzb-li-num">56.10 </span></li>' +
+            '<li><span class="zhzb-li-name">Top5<span class="typeStyle">     淮海路</span></span><span class="zhzb-li-num">55.52 </span></li>' +
+            '<li><span class="zhzb-li-name">Top6<span class="typeStyle">     沿江大道</span></span><span class="zhzb-li-num">55.13 </span></li>' +
+            '<li><span class="zhzb-li-name">Top7<span class="typeStyle">     江发路</span></span><span class="zhzb-li-num">53.88 </span></li>' +
+            '<li><span class="zhzb-li-name">Top8<span class="typeStyle">     绿柳路</span></span><span class="zhzb-li-num">52.34 </span></li>' +
+            '<li><span class="zhzb-li-name">Top9<span class="typeStyle">     青年路</span></span><span class="zhzb-li-num">51.70 </span></li>' +
+            '<li><span class="zhzb-li-name">Top10<span class="typeStyle">   常青路</span></span><span class="zhzb-li-num">46.89 </span></li>' +
         '</ul>';
 
     var rtip = new CreateTip({
@@ -160,30 +246,65 @@ var road =
     });
     rtip.setData(road);
 
+ var myChart = echarts.init(document.getElementById('main'));
+ 
+ var option = {
+             // 标题
+            title: {
+                text: 'echarts实现饼状图'
+            },
+            // 图例
+            tooltip: {
+                show: true,
+                trigger: "item",
+                backgroundColor: "#1677FF",
+                // {a}（系列名称），{b}（数据项名称），{c}（数值）, {d}（百分比）
+                formatter: "{a}：{b}<br/>{c}吨({d}%)"
+            },
+            // 不同区域的颜色
+            color: ['#3e87ff', '#65b2f3', '#b9cfec'],
+            series: [
+                {
+                    name: '品种',
+                    type: 'pie',
+                    // 数组的第一项是内半径，第二项是外半径；可以设置不同的内外半径显示成圆环图
+                    radius: '50%',
+                    // 饼图的中心（圆心）坐标，数组的第一项是横坐标，第二项是纵坐标；设置成百分比时第一项是相对于容器宽度，第二项是相对于容器高度
+                    center: ['50%', '50%'],
+                    data: [
+                        { value: 2000, name: '苹果' },
+                        { value: 2000, name: '油桃' },
+                        { value: 4000, name: '西瓜' },
 
-    //屏幕自适应适配
-//    window.resize = function () {
-//        setTop();
-//    };
-//    function setTop() {
-//        var $bodyH = $("body").height();
-//        var top = ($bodyH - 660 - 90)/3;
-//        if(top > 0){
-//            $("#zongzhibiao").css({
-//                top:top + 90
-//            });
-//            $("#yujing").css({
-//                top:top + 260 +94
-//            });
-//            $("#kaoqin").css({
-//                top:top + 430 +98
-//            });
-//            $("#xxzb").css({
-//                top:top + 90
-//            });
-//        }
-//    }
-//    setTop();
+                    ],
+                    itemStyle: {
+                        // 显示图例
+                        normal: {
+                            label: {
+                                show: true
+                            },
+                            labelLine: {
+                                show: true
+                            }
+                        },
+                        emphasis: {
+                            // 图形阴影的模糊大小
+                            shadowBlur: 10,
+                            // 阴影水平方向上的偏移距离
+                            shadowOffsetX: 0,
+                            // 阴影颜色
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }
+            ]
+        };
+ 
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+
+
+
 </script>
 </body>
 </html>
