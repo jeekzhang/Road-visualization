@@ -36,7 +36,5 @@
     for (var i = 0, len = jsFiles.length; i < len; i++) {
         scriptTags[i] = "<script type='text/javascript' src='"+ jsFiles[i] + "' ></script>";
     }
-    if (scriptTags.length > 0) {
-        document.write(scriptTags.join(""));
-    }
+    
 })();
