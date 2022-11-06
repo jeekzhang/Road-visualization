@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,height=device-height">
     <title>大屏展示</title>
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script type="text/javascript" ></script>
@@ -111,198 +112,266 @@ function getTime(){
     }
     checkhHtml5();
 
-    //时间
-    var timer = null;
-    function setTime(){
-        if(timer !== null){
-            clearTimeout(timer);
-        }
-        setTimeout(function () {
-            $("#date").text(getTime()[0]);
-            $("#time").text(getTime()[1] +"  "+ getTime()[2]);
-            setTime();
-        },1000);
+//时间
+var timer = null;
+function setTime(){
+    if(timer !== null){
+        clearTimeout(timer);
     }
-    setTime();
+    setTimeout(function () {
+        $("#date").text(getTime()[0]);
+        $("#time").text(getTime()[1] +"  "+ getTime()[2]);
+        setTime();
+    },1000);
+}
+setTime();
 
-    //legend 生成图例
-    function createLegend() {
-        var html = '';
-        html += '<div class="legend-container">';
-            html += '<div class="legend-content"><span><img src="icon/legend.png"/>地图展示区</span></div>';
-            html += '<div class="legend-content"><span><span class="red-legend"></span><span style="font-size: 14px;">安全性</span></span><span><span class="green-legend"></span><span style="font-size: 14px;">畅通性</span><span><span style="margin-right: -10px;"><img src="icon/高亮图标小.png"></span><span style="font-size: 14px;">舒适性</span></span></span></div>';
-        html += '</div>';
-        $("body").append(html);
-        setLegendPos();
-    }
-    function setLegendPos() {
-        var $legendW = $("body").width() - (270 + 16) * 2;
-        $(".legend-container").css({
-            position:"fixed",
-            top:90,
-            left:296,
-            width:$legendW
-        });
-    }
-    createLegend();
-
-
-    //生成卡片
-    //总指标
-    var zhzb =
-        '<ul>' +
-            '<li><span class="zhzb-li-name">Top1<span class="typeStyle">   xx路</span></span><span class="zhzb-li-num">653212</span></li>' +
-            '<li><span class="zhzb-li-name">Top2<span class="typeStyle">   xx路</span></span><span class="zhzb-li-num">4321</span></li>' +
-            '<li><span class="zhzb-li-name">Top3<span class="typeStyle">   xx路</span></span><span class="zhzb-li-num">4213</span></li>' +
-            '<li><span class="zhzb-li-name">Top4<span class="typeStyle">   xx路</span></span><span class="zhzb-li-num">108</span></li>' +
-            '<li><span class="zhzb-li-name">Top5<span class="typeStyle">   xx路</span></span><span class="zhzb-li-num">82.5</span></li>' +
-        '</ul>';
-
-    var zzb = new CreateTip({
-        id:"zongzhibiao",
-        titleName:"道路区间得分Top5",
-        icon:"icon/总指标.png",
-        pos:{position:"fixed",top:90,left:16},
-        width:270,
-//        html:zhzb
+//legend 生成图例
+function createLegend() {
+    var html = '';
+    html += '<div class="legend-container">';
+        html += '<div class="legend-content"><span><img src="icon/legend.png"/>地图展示区</span></div>';
+        html += '<div class="legend-content"><span><span class="red-legend"></span><span style="font-size: 14px;">安全性</span></span><span><span class="green-legend"></span><span style="font-size: 14px;">畅通性</span><span><span style="margin-right: -10px;"><img src="icon/高亮图标小.png"></span><span style="font-size: 14px;">舒适性</span></span></span></div>';
+    html += '</div>';
+    $("body").append(html);
+    setLegendPos();
+}
+function setLegendPos() {
+    var $legendW = $("body").width() - (270 + 12) * 2;
+    $(".legend-container").css({
+        position:"fixed",
+        top:window.innerHeight * 0.12,
+        left:296,
+        width:$legendW
     });
-    zzb.setData(zhzb);
+}
+createLegend();
 
-    //占比
-    var yujing =
-        '<ul>' +
-            '<div id="main" style="width:100%;height:100%;"></div>'+ 
-        '</ul>';
-    
-   var yj = new CreateTip({
-        id:"yujing",
-        titleName:"机动车道路情况占比",
-        icon:"icon/预警.png",
-        pos:{position:"fixed",top:330,left:16},
-        width:270,
 
-        //html:yujing
-    });
-    yj.setData(yujing);
-
-    //照片
-    var kaoqin =
+//生成卡片
+//总指标
+var zhzb =
     '<ul>' +
-        '<div align="center">' +
-	        '<img src="icon/flag.jpeg" width="100" height="100" />' +
-        '</div>' +
+        '<li><span class="zhzb-li-name">Top1<span class="typeStyle">   新华路（解放大道->精武横路）</span></span><span class="zhzb-li-num">85</span></li>' +
+        '<li><span class="zhzb-li-name">Top2<span class="typeStyle">   新华路（台北一路->建设大道）</span></span><span class="zhzb-li-num">85</span></li>' +
+        '<li><span class="zhzb-li-name">Top3<span class="typeStyle">   新华路（建设大道->黄孝北路）</span></span><span class="zhzb-li-num">85</span></li>' +
+        '<li><span class="zhzb-li-name">Top4<span class="typeStyle">   青年路（电业路->航空路）</span></span><span class="zhzb-li-num">82</span></li>' +
+        '<li><span class="zhzb-li-name">Top5<span class="typeStyle">   新华路（长江日报路->唐家墩路）</span></span><span class="zhzb-li-num">80</span></li>' +
     '</ul>';
 
-    var kq = new CreateTip({
-        id:"kaoqin",
-        titleName:"照片展示区",
-        icon:"icon/考勤.png",
-        pos:{position:"fixed",top:530,left:16},
-        width:270,
-        body:"icon/考勤.png",
+var zzb = new CreateTip({
+    id:"zongzhibiao",
+    titleName:"道路区间得分Top5",
+    icon:"icon/总指标.png",
+    pos:{position:"fixed",top: window.innerHeight * 0.12,left: window.innerWidth * 0.01},
+    width:270,
+//        html:zhzb
+});
+zzb.setData(zhzb);
+
+//占比
+var yujing =
+    '<ul>' +
+        //'<div id="main" style="width:100%;height:100%;"></div>'+ 
+    '</ul>';
+
+var yj = new CreateTip({
+    id:"yujing",
+    titleName:"机动车道路情况占比",
+    icon:"icon/预警.png",
+    pos:{position:"fixed",top: window.innerHeight * 0.395,left: window.innerWidth * 0.01},
+    width:270,
+
+    //html:yujing
+});
+yj.setData(yujing);
+
+//照片
+var kaoqin =
+// '<ul>' +
+//     '<div align="center">' +
+//         '<img src="icon/flag.jpeg" width="100" height="100" />' +
+//     '</div>' +
+// '</ul>';
+'<style>' +
+    '#img{position: relative; height: 30vh; width: 14.5vw;}' +
+    '#img>.lleft{width: 1vw;height: 2vh;position: absolute;left: 1vw;top: 15vh;}' +
+    '#img>.rright{width: 1vw;height: 2vh;position: absolute;right: 1vw;top: 15vh;}' +
+'</style>' +
+'<div id="img" align="center" style="padding: 1% 1% 1% 9%">' + 
+        '<img id="imgs" src="icon/1.jpeg" alt="无法显示" style="width:100%;height:100%"> ' +
+    '<div class="lleft">' +
+        '<img src="icon/左箭头.png" alt="无法显示">' +        
+    '</div>' +
+    '<div class="rright">' +
+        '<img src="icon/右箭头.png" alt="无法显示">' +
+    '</div>' +
+'</div>';
+
+
+
+var kq = new CreateTip({
+    id:"kaoqin",
+    titleName:"照片展示区",
+    icon:"icon/考勤.png",
+    pos:{position:"fixed",top: window.innerHeight * 0.62,left: window.innerWidth * 0.01},
+    width:270,
+    body:"icon/考勤.png",
 
 //        html:kaoqin
-    });
-    kq.setData(kaoqin);
-    // 大屏
+});
+kq.setData(kaoqin);
+// 大屏
 
 var quanzhong =
+'<ul>' +
+    '<div align="center">' +
+        '<div id="main" style="width:100%;height:100%;"></div>'+ 
+    '</div>' +
+'</ul>';
+
+var qz = new CreateTip({
+    id:"quanzhong",
+    titleName:"标准权重",
+    icon:"icon/总指标.png",
+     pos:{position:"fixed",top:window.innerHeight * 0.12,right:window.innerWidth * 0.01},
+    width:270,
+});
+qz.setData(quanzhong);
+
+//路
+var road =
     '<ul>' +
-        '<div align="center">' +
-	        '<img src="icon/flag.jpeg" width="100" height="100" />' +
-        '</div>' +
+        '<li><span class="zhzb-li-name">Top1<span class="typeStyle">     新华路</span></span><span class="zhzb-li-num">73.68 </span></li>' +
+        '<li><span class="zhzb-li-name">Top2<span class="typeStyle">     建设大道</span></span><span class="zhzb-li-num">61.28 </span></li>' +
+        '<li><span class="zhzb-li-name">Top3<span class="typeStyle">     云飞路</span></span><span class="zhzb-li-num">58.27 </span></li>' +
+        '<li><span class="zhzb-li-name">Top4<span class="typeStyle">     万松园路</span></span><span class="zhzb-li-num">56.10 </span></li>' +
+        '<li><span class="zhzb-li-name">Top5<span class="typeStyle">     淮海路</span></span><span class="zhzb-li-num">55.52 </span></li>' +
+        '<li><span class="zhzb-li-name">Top6<span class="typeStyle">     沿江大道</span></span><span class="zhzb-li-num">55.13 </span></li>' +
+        '<li><span class="zhzb-li-name">Top7<span class="typeStyle">     江发路</span></span><span class="zhzb-li-num">53.88 </span></li>' +
+        '<li><span class="zhzb-li-name">Top8<span class="typeStyle">     绿柳路</span></span><span class="zhzb-li-num">52.34 </span></li>' +
+        '<li><span class="zhzb-li-name">Top9<span class="typeStyle">     青年路</span></span><span class="zhzb-li-num">51.70 </span></li>' +
+        '<li><span class="zhzb-li-name">Top10<span class="typeStyle">   常青路</span></span><span class="zhzb-li-num">46.89 </span></li>' +
     '</ul>';
 
-    var qz = new CreateTip({
-        id:"quanzhong",
-        titleName:"标准权重",
-        icon:"icon/总指标.png",
-         pos:{position:"fixed",top:90,right:16},
-        width:270,
-    });
-    qz.setData(quanzhong);
+var rtip = new CreateTip({
+    id:"road",
+    titleName:"道路排行Top10",
+    icon:"icon/总指标.png",
+     pos:{position:"fixed",top:window.innerHeight * 0.4,right:window.innerWidth * 0.01},
+    width:270,
+});
+rtip.setData(road);
 
-    //路
-var road =
-        '<ul>' +
-            '<li><span class="zhzb-li-name">Top1<span class="typeStyle">     新华路</span></span><span class="zhzb-li-num">73.68 </span></li>' +
-            '<li><span class="zhzb-li-name">Top2<span class="typeStyle">     建设大道</span></span><span class="zhzb-li-num">61.28 </span></li>' +
-            '<li><span class="zhzb-li-name">Top3<span class="typeStyle">     云飞路</span></span><span class="zhzb-li-num">58.27 </span></li>' +
-            '<li><span class="zhzb-li-name">Top4<span class="typeStyle">     万松园路</span></span><span class="zhzb-li-num">56.10 </span></li>' +
-            '<li><span class="zhzb-li-name">Top5<span class="typeStyle">     淮海路</span></span><span class="zhzb-li-num">55.52 </span></li>' +
-            '<li><span class="zhzb-li-name">Top6<span class="typeStyle">     沿江大道</span></span><span class="zhzb-li-num">55.13 </span></li>' +
-            '<li><span class="zhzb-li-name">Top7<span class="typeStyle">     江发路</span></span><span class="zhzb-li-num">53.88 </span></li>' +
-            '<li><span class="zhzb-li-name">Top8<span class="typeStyle">     绿柳路</span></span><span class="zhzb-li-num">52.34 </span></li>' +
-            '<li><span class="zhzb-li-name">Top9<span class="typeStyle">     青年路</span></span><span class="zhzb-li-num">51.70 </span></li>' +
-            '<li><span class="zhzb-li-name">Top10<span class="typeStyle">   常青路</span></span><span class="zhzb-li-num">46.89 </span></li>' +
-        '</ul>';
+var myChart = echarts.init(document.getElementById('main'));
 
-    var rtip = new CreateTip({
-        id:"road",
-        titleName:"道路排行Top10",
-        icon:"icon/总指标.png",
-         pos:{position:"fixed",top:300,right:16},
-        width:270,
-    });
-    rtip.setData(road);
+var option = {
+         // 标题
+        title: {
+            text: 'echarts实现饼状图'
+        },
+        // 图例
+        tooltip: {
+            show: true,
+            trigger: "item",
+            backgroundColor: "#1677FF",
+            // {a}（系列名称），{b}（数据项名称），{c}（数值）, {d}（百分比）
+            formatter: "{a}：{b}<br/>({d}%)"
+        },
+        // 不同区域的颜色
+        color: ['#3e87ff', '#65b2f3', '#b9cfec'],
+        series: [
+            {
+                name: '性质',
+                type: 'pie',
+                // 数组的第一项是内半径，第二项是外半径；可以设置不同的内外半径显示成圆环图
+                radius: '50%',
+                // 饼图的中心（圆心）坐标，数组的第一项是横坐标，第二项是纵坐标；设置成百分比时第一项是相对于容器宽度，第二项是相对于容器高度
+                center: ['50%', '50%'],
+                data: [
+                    { value: 0.33, name: '安全性' },
+                    { value: 0.34, name: '畅通性' },
+                    { value: 0.33, name: '舒适性' },
 
- var myChart = echarts.init(document.getElementById('main'));
- 
- var option = {
-             // 标题
-            title: {
-                text: 'echarts实现饼状图'
-            },
-            // 图例
-            tooltip: {
-                show: true,
-                trigger: "item",
-                backgroundColor: "#1677FF",
-                // {a}（系列名称），{b}（数据项名称），{c}（数值）, {d}（百分比）
-                formatter: "{a}：{b}<br/>{c}吨({d}%)"
-            },
-            // 不同区域的颜色
-            color: ['#3e87ff', '#65b2f3', '#b9cfec'],
-            series: [
-                {
-                    name: '品种',
-                    type: 'pie',
-                    // 数组的第一项是内半径，第二项是外半径；可以设置不同的内外半径显示成圆环图
-                    radius: '50%',
-                    // 饼图的中心（圆心）坐标，数组的第一项是横坐标，第二项是纵坐标；设置成百分比时第一项是相对于容器宽度，第二项是相对于容器高度
-                    center: ['50%', '50%'],
-                    data: [
-                        { value: 2000, name: '苹果' },
-                        { value: 2000, name: '油桃' },
-                        { value: 4000, name: '西瓜' },
-
-                    ],
-                    itemStyle: {
-                        // 显示图例
-                        normal: {
-                            label: {
-                                show: true
-                            },
-                            labelLine: {
-                                show: true
-                            }
+                ],
+                itemStyle: {
+                    // 显示图例
+                    normal: {
+                        label: {
+                            show: true
                         },
-                        emphasis: {
-                            // 图形阴影的模糊大小
-                            shadowBlur: 10,
-                            // 阴影水平方向上的偏移距离
-                            shadowOffsetX: 0,
-                            // 阴影颜色
-                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        labelLine: {
+                            show: true
                         }
+                    },
+                    emphasis: {
+                        // 图形阴影的模糊大小
+                        shadowBlur: 10,
+                        // 阴影水平方向上的偏移距离
+                        shadowOffsetX: 0,
+                        // 阴影颜色
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
                     }
                 }
-            ]
-        };
- 
-        // 使用刚指定的配置项和数据显示图表。
-        myChart.setOption(option);
+            }
+        ]
+    };
 
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+
+//     屏幕自适应适配
+//    window.resize = function () {
+//        setTop();
+//    };
+//    function setTop() {
+//        var $bodyH = $("body").height();
+//        var top = ($bodyH - 660 - 90)/3;
+//        if(top > 0){
+//            $("#zongzhibiao").css({
+//                top:top + 90
+//            });
+//            $("#yujing").css({
+//                top:top + 260 +94
+//            });
+//            $("#kaoqin").css({
+//                top:top + 430 +98
+//            });
+//            $("#xxzb").css({
+//                top:top + 90
+//            });
+//        }
+//    }
+//    setTop();
+var index=0;
+var img_data=['icon/1.jpeg','icon/2.jpeg','icon/3.jpeg','icon/4.jpeg'];
+// 获得相应元素对象
+var rright=document.getElementsByClassName("rright")[0];
+var llef=document.getElementsByClassName("lleft")[0];
+var img=document.getElementById("imgs");
+//通过对象的单击事件触动函数调用函数实现图片切换
+var j = 0;
+function changeImg(){
+    j++;
+    if(j == 5){
+        index = (index + 1) % img_data.length;
+        img.setAttribute('src',img_data[index]);
+        j = 0;
+    }    
+}
+setInterval(changeImg, 1000);
+rright.onclick=function(){
+    j = 0;
+    index++;
+    if(index==img_data.length) index=0;
+    img.setAttribute('src',img_data[index]);
+}
+llef.onclick=function(){
+    j = 0;
+    if(index==0) index=img_data.length;
+    index--;
+    img.setAttribute('src',img_data[index]);
+}
 
 
 </script>
