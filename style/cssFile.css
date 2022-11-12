@@ -86,7 +86,7 @@ ul,li,img{
     margin-right: 10px;
 }
 .tip-content{
-    padding: 2%;
+    padding: 1vh 1vw;
 }
 
 .tip-content ul li {
@@ -96,12 +96,12 @@ ul,li,img{
     line-height: 30px;
 }
 
-.zhzb-li-name{
+.interval_score-li-name{
     float: left;
     line-height: 4vh;
     /*font-weight: 600;*/
 }
-.zhzb-li-num{
+.interval_score-li-num{
     float: right;
     color:#00CEFA;
     line-height: 4vh;
@@ -115,7 +115,7 @@ ul,li,img{
 .font-w{
     color: #ffffff!important;
 }
-.yj-span{
+.proportion_tip-span{
     display: block;
     width: 30px;
     float: right;
@@ -191,7 +191,7 @@ ul,li,img{
 }
 
 .legend-container{
-    width: 56vw  ! important;
+    width: 54.5vw  ! important;
     height: 48px;
     background-color: rgba(22, 31, 38, 0.87);
     overflow: hidden;
@@ -216,17 +216,33 @@ ul,li,img{
     font-size: 16px;
 
 }
+.legend-content a{
+    line-height: 48px;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.legend-content a:hover{
+    line-height: 48px;
+    color: #4d7cf4;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+}
+
 .legend-content span img{
     vertical-align: middle;
-    margin-top: -4px;
-    margin-left: 10px;
-    margin-right: 10px;
+    margin-top: 0px;
+    margin-left: 0.5vw;
+    margin-right: 0.5vw;
 }
 
 .legend-content:nth-child(2) span{
     float: left;
     display: block;
-    margin-right: 10px;
+    margin-right: 0.8vw;
 }
 
 .red-legend{
@@ -240,6 +256,13 @@ ul,li,img{
     height: 8px;
     width: 30px;
     background-color: #6AE89C;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+.blue-legend{
+    height: 8px;
+    width: 30px;
+    background-color: #2E9AFE;
     border-radius: 5px;
     margin-top: 20px;
 }
