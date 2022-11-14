@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes" /> 
+    <meta name="viewport" content="width=device-width,height=device-height">
     <title>大屏展示</title>
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script type="text/javascript" ></script>
@@ -201,7 +201,7 @@ var photo =
     '#img>.rright{width: 1vw;height: 2vh;position: absolute;right: -0.4vw;top: 15vh;}' +
 '</style>' +
 '<div id="img">' + 
-        '<img id="imgs" src="icon/1.jpeg" alt="无法显示" style="width:18vw;height:30vh;"> ' +
+        '<img id="imgs" src="photo/0.png" alt="无法显示" style="width:18vw;height:30vh;"> ' +
     '<div class="lleft">' +
         '<img src="icon/左箭头.png" alt="无法显示">' +        
     '</div>' +
@@ -285,7 +285,7 @@ var option1 = {
         color: ['#543fa1', '#5170c0', '#5eafd7', '#45c0af'],
         legend: {
             textStyle:{
-                            color: '#ffffff'//字体颜色
+                            color: '#ffffff',//字体颜色
                         },
 
         top: '5%',
@@ -296,9 +296,9 @@ var option1 = {
                 name: '情况',
                 type: 'pie',
                 // 数组的第一项是内半径，第二项是外半径；可以设置不同的内外半径显示成圆环图
-                radius: '70%',
+                radius: '75%',
                 // 饼图的中心（圆心）坐标，数组的第一项是横坐标，第二项是纵坐标；设置成百分比时第一项是相对于容器宽度，第二项是相对于容器高度
-                center: ['70%', '50%'],
+                center: ['80%', '50%'],
                 data: [
                     { value: 207/373, name: '无非机动车道' },
                     { value: 149/373, name: '有专用非机动车道' },
@@ -391,7 +391,11 @@ var option2 = {
 
 
 var index=0;
-var img_data=['icon/1.jpeg','icon/2.jpeg','icon/3.jpeg','icon/4.jpeg'];
+var img_data=['photo/0.png'];
+for(var i=1; i<1524 ; i++){
+    var s_photo='photo/'+i+'.png';
+    img_data.push(s_photo);
+}
 // 获得相应元素对象
 var rright=document.getElementsByClassName("rright")[0];
 var llef=document.getElementsByClassName("lleft")[0];
@@ -400,7 +404,7 @@ var img=document.getElementById("imgs");
 var j = 0;
 function changeImg(){
     j++;
-    if(j == 5){
+    if(j == 1524){
         index = (index + 1) % img_data.length;
         img.setAttribute('src',img_data[index]);
         j = 0;
