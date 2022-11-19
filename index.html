@@ -196,12 +196,12 @@ var photo =
 //     '</div>' +
 // '</ul>';
 '<style>' +
-    '#img{width: 18vw;height: 30vh;margin: 0;padding: 0;position: relative;}' +
-    '#img>.lleft{width: 1vw;height: 2vh;position: absolute;left: -1.64vw;top: 15vh;}' +
-    '#img>.rright{width: 1vw;height: 2vh;position: absolute;right: -0.4vw;top: 15vh;}' +
+    '#img{width: 18vw;height: 25vh;margin: 0;padding: 0;position: relative;}' +
+    '#img>.lleft{width: 1vw;height: 2vh;position: absolute;left: -1.64vw;top: 10vh;}' +
+    '#img>.rright{width: 1vw;height: 2vh;position: absolute;right: -0.4vw;top: 10vh;}' +
 '</style>' +
 '<div id="img">' + 
-        '<img id="imgs" src="photo/0.png" alt="无法显示" style="width:18vw;height:30vh;"> ' +
+        '<img id="imgs" src="photo/0.png" alt="无法显示" style="width:18vw;height:24vh;"> ' +
     '<div class="lleft">' +
         '<img src="icon/左箭头.png" alt="无法显示">' +        
     '</div>' +
@@ -392,7 +392,7 @@ var option2 = {
 
 var index=0;
 var img_data=['photo/0.png'];
-for(var i=1; i<1524 ; i++){
+for(var i=1; i<529 ; i++){
     var s_photo='photo/'+i+'.png';
     img_data.push(s_photo);
 }
@@ -404,7 +404,7 @@ var img=document.getElementById("imgs");
 var j = 0;
 function changeImg(){
     j++;
-    if(j == 1524){
+    if(j == 3){
         index = (index + 1) % img_data.length;
         img.setAttribute('src',img_data[index]);
         j = 0;
