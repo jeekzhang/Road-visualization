@@ -7,6 +7,19 @@
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script type="text/javascript" ></script>
     <script src="https://cdn.bootcss.com/echarts/4.2.1-rc1/echarts.min.js"></script>
+<script type="text/javascript">
+    /* 手机打开提示 */
+     var mobileAgent = new Array("iphone", "ipod", "ipad", "android", "mobile", "blackberry", "webos", "incognito", "webmate", "bada", "nokia", "lg", "ucweb", "skyfire");
+     var browser = navigator.userAgent.toLowerCase();
+     var isMobile = false;
+     for (var i = 0; i < mobileAgent.length; i++) {
+         if (browser.indexOf(mobileAgent[i]) != -1) {
+             isMobile = true;
+             alert("此道路可视化网站手机打开不适配，建议使用电脑访问效果最佳！点击确定继续使用手机浏览");
+             break;
+         }
+     }
+</script>
     <script>
 /**
  * 生成卡片窗口
