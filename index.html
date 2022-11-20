@@ -87,12 +87,12 @@ function getTime(){
 <div id="mapContainer"><iframe name="footer" width=100% height=100% src="map.html" frameborder=0>
 </iframe></div>
 <div class="nav-top">
+    <span class="nav-top-back"><a href="concrete.html"><img src="icon/返回.png"/></a></span>
     <span class="nav-top-title">道路可视化</span>
     <div class="nav-top-time">
         <span id="date">日期</span>
         <span id="time">时间</span>
     </div>
-</div>
 <!--大屏-->
 <script type="text/javascript" src="loadingScript.js"></script>
 <script type="text/javascript">
@@ -131,7 +131,7 @@ function createLegend() {
     var html = '';
     html += '<div class="legend-container">';
         html += '<div class="legend-content"><span><img src="icon/legend.png"/>地图展示区</span></div>';
-        html += '<div class="legend-content"><span><span class="red-legend"></span><a href="map.html">安全性<a/></span><span><span class="green-legend"></span><a href="https://www.baidu.com/">畅通性</a></span><span><span class="blue-legend"></span><a href="https://www.baidu.com/">舒适性</a></span></span></div>';
+        html += '<div class="legend-content"><span><span class="red-legend"></span><a href="concrete.html">安全性<a/></span><span><span class="green-legend"></span><a href="concrete.html">畅通性</a></span><span><span class="blue-legend"></span><a href="concrete.html">舒适性</a></span></span></div>';
     html += '</div>';
     $("body").append(html);
     setLegendPos();
@@ -348,7 +348,7 @@ var option2 = {
             formatter: "{a}: {b}<br/>({d}%)"
         },
         // 不同区域的颜色
-        color: ['#3e87ff', '#65b2f3', '#b9cfec'],
+        color: ['#FF3774', '#6AE89C', '#2E9AFE'],
         series: [
             {
                 name: '性质',
@@ -424,7 +424,32 @@ llef.onclick=function(){
     img.setAttribute('src',img_data[index]);
 }
 
-
 </script>
+<div class="color-explain">
+    <table align="center">
+ <tr>
+  <td class="circle" bgcolor="red">&nbsp;</td>
+  <td><font color="white">&nbsp;&nbsp;[0,10)&nbsp;&nbsp;</font></td>
+  <td class="circle" bgcolor="orange">&nbsp;</td>
+  <td><font color="white">&nbsp;&nbsp;[10,20)&nbsp;&nbsp;</font></td>
+  <td class="circle" bgcolor="hotpink" >&nbsp;</td>
+  <td><font color="white">&nbsp;&nbsp;[20,30)&nbsp;&nbsp;</font></td>
+  <td class="circle" bgcolor="yellow" >&nbsp;</td>
+  <td><font color="white">&nbsp;&nbsp;[30,40)&nbsp;&nbsp;</font></td>
+  <td class="circle" bgcolor="#9932cc" >&nbsp;</td>
+  <td><font color="white">&nbsp;&nbsp;[40,50)&nbsp;&nbsp;</font></td>
+  <td class="circle" bgcolor="green" >&nbsp;</td>
+  <td><font color="white">&nbsp;&nbsp;[50,60)&nbsp;&nbsp;</font></td>
+  <td class="circle" bgcolor="darkseagreen" >&nbsp;</td>
+  <td><font color="white">&nbsp;&nbsp;[60,70)&nbsp;&nbsp;</font></td>
+  <td class="circle" bgcolor="mediumspringgreen" >&nbsp;</td>
+  <td><font color="white">&nbsp;&nbsp;[70,80)&nbsp;&nbsp;</font></td>
+  <td class="circle" bgcolor="deepskyblue" >&nbsp;</td>
+  <td><font color="white">&nbsp;&nbsp;[80,90)&nbsp;&nbsp;</font></td>
+  <td class="circle" bgcolor="blue" >&nbsp;</td>
+  <td><font color="white">&nbsp;&nbsp;[90,100]&nbsp;&nbsp;</font></td>
+ </tr>
+</table>
+</div>  
 </body>
 </html>

@@ -51,6 +51,12 @@ ul,li,img{
     color:#ffffff;
     line-height: 20px;
 }
+.nav-top-back{
+    position: absolute;
+    left: 10px;
+    top:0;
+    padding: 20px;
+}
 
 .tip-container{
     background-color: rgba(22, 31, 38, 0.87);
@@ -323,4 +329,150 @@ ul,li,img{
     top: 80px;
     left: 110px;
 
+}
+.indicator-container{
+    width:35vw  !important;
+    height: 48px;
+    background-color: rgba(22, 31, 38, 0.87);
+
+    overflow: hidden;
+}
+.indicator-content{
+    height: 100%;
+}
+.indicator-content span{
+    line-height: 48px;
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 16px;
+
+}
+.indicator-content:nth-child(1){
+    float:left
+}
+.indicator-content span img{
+    vertical-align: middle;
+    margin-top: -4px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.indicator-content span select{
+    vertical-align: middle;
+    margin-left:2vw;
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size:16px;
+    height: 100%;
+    width:7vw;
+    text-align: center;
+    background: transparent
+}
+.indicator-content span option{
+    background-color: rgba(22, 31, 38, 0.87);
+}
+
+.indicator-container1{
+    width:13vw  !important;
+    height: 48px;
+    background-color: rgba(22, 31, 38, 0.87);
+    overflow: hidden;
+    top:50%;
+}
+.indicator-content1{
+    height: 100%;
+}
+.indicator-content1 span{
+    line-height: 48px;
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 16px;
+
+}
+.indicator-content1:nth-child(1){
+    float:left;
+    margin-right:10%;
+}
+
+.legend-container1{
+    width: 35vw  ! important;
+    height: 48px;
+    background-color: rgba(22, 31, 38, 0.87);
+    overflow: hidden;
+    top:50%;
+    float:left
+}
+
+.legend-content1{
+    height: 100%;
+}
+.legend-content1:nth-child(1){
+    float:left;
+}
+
+.legend-content1 span{
+    line-height: 48px;
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 16px;
+}
+.legend-content1 span img{
+    vertical-align: middle;
+    margin-top: -4px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.legend-content1 span select{
+    vertical-align: middle;
+    text-align: center;
+    background: transparent;
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size:16px;
+    height: 48px;
+    margin-left: 2vw;
+    width:7vw;
+}
+.legend-content1 span option{
+    background-color:rgba(22, 31, 38, 0.87) ;
+}
+
+.legend-container2{
+    width: 12vw  ! important;
+    height: 48px;
+    background-color: rgba(22, 31, 38, 0.87);
+    overflow: hidden;
+    top:50%;
+    float:left
+}
+.legend-content2{
+    height: 100%;
+}
+.legend-content2 span{
+    line-height: 48px;
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 16px;
+
+}
+.legend-content2{
+    height: 100%;
+}
+.legend-content2:nth-child(1){
+    float:left;
+    margin-right:10%;
+}
+
+.color-explain{
+position:fixed;
+top: 96%;
+height: 4%; 
+width: 100%;
+background-color: rgba(3,21,24,0.7);
+}
+.circle { 
+display: block; 
+border-radius: 60%; 
+height: 25px; 
+width: 25px; 
+margin: 0; 
 }
