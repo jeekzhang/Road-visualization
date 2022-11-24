@@ -145,7 +145,7 @@ function createLegend() {
     var html = '';
     html += '<div class="legend-container">';
         html += '<div class="legend-content"><span><img src="icon/legend.png"/>地图展示区</span></div>';
-        html += '<div class="legend-content"><span><span class="red-legend"></span><a href="concrete.html">安全性<a/></span><span><span class="green-legend"></span><a href="concrete.html">畅通性</a></span><span><span class="blue-legend"></span><a href="concrete.html">舒适性</a></span></span></div>';
+         html += '<div class="legend-content"><span><span class="red-legend"></span><a href="concrete.html?name=安全性">安全性<a/></span><span><span class="green-legend"></span><a href="concrete.html?name=畅通性">畅通性</a></span><span><span class="blue-legend"></span><a href="concrete.html?name=舒适性">舒适性</a></span></span></div>';
     html += '</div>';
     $("body").append(html);
     setLegendPos();

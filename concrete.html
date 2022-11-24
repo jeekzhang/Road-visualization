@@ -96,7 +96,7 @@
     </script>
 </head>
 <body>
-<div id="mapContainer"><iframe name="footer" width=100% height=100% src="map.html" frameborder=0>
+<div id="mapContainer"><iframe name="footer" width=100% height=100% src="map/万松园路.html" frameborder=0>
 </iframe></div>
 <div class="nav-top">
     <span class="nav-top-back"><a href="index.html"><img src="icon/返回.png"/></a></span>
@@ -516,7 +516,11 @@
         {"road_name": "马场路","int_name": "新华路->福利路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
         {"road_name": "马场路","int_name": "福利路->青年路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00}
     ]
-
+    let index_of_img=0;
+    let img_url="picture/万松园路/0.jpeg";
+    let img_change_int=0;
+    let picture_nums=[3,3,14,12,11,12,5,6,8,5,5,7,6,5,7,1,6,5,6,7,6,10,4,7,5,7,1,4,4,3];
+    let picture_num=3;
     //初始化地图
 
 
@@ -634,7 +638,7 @@
     '#img>.rright{width: 1vw;height: 2vh;position: absolute;right: -0.4vw;top: 10vh;}' +
 '</style>' +
 '<div id="img">' + 
-        '<img id="imgs" src="photo/0.jpeg" alt="无法显示" style="width:18vw;height:24vh;"> ' +
+        '<img id="imgs" src="picture/万松园路/0.jpeg" alt="无法显示" style="width:18vw;height:24vh;"> ' +
     '<div class="lleft">' +
         '<img src="icon/左箭头.png" alt="无法显示">' +        
     '</div>' +
@@ -680,10 +684,15 @@
         //var imgs = document.getElementById("picture").getElementsByTagName("img");
         var iframes = document.getElementById("mapContainer").getElementsByTagName("iframe");
         road_choose = function () {
-
+            var img=document.getElementById("imgs");
             index = document.getElementById("sel_road").value;
             //imgs[0].src=roads[index].pictures[0];
             iframes[0].src = roads[index].ref;
+            img_url="picture/"+roads[index].name+"/0.jpeg";
+            picture_num=picture_nums[index];
+            img.src=img_url;
+            index_of_img=0;
+            img_change_int=0;
             tot_score();
             int_score();
             interval_rank();
@@ -729,15 +738,17 @@
             left:window.innerWidth * 0.22,
             width:window.innerWidth * 0.545
         });
-        indicator_choose=function () {
-            var road_rank1 = document.getElementsByClassName("tip-title")[0].getElementsByTagName("span")[1];
-            var indicator = document.getElementById("sel_indicator");
-            road_rank1.innerText = "道路" + indicator.value + "得分Top5";
-            road_rank();
-            interval_rank();
-            int_score();
-        }
+
     }
+    let indicator_choose=function () {
+        var road_rank1 = document.getElementsByClassName("tip-title")[0].getElementsByTagName("span")[1];
+        var indicator = document.getElementById("sel_indicator");
+        road_rank1.innerText = "道路" + indicator.value + "得分Top5";
+        road_rank();
+        interval_rank();
+        int_score();
+    }
+
     createIndicator();
     createIndicator1();
     function createIndicator1(){
@@ -934,46 +945,112 @@
             t[0].innerHTML='<div class="indicator-content1"><span>道路舒适性得分：<span style="color:#00CEFA">'+roads[index].convenience_tot+'</span></span></div>';
         }
     }
-    var index=0;
-var img_data=['photo/0.jpeg'];
-for(var i=1; i<529 ; i++){
-    var s_photo='photo/'+i+'.jpeg';
-    img_data.push(s_photo);
-}
+
 // 获得相应元素对象
 var rright=document.getElementsByClassName("rright")[0];
 var llef=document.getElementsByClassName("lleft")[0];
 var img=document.getElementById("imgs");
 //通过对象的单击事件触动函数调用函数实现图片切换
-var j = 0;
 function changeImg(){
-    j++;
-    if(j == 3){
-        index = (index + 1) % img_data.length;
-        img.setAttribute('src',img_data[index]);
-        j = 0;
+    img_change_int++;
+    var road_index=document.getElementById("sel_road").value;
+    if(img_change_int == 3){
+        index_of_img=(index_of_img+1)%picture_num;
+        img_url="picture/"+roads[road_index].name+'/'+index_of_img+".jpeg";
+        img.setAttribute('src',img_url);
+        img_change_int = 0;
     }    
 }
 setInterval(changeImg, 1000);
 rright.onclick=function(){
-    j = 0;
-    index++;
-    if(index==img_data.length) index=0;
-    img.setAttribute('src',img_data[index]);
+    img_change_int = 0;
+    var road_index=document.getElementById("sel_road").value;
+    index_of_img=(index_of_img+1)%picture_num;
+    img_url="picture/"+roads[road_index].name+'/'+index_of_img+".jpeg";
+    img.setAttribute('src',img_url);
 }
 llef.onclick=function(){
-    j = 0;
-    if(index==0) index=img_data.length;
-    index--;
-    img.setAttribute('src',img_data[index]);
+    img_change_int = 0;
+    var road_index=document.getElementById("sel_road").value;
+    index_of_img--;
+    if(index_of_img<0)index_of_img=picture_num-1;
+    img_url="picture/"+roads[road_index].name+'/'+index_of_img+".jpeg";
+    img.setAttribute('src',img_url);
+}
+
+function option_choose(){
+    var sel=document.getElementById("sel_indicator");
+    var options=sel.getElementsByTagName("option");
+    var name=UrlParm.parm("name");
+    for (var i = 0; i < 3; i++) {
+        if(options[i].value==name)options[i].selected=true;
+    }
 }
 
 window.onload=function (){
+        option_choose();
         tot_score();
         int_score();
         road_rank();
         interval_rank();
 }
+
+    UrlParm = function() { // url参数
+        var data, index;
+        (function init() {
+            data = [];
+            index = {};
+            var u = window.location.search.substr(1);
+            if (u != '') {
+                var parms = decodeURIComponent(u).split('&');
+                for (var i = 0, len = parms.length; i < len; i++) {
+                    if (parms[i] != '') {
+                        var p = parms[i].split("=");
+                        if (p.length == 1 || (p.length == 2 && p[1] == '')) {// p | p=
+                            data.push(['']);
+                            index[p[0]] = data.length - 1;
+                        } else if (typeof(p[0]) == 'undefined' || p[0] == '') { // =c | =
+                            data[0] = [p[1]];
+                        } else if (typeof(index[p[0]]) == 'undefined') { // c=aaa
+                            data.push([p[1]]);
+                            index[p[0]] = data.length - 1;
+                        } else {// c=aaa
+                            data[index[p[0]]].push(p[1]);
+                        }
+                    }
+                }
+            }
+        })();
+        return {
+            // 获得参数,类似request.getParameter()
+            parm : function(o) { // o: 参数名或者参数次序
+                try {
+                    return (typeof(o) == 'number' ? data[o][0] : data[index[o]][0]);
+                } catch (e) {
+                }
+            },
+            //获得参数组, 类似request.getParameterValues()
+            parmValues : function(o) { // o: 参数名或者参数次序
+                try {
+                    return (typeof(o) == 'number' ? data[o] : data[index[o]]);
+                } catch (e) {}
+            },
+            //是否含有parmName参数
+            hasParm : function(parmName) {
+                return typeof(parmName) == 'string' ? typeof(index[parmName]) != 'undefined' : false;
+            },
+            // 获得参数Map ,类似request.getParameterMap()
+            parmMap : function() {
+                var map = {};
+                try {
+                    for (var p in index) { map[p] = data[index[p]]; }
+                } catch (e) {}
+                return map;
+            }
+        }
+    }();
+
+
 </script>
 <div class="color-explain">
     <table align="center">
