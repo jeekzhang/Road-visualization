@@ -476,9 +476,3 @@ height: 25px;
 width: 25px; 
 margin: 0; 
 }
-
-html {
- 
-filter: progid:DXImageTransform.Microsoft.BasicImage(grayscale=1);
- 
--webkit-filter: grayscale(100%);}
