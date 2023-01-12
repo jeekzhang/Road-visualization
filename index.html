@@ -1,481 +1,504 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="baidu-site-verification" content="code-S9MwXzf56D" />
-    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <meta name="viewport"
+        content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
 
     <title>民间道路长</title>
     <link rel="shortcut icon" href="favicon.ico">
     <script src="https://s2.pstatp.com/cdn/expire-1-M/jquery/1.12.4/jquery.min.js"></script>
-    <script type="text/javascript" ></script>
+    <script type="text/javascript"></script>
     <script src="https://cdn.bootcss.com/echarts/4.2.1-rc1/echarts.min.js"></script>
-<script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "https://hm.baidu.com/hm.js?7d9ebd66db64e1e3e1723a335ee76569";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
-</script>
-<script type="text/javascript">
-    /* 手机打开提示 */
-     var mobileAgent = new Array("iphone", "ipod", "ipad", "android", "mobile", "blackberry", "webos", "incognito", "webmate", "bada", "nokia", "lg", "ucweb", "skyfire");
-     var browser = navigator.userAgent.toLowerCase();
-     var isMobile = false;
-     for (var i = 0; i < mobileAgent.length; i++) {
-         if (browser.indexOf(mobileAgent[i]) != -1) {
-             isMobile = true;
-             alert("此道路可视化网站对手机未适配，建议使用电脑访问，效果最佳！点击确定继续使用手机浏览");
-             break;
-         }
-     }
-</script>
     <script>
-/**
- * 生成卡片窗口
- *
- */
-function CreateTip(option){
-    this.option = option;
-    this.drop = false;
-    this.init();
-}
-CreateTip.prototype = {
-    init:function () {
-        this.createContainer();
-    },
-    createContainer:function () {
-        var _view_ = this;
-        var html = '';
-        html += '<div id="'+_view_.option.id+'" class="tip-container" style="width: '+_view_.option.width+'vw;">';
-        html += '<div class="tip-title"><span><img src="'+_view_.option.icon+'"/></span><span>'+_view_.option.titleName+'</span><span class="tip-dropDown"><img src="icon/收起.png"/></span></div>';
-        html += '<div class="tip-content">';
-        // html += _view_.option.html;
-        html += '</div>';
-        html += '</div>';
-        $("body").append(html);
-        var $container = $("#"+_view_.option.id);
-        $container.css(_view_.option.pos);
-        var $containerW = $container.width() - 32;
-        $("#"+_view_.option.id+" .tip-content").width($containerW);
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?7d9ebd66db64e1e3e1723a335ee76569";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
 
-        $("#"+_view_.option.id+" .tip-dropDown").bind("click",function () {
-            var $tipContent =  $("#"+_view_.option.id+" .tip-content");
-            if(!_view_.drop){
-                $tipContent.slideUp();
-                $(this).find("img").attr("src","icon/展开.png");
-                _view_.drop = true;
-            }else{
-                $tipContent.slideDown();
-                $(this).find("img").attr("src","icon/收起.png");
-                _view_.drop = false;
+    <script type="text/javascript">
+        /* 手机打开提示 */
+        var mobileAgent = new Array("iphone", "ipod", "ipad", "android", "mobile", "blackberry", "webos", "incognito", "webmate", "bada", "nokia", "lg", "ucweb", "skyfire");
+        var browser = navigator.userAgent.toLowerCase();
+        var isMobile = false;
+        for (var i = 0; i < mobileAgent.length; i++) {
+            if (browser.indexOf(mobileAgent[i]) != -1) {
+                isMobile = true;
+                alert("此道路可视化网站对手机未适配，建议使用电脑访问，效果最佳！点击确定继续使用手机浏览");
+                break;
             }
-        });
-    },
-    setData:function (htmlText) {
-        var _view_ = this;
-        $("#"+_view_.option.id+" .tip-content").html(htmlText);
-    }
-};
-/**
- * 时间更新模块
- *
- */
-function getTime(){
-    var week = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
-    var localToday = '';
-    var d = new Date();
-    localToday = d.getFullYear() + "年" + (d.getMonth() + 1) + "月" + d.getDate() + "日";
-    var time = '';
-    var hh = d.getHours();            //时
-    var mm = d.getMinutes();          //分
-    var ss = d.getSeconds();
-    if(hh < 10)
-        time += "0";
+        }
+    </script>
 
-    time += hh + ":";
+    <script>
+        /**
+         * 生成卡片窗口
+         *
+         */
+        function CreateTip(option) {
+            this.option = option;
+            this.drop = false;
+            this.init();
+        }
+        CreateTip.prototype = {
+            init: function () {
+                this.createContainer();
+            },
+            createContainer: function () {
+                var _view_ = this;
+                var html = '';
+                html += '<div id="' + _view_.option.id + '" class="tip-container" style="width: ' + _view_.option.width + 'vw;">';
+                html += '<div class="tip-title"><span><img src="' + _view_.option.icon + '"/></span><span>' + _view_.option.titleName + '</span><span class="tip-dropDown"><img src="icon/收起.png"/></span></div>';
+                html += '<div class="tip-content">';
+                // html += _view_.option.html;
+                html += '</div>';
+                html += '</div>';
+                $("body").append(html);
+                var $container = $("#" + _view_.option.id);
+                $container.css(_view_.option.pos);
+                var $containerW = $container.width() - 32;
+                $("#" + _view_.option.id + " .tip-content").width($containerW);
 
-    if (mm < 10) time += '0';
-    time += mm + ":";
+                $("#" + _view_.option.id + " .tip-dropDown").bind("click", function () {
+                    var $tipContent = $("#" + _view_.option.id + " .tip-content");
+                    if (!_view_.drop) {
+                        $tipContent.slideUp();
+                        $(this).find("img").attr("src", "icon/展开.png");
+                        _view_.drop = true;
+                    } else {
+                        $tipContent.slideDown();
+                        $(this).find("img").attr("src", "icon/收起.png");
+                        _view_.drop = false;
+                    }
+                });
+            },
+            setData: function (htmlText) {
+                var _view_ = this;
+                $("#" + _view_.option.id + " .tip-content").html(htmlText);
+            }
+        };
+        /**
+         * 时间更新模块
+         *
+         */
+        function getTime() {
+            var week = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
+            var localToday = '';
+            var d = new Date();
+            localToday = d.getFullYear() + "年" + (d.getMonth() + 1) + "月" + d.getDate() + "日";
+            var time = '';
+            var hh = d.getHours();            //时
+            var mm = d.getMinutes();          //分
+            var ss = d.getSeconds();
+            if (hh < 10)
+                time += "0";
 
-    if (ss < 10) time += '0';
-    time += ss;
+            time += hh + ":";
 
-    //
-    return {0:localToday ,1:week[d.getDay()],2:time }
-}
+            if (mm < 10) time += '0';
+            time += mm + ":";
+
+            if (ss < 10) time += '0';
+            time += ss;
+
+            //
+            return { 0: localToday, 1: week[d.getDay()], 2: time }
+        }
     </script>
 </head>
+
 <body>
-<div id="mapContainer"><iframe name="footer" width=100% height=100% src="map.html" frameborder=0>
-</iframe></div>
-<div class="nav-top">
-    <span class="nav-top-back"><a href="concrete.html"><img src="icon/返回.png"/></a></span>
-    <span class="nav-top-title"><img src="icon/logo.png" align="center" width:50% height="50px"/>&nbsp 道路可视化</span>
-    <div class="nav-top-time">
-        <span id="date">日期</span>
-        <span id="time">时间</span>
+    <div id="mapContainer"><iframe name="footer" width=100% height=100% src="map.html" frameborder=0>
+        </iframe></div>
+    <div class="nav-top">
+        <span class="nav-top-back"><a href="concrete.html"><img src="icon/返回.png" /></a></span>
+        <span class="nav-top-title"><img src="icon/logo.png" align="center" width:50% height="50px" />&nbsp 道路可视化</span>
+        <div class="nav-top-time">
+            <span id="date">日期</span>
+            <span id="time">时间</span>
+        </div>
     </div>
-</div>
-<!--大屏-->
-<script type="text/javascript" src="loadingScript.js"></script>
-<script type="text/javascript">
-    //初始化地图
+    <!--大屏-->
+    <script type="text/javascript" src="loadingScript.js"></script>
+    <script type="text/javascript">
+        //初始化地图
 
 
-    function checkhHtml5()
-    {
-        if (typeof(Worker) === "undefined")
-        {
-            if(navigator.userAgent.indexOf("MSIE 9.0")<=0)
-            {
-                alert("IE9以下不兼容，推荐使用edge、chrome、firefox、safari、IE10");
+        function checkhHtml5() {
+            if (typeof (Worker) === "undefined") {
+                if (navigator.userAgent.indexOf("MSIE 9.0") <= 0) {
+                    alert("IE9以下不兼容，推荐使用edge、chrome、firefox、safari、IE10");
+                }
+
             }
-
         }
-    }
-    checkhHtml5();
+        checkhHtml5();
 
-//时间
-var timer = null;
-function setTime(){
-    if(timer !== null){
-        clearTimeout(timer);
-    }
-    setTimeout(function () {
-        $("#date").text(getTime()[0]);
-        $("#time").text(getTime()[1] +"  "+ getTime()[2]);
+        //时间
+        var timer = null;
+        function setTime() {
+            if (timer !== null) {
+                clearTimeout(timer);
+            }
+            setTimeout(function () {
+                $("#date").text(getTime()[0]);
+                $("#time").text(getTime()[1] + "  " + getTime()[2]);
+                setTime();
+            }, 0);
+        }
         setTime();
-    },1000);
-}
-setTime();
 
-//legend 生成图例
-function createLegend() {
-    var html = '';
-    html += '<div class="legend-container">';
-        html += '<div class="legend-content"><span><img src="icon/legend.png"/>地图展示区</span></div>';
-         html += '<div class="legend-content"><span><span class="red-legend"></span><a href="concrete.html?name=安全性">安全性<a/></span><span><span class="green-legend"></span><a href="concrete.html?name=畅通性">畅通性</a></span><span><span class="blue-legend"></span><a href="concrete.html?name=舒适性">舒适性</a></span></span></div>';
-    html += '</div>';
-    $("body").append(html);
-    setLegendPos();
-}
-function setLegendPos() {
-    var $legendW = $("body").width() * 0.22;
-    $(".legend-container").css({
-        position:"fixed",
-        top:window.innerHeight * 0.12,
-        left:window.innerWidth * 0.22,
-        width:window.innerWidth * 0.545
-    });
-}
-createLegend();
+        //legend 生成图例
+        function createLegend() {
+            var html = '';
+            html += '<div class="legend-container">';
+            html += '<div class="legend-content"><span><img src="icon/legend.png"/>地图展示区</span></div>';
+            html += '<div class="legend-content"><span><span class="red-legend"></span><a href="concrete.html?name=安全性">安全性<a/></span><span><span class="green-legend"></span><a href="concrete.html?name=畅通性">畅通性</a></span><span><span class="blue-legend"></span><a href="concrete.html?name=舒适性">舒适性</a></span></span></div>';
+            html += '</div>';
+            $("body").append(html);
+            setLegendPos();
+        }
+        function setLegendPos() {
+            var $legendW = $("body").width() * 0.22;
+            $(".legend-container").css({
+                position: "fixed",
+                top: window.innerHeight * 0.12,
+                left: window.innerWidth * 0.22,
+                width: window.innerWidth * 0.545
+            });
+        }
+        createLegend();
 
 
-//生成卡片
-//道路区间
-var interval_score =
-    '<ul>' +
-        '<li><span class="interval_score-li-name">Top1<span class="typeStyle">   新华路（解放大道->精武横路）</span></span><span class="interval_score-li-num">85</span></li>' +
-        '<li><span class="interval_score-li-name">Top2<span class="typeStyle">   新华路（台北一路->建设大道）</span></span><span class="interval_score-li-num">85</span></li>' +
-        '<li><span class="interval_score-li-name">Top3<span class="typeStyle">   新华路（建设大道->黄孝北路）</span></span><span class="interval_score-li-num">85</span></li>' +
-        '<li><span class="interval_score-li-name">Top4<span class="typeStyle">   青年路（电业路->航空路）</span></span><span class="interval_score-li-num">82</span></li>' +
-        '<li><span class="interval_score-li-name">Top5<span class="typeStyle">   新华路（长江日报路->唐家墩路）</span></span><span class="interval_score-li-num">80</span></li>' +
-    '</ul>';
+        //生成卡片
+        //道路区间
+        var interval_score =
+            '<ul>' +
+            '<li><span class="interval_score-li-name">Top1<span class="typeStyle">   新华路（解放大道->精武横路）</span></span><span class="interval_score-li-num">85</span></li>' +
+            '<li><span class="interval_score-li-name">Top2<span class="typeStyle">   新华路（台北一路->建设大道）</span></span><span class="interval_score-li-num">85</span></li>' +
+            '<li><span class="interval_score-li-name">Top3<span class="typeStyle">   新华路（建设大道->黄孝北路）</span></span><span class="interval_score-li-num">85</span></li>' +
+            '<li><span class="interval_score-li-name">Top4<span class="typeStyle">   青年路（电业路->航空路）</span></span><span class="interval_score-li-num">82</span></li>' +
+            '<li><span class="interval_score-li-name">Top5<span class="typeStyle">   新华路（长江日报路->唐家墩路）</span></span><span class="interval_score-li-num">80</span></li>' +
+            '</ul>';
 
-var interval_score_tip = new CreateTip({
-    id:"i_s_tip",
-    titleName:"道路区间得分Top5",
-    icon:"icon/排行.png",
-    pos:{position:"fixed",top: window.innerHeight * 0.12,left: window.innerWidth * 0.01},
-    width:20,
-//        html:interval_score
-});
-interval_score_tip.setData(interval_score);
+        var interval_score_tip = new CreateTip({
+            id: "i_s_tip",
+            titleName: "道路区间得分Top5",
+            icon: "icon/排行.png",
+            pos: { position: "fixed", top: window.innerHeight * 0.12, left: window.innerWidth * 0.01 },
+            width: 20,
+            //        html:interval_score
+        });
+        interval_score_tip.setData(interval_score);
 
-//占比
-var proportion =
-'<ul>' +
-    '<div align="center">' +
-        '<div id="chart1" style="width:100%;height:100%;"></div>'+ 
-    '</div>' +
-'</ul>';
+        //占比
+        var proportion =
+            '<ul>' +
+            '<div align="center">' +
+            '<div id="chart1" style="width:100%;height:100%;"></div>' +
+            '</div>' +
+            '</ul>';
 
-var proportion_tip = new CreateTip({
-    id:"proportion",
-    titleName:"机动车道路情况占比",
-    icon:"icon/占比.png",
-    pos:{position:"fixed",top: window.innerHeight * 0.395,left: window.innerWidth * 0.01},
-    width:20,
+        var proportion_tip = new CreateTip({
+            id: "proportion",
+            titleName: "机动车道路情况占比",
+            icon: "icon/占比.png",
+            pos: { position: "fixed", top: window.innerHeight * 0.395, left: window.innerWidth * 0.01 },
+            width: 20,
 
-    //html:proportion
-});
-proportion_tip.setData(proportion);
+            //html:proportion
+        });
+        proportion_tip.setData(proportion);
 
-//照片
-var photo =
-// '<ul>' +
-//     '<div align="center">' +
-//         '<img src="icon/flag.jpeg" width="100" height="100" />' +
-//     '</div>' +
-// '</ul>';
-'<style>' +
-    '#img{width: 18vw;height: 25vh;margin: 0;padding: 0;position: relative;}' +
-    '#img>.lleft{width: 1vw;height: 2vh;position: absolute;left: -1.64vw;top: 10vh;}' +
-    '#img>.rright{width: 1vw;height: 2vh;position: absolute;right: -0.4vw;top: 10vh;}' +
-'</style>' +
-'<div id="img">' + 
-        '<img id="imgs" src="photo/0.jpeg" alt="无法显示" style="width:18vw;height:24vh;"> ' +
-    '<div class="lleft">' +
-        '<img src="icon/左箭头.png" alt="无法显示">' +        
-    '</div>' +
-    '<div class="rright">' +
-        '<img src="icon/右箭头.png" alt="无法显示">' +
-    '</div>' +
-'</div>';
+        //照片
+        var photo =
+            // '<ul>' +
+            //     '<div align="center">' +
+            //         '<img src="icon/flag.jpeg" width="100" height="100" />' +
+            //     '</div>' +
+            // '</ul>';
+            '<style>' +
+            '#img{width: 18vw;height: 25vh;margin: 0;padding: 0;position: relative;}' +
+            '#img>.lleft{width: 1vw;height: 2vh;position: absolute;left: -1.64vw;top: 10vh;}' +
+            '#img>.rright{width: 1vw;height: 2vh;position: absolute;right: -0.4vw;top: 10vh;}' +
+            '</style>' +
+            '<div id="img">' +
+            '<img id="imgs" src="photo/0.jpeg" alt="无法显示" style="width:18vw;height:24vh;"> ' +
+            '<div class="lleft">' +
+            '<img src="icon/左箭头.png" alt="无法显示">' +
+            '</div>' +
+            '<div class="rright">' +
+            '<img src="icon/右箭头.png" alt="无法显示">' +
+            '</div>' +
+            '</div>';
 
 
 
-var photo_tip = new CreateTip({
-    id:"photo",
-    titleName:"照片展示区",
-    icon:"icon/多素材.png",
-    pos:{position:"fixed",top: window.innerHeight * 0.62,left: window.innerWidth * 0.01},
-    width:20,
-    body:"icon/多素材.png",
+        var photo_tip = new CreateTip({
+            id: "photo",
+            titleName: "照片展示区",
+            icon: "icon/多素材.png",
+            pos: { position: "fixed", top: window.innerHeight * 0.62, left: window.innerWidth * 0.01 },
+            width: 20,
+            body: "icon/多素材.png",
 
-//        html:photo
-});
-photo_tip.setData(photo);
-// 大屏
+            //        html:photo
+        });
+        photo_tip.setData(photo);
+        // 大屏
 
-var weight =
-'<ul>' +
-    '<div align="center">' +
-        '<div id="chart2" style="width:100%;height:100%;"></div>'+ 
-    '</div>' +
-'</ul>';
+        var weight =
+            '<ul>' +
+            '<div align="center">' +
+            '<div id="chart2" style="width:100%;height:100%;"></div>' +
+            '</div>' +
+            '</ul>';
 
-var weight_tip = new CreateTip({
-    id:"weight",
-    titleName:"标准权重",
-    icon:"icon/性质占比.png",
-     pos:{position:"fixed",top:window.innerHeight * 0.12,right:window.innerWidth * 0.01},
-    width:20,
-});
-weight_tip.setData(weight);
+        var weight_tip = new CreateTip({
+            id: "weight",
+            titleName: "标准权重",
+            icon: "icon/性质占比.png",
+            pos: { position: "fixed", top: window.innerHeight * 0.12, right: window.innerWidth * 0.01 },
+            width: 20,
+        });
+        weight_tip.setData(weight);
 
-//路
-var road =
-    '<ul>' +
-        '<li><span class="interval_score-li-name">Top1<span class="typeStyle">     新华路</span></span><span class="interval_score-li-num">73.68 </span></li>' +
-        '<li><span class="interval_score-li-name">Top2<span class="typeStyle">     建设大道</span></span><span class="interval_score-li-num">61.28 </span></li>' +
-        '<li><span class="interval_score-li-name">Top3<span class="typeStyle">     云飞路</span></span><span class="interval_score-li-num">58.27 </span></li>' +
-        '<li><span class="interval_score-li-name">Top4<span class="typeStyle">     万松园路</span></span><span class="interval_score-li-num">56.10 </span></li>' +
-        '<li><span class="interval_score-li-name">Top5<span class="typeStyle">     淮海路</span></span><span class="interval_score-li-num">55.52 </span></li>' +
-        '<li><span class="interval_score-li-name">Top6<span class="typeStyle">     沿江大道</span></span><span class="interval_score-li-num">55.13 </span></li>' +
-        '<li><span class="interval_score-li-name">Top7<span class="typeStyle">     江发路</span></span><span class="interval_score-li-num">53.88 </span></li>' +
-        '<li><span class="interval_score-li-name">Top8<span class="typeStyle">     绿柳路</span></span><span class="interval_score-li-num">52.34 </span></li>' +
-        '<li><span class="interval_score-li-name">Top9<span class="typeStyle">     青年路</span></span><span class="interval_score-li-num">51.70 </span></li>' +
-        '<li><span class="interval_score-li-name">Top10<span class="typeStyle">   常青路</span></span><span class="interval_score-li-num">46.89 </span></li>' +
-    '</ul>';
+        //路
+        var road =
+            '<ul>' +
+            '<li><span class="interval_score-li-name">Top1<span class="typeStyle">     新华路</span></span><span class="interval_score-li-num">73.68 </span></li>' +
+            '<li><span class="interval_score-li-name">Top2<span class="typeStyle">     建设大道</span></span><span class="interval_score-li-num">61.28 </span></li>' +
+            '<li><span class="interval_score-li-name">Top3<span class="typeStyle">     云飞路</span></span><span class="interval_score-li-num">58.27 </span></li>' +
+            '<li><span class="interval_score-li-name">Top4<span class="typeStyle">     万松园路</span></span><span class="interval_score-li-num">56.10 </span></li>' +
+            '<li><span class="interval_score-li-name">Top5<span class="typeStyle">     淮海路</span></span><span class="interval_score-li-num">55.52 </span></li>' +
+            '<li><span class="interval_score-li-name">Top6<span class="typeStyle">     沿江大道</span></span><span class="interval_score-li-num">55.13 </span></li>' +
+            '<li><span class="interval_score-li-name">Top7<span class="typeStyle">     江发路</span></span><span class="interval_score-li-num">53.88 </span></li>' +
+            '<li><span class="interval_score-li-name">Top8<span class="typeStyle">     绿柳路</span></span><span class="interval_score-li-num">52.34 </span></li>' +
+            '<li><span class="interval_score-li-name">Top9<span class="typeStyle">     青年路</span></span><span class="interval_score-li-num">51.70 </span></li>' +
+            '<li><span class="interval_score-li-name">Top10<span class="typeStyle">   常青路</span></span><span class="interval_score-li-num">46.89 </span></li>' +
+            '</ul>';
 
-var rtip = new CreateTip({
-    id:"road",
-    titleName:"道路排行Top10",
-    icon:"icon/排行.png",
-     pos:{position:"fixed",top:window.innerHeight * 0.4,right:window.innerWidth * 0.01},
-    width:20,
-});
-rtip.setData(road);
+        var rtip = new CreateTip({
+            id: "road",
+            titleName: "道路排行Top10",
+            icon: "icon/排行.png",
+            pos: { position: "fixed", top: window.innerHeight * 0.4, right: window.innerWidth * 0.01 },
+            width: 20,
+        });
+        rtip.setData(road);
 
-var myChart1 = echarts.init(document.getElementById('chart1'));
+        var myChart1 = echarts.init(document.getElementById('chart1'));
 
-var option1 = {
-         // 标题
-        textStyle: {
-            fontSize: 12,  //使用rem自适应
-        },
+        var option1 = {
+            // 标题
+            textStyle: {
+                fontSize: 12,  //使用rem自适应
+            },
 
-        // 图例
-        tooltip: {
-            show: true,
-            trigger: "item",
-            backgroundColor: "#1677FF",
-            // {a}（系列名称），{b}（数据项名称），{c}（数值）, {d}（百分比）
-            formatter: "{a}: {b}<br/>({d}%)"
-        },
-        // 不同区域的颜色
-        color: ['#543fa1', '#5170c0', '#5eafd7', '#45c0af'],
-        legend: {
-            textStyle:{
-                            color: '#ffffff',//字体颜色
+            // 图例
+            tooltip: {
+                show: true,
+                trigger: "item",
+                backgroundColor: "#1677FF",
+                // {a}（系列名称），{b}（数据项名称），{c}（数值）, {d}（百分比）
+                formatter: "{a}: {b}<br/>({d}%)"
+            },
+            // 不同区域的颜色
+            color: ['#543fa1', '#5170c0', '#5eafd7', '#45c0af'],
+            legend: {
+                textStyle: {
+                    color: '#ffffff',//字体颜色
+                },
+
+                top: '5%',
+                left: '-5%'
+            },
+            series: [
+                {
+                    name: '情况',
+                    type: 'pie',
+                    // 数组的第一项是内半径，第二项是外半径；可以设置不同的内外半径显示成圆环图
+                    radius: '75%',
+                    // 饼图的中心（圆心）坐标，数组的第一项是横坐标，第二项是纵坐标；设置成百分比时第一项是相对于容器宽度，第二项是相对于容器高度
+                    center: ['80%', '50%'],
+                    data: [
+                        { value: 207 / 373, name: '无非机动车道' },
+                        { value: 149 / 373, name: '有专用非机动车道' },
+                        { value: 1 / 373, name: '有专用机非混行道' },
+                        { value: 16 / 373, name: '有专用人非混行道' },
+
+                    ],
+                    itemStyle: {
+                        // 显示图例
+                        normal: {
+                            label: {
+                                show: false
+                            },
+                            labelLine: {
+                                show: false
+                            }
                         },
-
-        top: '5%',
-        left: '-5%'
-    },
-        series: [
-            {
-                name: '情况',
-                type: 'pie',
-                // 数组的第一项是内半径，第二项是外半径；可以设置不同的内外半径显示成圆环图
-                radius: '75%',
-                // 饼图的中心（圆心）坐标，数组的第一项是横坐标，第二项是纵坐标；设置成百分比时第一项是相对于容器宽度，第二项是相对于容器高度
-                center: ['80%', '50%'],
-                data: [
-                    { value: 207/373, name: '无非机动车道' },
-                    { value: 149/373, name: '有专用非机动车道' },
-                    { value: 1/373, name: '有专用机非混行道' },
-                    { value: 16/373, name: '有专用人非混行道' },
-
-                ],
-                itemStyle: {
-                    // 显示图例
-                    normal: {
-                        label: {
-                            show: false
-                        },
-                        labelLine: {
-                            show: false
+                        emphasis: {
+                            // 图形阴影的模糊大小
+                            shadowBlur: 10,
+                            // 阴影水平方向上的偏移距离
+                            shadowOffsetX: 0,
+                            // 阴影颜色
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
                         }
-                    },
-                    emphasis: {
-                        // 图形阴影的模糊大小
-                        shadowBlur: 10,
-                        // 阴影水平方向上的偏移距离
-                        shadowOffsetX: 0,
-                        // 阴影颜色
-                        shadowColor: 'rgba(0, 0, 0, 0.5)'
                     }
                 }
-            }
-        ]
-    };
+            ]
+        };
 
-    // 使用刚指定的配置项和数据显示图表。
-    myChart1.setOption(option1);
+        // 使用刚指定的配置项和数据显示图表。
+        myChart1.setOption(option1);
 
-var myChart2 = echarts.init(document.getElementById('chart2'));
+        var myChart2 = echarts.init(document.getElementById('chart2'));
 
-var option2 = {
-         // 标题
-        title: {
-            
-        },
-        // 图例
-        tooltip: {
-            show: true,
-            trigger: "item",
-            backgroundColor: "#1677FF",
-            // {a}（系列名称），{b}（数据项名称），{c}（数值）, {d}（百分比）
-            formatter: "{a}: {b}<br/>({d}%)"
-        },
-        // 不同区域的颜色
-        color: ['#FF3774', '#6AE89C', '#2E9AFE'],
-        series: [
-            {
-                name: '性质',
-                type: 'pie',
-                // 数组的第一项是内半径，第二项是外半径；可以设置不同的内外半径显示成圆环图
-                radius: '60%',
-                // 饼图的中心（圆心）坐标，数组的第一项是横坐标，第二项是纵坐标；设置成百分比时第一项是相对于容器宽度，第二项是相对于容器高度
-                center: ['50%', '50%'],
-                data: [
-                    { value: 0.5, name: '安全性' },
-                    { value: 0.4, name: '畅通性' },
-                    { value: 0.1, name: '舒适性' },
+        var option2 = {
+            // 标题
+            title: {
 
-                ],
-                itemStyle: {
-                    // 显示图例
-                    normal: {
-                        label: {
-                            show: true
+            },
+            // 图例
+            tooltip: {
+                show: true,
+                trigger: "item",
+                backgroundColor: "#1677FF",
+                // {a}（系列名称），{b}（数据项名称），{c}（数值）, {d}（百分比）
+                formatter: "{a}: {b}<br/>({d}%)"
+            },
+            // 不同区域的颜色
+            color: ['#FF3774', '#6AE89C', '#2E9AFE'],
+            series: [
+                {
+                    name: '性质',
+                    type: 'pie',
+                    // 数组的第一项是内半径，第二项是外半径；可以设置不同的内外半径显示成圆环图
+                    radius: '60%',
+                    // 饼图的中心（圆心）坐标，数组的第一项是横坐标，第二项是纵坐标；设置成百分比时第一项是相对于容器宽度，第二项是相对于容器高度
+                    center: ['50%', '50%'],
+                    data: [
+                        { value: 0.5, name: '安全性' },
+                        { value: 0.4, name: '畅通性' },
+                        { value: 0.1, name: '舒适性' },
+
+                    ],
+                    itemStyle: {
+                        // 显示图例
+                        normal: {
+                            label: {
+                                show: true
+                            },
+                            labelLine: {
+                                show: true
+                            }
                         },
-                        labelLine: {
-                            show: true
+                        emphasis: {
+                            // 图形阴影的模糊大小
+                            shadowBlur: 10,
+                            // 阴影水平方向上的偏移距离
+                            shadowOffsetX: 0,
+                            // 阴影颜色
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
                         }
-                    },
-                    emphasis: {
-                        // 图形阴影的模糊大小
-                        shadowBlur: 10,
-                        // 阴影水平方向上的偏移距离
-                        shadowOffsetX: 0,
-                        // 阴影颜色
-                        shadowColor: 'rgba(0, 0, 0, 0.5)'
                     }
                 }
+            ]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart2.setOption(option2);
+
+
+        var index = 0;
+        var img_data = ['photo/0.jpeg'];
+        for (var i = 1; i < 529; i++) {
+            var s_photo = 'photo/' + i + '.jpeg';
+            img_data.push(s_photo);
+        }
+        // 获得相应元素对象
+        var rright = document.getElementsByClassName("rright")[0];
+        var llef = document.getElementsByClassName("lleft")[0];
+        var img = document.getElementById("imgs");
+        //通过对象的单击事件触动函数调用函数实现图片切换
+        var j = 0;
+        function changeImg() {
+            j++;
+            if (j == 3) {
+                index = (index + 1) % img_data.length;
+                img.setAttribute('src', img_data[index]);
+                j = 0;
             }
-        ]
-    };
+        }
+        setInterval(changeImg, 1000);
+        rright.onclick = function () {
+            j = 0;
+            index++;
+            if (index == img_data.length) index = 0;
+            img.setAttribute('src', img_data[index]);
+        }
+        llef.onclick = function () {
+            j = 0;
+            if (index == 0) index = img_data.length;
+            index--;
+            img.setAttribute('src', img_data[index]);
+        }
 
-    // 使用刚指定的配置项和数据显示图表。
-    myChart2.setOption(option2);
-
-
-var index=0;
-var img_data=['photo/0.jpeg'];
-for(var i=1; i<529 ; i++){
-    var s_photo='photo/'+i+'.jpeg';
-    img_data.push(s_photo);
-}
-// 获得相应元素对象
-var rright=document.getElementsByClassName("rright")[0];
-var llef=document.getElementsByClassName("lleft")[0];
-var img=document.getElementById("imgs");
-//通过对象的单击事件触动函数调用函数实现图片切换
-var j = 0;
-function changeImg(){
-    j++;
-    if(j == 3){
-        index = (index + 1) % img_data.length;
-        img.setAttribute('src',img_data[index]);
-        j = 0;
-    }    
-}
-setInterval(changeImg, 1000);
-rright.onclick=function(){
-    j = 0;
-    index++;
-    if(index==img_data.length) index=0;
-    img.setAttribute('src',img_data[index]);
-}
-llef.onclick=function(){
-    j = 0;
-    if(index==0) index=img_data.length;
-    index--;
-    img.setAttribute('src',img_data[index]);
-}
-
-</script>
-<div class="color-explain">
-    <table align="center">
- <tr>
-  <td class="circle" bgcolor="red">&nbsp;</td>
-  <td><font color="white">&nbsp;&nbsp;[0,10)&nbsp;&nbsp;</font></td>
-  <td class="circle" bgcolor="orange">&nbsp;</td>
-  <td><font color="white">&nbsp;&nbsp;[10,20)&nbsp;&nbsp;</font></td>
-  <td class="circle" bgcolor="hotpink" >&nbsp;</td>
-  <td><font color="white">&nbsp;&nbsp;[20,30)&nbsp;&nbsp;</font></td>
-  <td class="circle" bgcolor="yellow" >&nbsp;</td>
-  <td><font color="white">&nbsp;&nbsp;[30,40)&nbsp;&nbsp;</font></td>
-  <td class="circle" bgcolor="#9932cc" >&nbsp;</td>
-  <td><font color="white">&nbsp;&nbsp;[40,50)&nbsp;&nbsp;</font></td>
-  <td class="circle" bgcolor="green" >&nbsp;</td>
-  <td><font color="white">&nbsp;&nbsp;[50,60)&nbsp;&nbsp;</font></td>
-  <td class="circle" bgcolor="darkseagreen" >&nbsp;</td>
-  <td><font color="white">&nbsp;&nbsp;[60,70)&nbsp;&nbsp;</font></td>
-  <td class="circle" bgcolor="mediumspringgreen" >&nbsp;</td>
-  <td><font color="white">&nbsp;&nbsp;[70,80)&nbsp;&nbsp;</font></td>
-  <td class="circle" bgcolor="deepskyblue" >&nbsp;</td>
-  <td><font color="white">&nbsp;&nbsp;[80,90)&nbsp;&nbsp;</font></td>
-  <td class="circle" bgcolor="blue" >&nbsp;</td>
-  <td><font color="white">&nbsp;&nbsp;[90,100]&nbsp;&nbsp;</font></td>
- </tr>
-</table>
-</div>  
+    </script>
+    <div class="color-explain">
+        <table align="center">
+            <tr>
+                <td class="circle" bgcolor="red">&nbsp;</td>
+                <td>
+                    <font color="white">&nbsp;&nbsp;[0,10)&nbsp;&nbsp;</font>
+                </td>
+                <td class="circle" bgcolor="orange">&nbsp;</td>
+                <td>
+                    <font color="white">&nbsp;&nbsp;[10,20)&nbsp;&nbsp;</font>
+                </td>
+                <td class="circle" bgcolor="hotpink">&nbsp;</td>
+                <td>
+                    <font color="white">&nbsp;&nbsp;[20,30)&nbsp;&nbsp;</font>
+                </td>
+                <td class="circle" bgcolor="yellow">&nbsp;</td>
+                <td>
+                    <font color="white">&nbsp;&nbsp;[30,40)&nbsp;&nbsp;</font>
+                </td>
+                <td class="circle" bgcolor="#9932cc">&nbsp;</td>
+                <td>
+                    <font color="white">&nbsp;&nbsp;[40,50)&nbsp;&nbsp;</font>
+                </td>
+                <td class="circle" bgcolor="green">&nbsp;</td>
+                <td>
+                    <font color="white">&nbsp;&nbsp;[50,60)&nbsp;&nbsp;</font>
+                </td>
+                <td class="circle" bgcolor="darkseagreen">&nbsp;</td>
+                <td>
+                    <font color="white">&nbsp;&nbsp;[60,70)&nbsp;&nbsp;</font>
+                </td>
+                <td class="circle" bgcolor="mediumspringgreen">&nbsp;</td>
+                <td>
+                    <font color="white">&nbsp;&nbsp;[70,80)&nbsp;&nbsp;</font>
+                </td>
+                <td class="circle" bgcolor="deepskyblue">&nbsp;</td>
+                <td>
+                    <font color="white">&nbsp;&nbsp;[80,90)&nbsp;&nbsp;</font>
+                </td>
+                <td class="circle" bgcolor="blue">&nbsp;</td>
+                <td>
+                    <font color="white">&nbsp;&nbsp;[90,100]&nbsp;&nbsp;</font>
+                </td>
+            </tr>
+        </table>
+    </div>
 </body>
+
 </html>

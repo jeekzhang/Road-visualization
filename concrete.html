@@ -1,70 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
-    
+    <meta name="viewport"
+        content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+
     <title>民间道路长</title>
     <link rel="shortcut icon" href="favicon.ico">
     <script src="https://s2.pstatp.com/cdn/expire-1-M/jquery/1.12.4/jquery.min.js"></script>
-    <script type="text/javascript" ></script>
+    <script type="text/javascript"></script>
     <script src="https://cdn.bootcss.com/echarts/4.2.1-rc1/echarts.min.js"></script>
 
-<script type="text/javascript">
-    /* 手机打开提示 */
-     var mobileAgent = new Array("iphone", "ipod", "ipad", "android", "mobile", "blackberry", "webos", "incognito", "webmate", "bada", "nokia", "lg", "ucweb", "skyfire");
-     var browser = navigator.userAgent.toLowerCase();
-     var isMobile = false;
-     for (var i = 0; i < mobileAgent.length; i++) {
-         if (browser.indexOf(mobileAgent[i]) != -1) {
-             isMobile = true;
-             alert("此道路可视化网站手机打开不适配，建议使用电脑访问效果最佳！点击确定继续使用手机浏览");
-             break;
-         }
-     }
-</script>
+    <script type="text/javascript">
+        /* 手机打开提示 */
+        var mobileAgent = new Array("iphone", "ipod", "ipad", "android", "mobile", "blackberry", "webos", "incognito", "webmate", "bada", "nokia", "lg", "ucweb", "skyfire");
+        var browser = navigator.userAgent.toLowerCase();
+        var isMobile = false;
+        for (var i = 0; i < mobileAgent.length; i++) {
+            if (browser.indexOf(mobileAgent[i]) != -1) {
+                isMobile = true;
+                alert("此道路可视化网站手机打开不适配，建议使用电脑访问效果最佳！点击确定继续使用手机浏览");
+                break;
+            }
+        }
+    </script>
     <script>
 
-        function CreateTip(option){
+        function CreateTip(option) {
             this.option = option;
             this.drop = false;
             this.init();
         }
         CreateTip.prototype = {
-            init:function () {
+            init: function () {
                 this.createContainer();
             },
-            createContainer:function () {
+            createContainer: function () {
                 var _view_ = this;
                 var html = '';
-                html += '<div id="'+_view_.option.id+'" class="tip-container" style="width: '+_view_.option.width+'vw;">';
-                html += '<div class="tip-title"><span><img src="'+_view_.option.icon+'"/></span><span>'+_view_.option.titleName+'</span><span class="tip-dropDown"><img src="icon/收起.png"/></span></div>';
+                html += '<div id="' + _view_.option.id + '" class="tip-container" style="width: ' + _view_.option.width + 'vw;">';
+                html += '<div class="tip-title"><span><img src="' + _view_.option.icon + '"/></span><span>' + _view_.option.titleName + '</span><span class="tip-dropDown"><img src="icon/收起.png"/></span></div>';
                 html += '<div class="tip-content">';
                 // html += _view_.option.html;
                 html += '</div>';
                 html += '</div>';
                 $("body").append(html);
-                var $container = $("#"+_view_.option.id);
+                var $container = $("#" + _view_.option.id);
                 $container.css(_view_.option.pos);
                 var $containerW = $container.width() - 32;
-                $("#"+_view_.option.id+" .tip-content").width($containerW);
+                $("#" + _view_.option.id + " .tip-content").width($containerW);
 
-                $("#"+_view_.option.id+" .tip-dropDown").bind("click",function () {
-                    var $tipContent =  $("#"+_view_.option.id+" .tip-content");
-                    if(!_view_.drop){
+                $("#" + _view_.option.id + " .tip-dropDown").bind("click", function () {
+                    var $tipContent = $("#" + _view_.option.id + " .tip-content");
+                    if (!_view_.drop) {
                         $tipContent.slideUp();
-                        $(this).find("img").attr("src","icon/展开.png");
+                        $(this).find("img").attr("src", "icon/展开.png");
                         _view_.drop = true;
-                    }else{
+                    } else {
                         $tipContent.slideDown();
-                        $(this).find("img").attr("src","icon/收起.png");
+                        $(this).find("img").attr("src", "icon/收起.png");
                         _view_.drop = false;
                     }
                 });
             },
-            setData:function (htmlText) {
+            setData: function (htmlText) {
                 var _view_ = this;
-                $("#"+_view_.option.id+" .tip-content").html(htmlText);
+                $("#" + _view_.option.id + " .tip-content").html(htmlText);
                 //根据指标显示底图
             }
         };
@@ -72,7 +74,7 @@
          * 时间更新模块
          *
          */
-        function getTime(){
+        function getTime() {
             var week = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
             var localToday = '';
             var d = new Date();
@@ -81,7 +83,7 @@
             var hh = d.getHours();            //时
             var mm = d.getMinutes();          //分
             var ss = d.getSeconds();
-            if(hh < 10)
+            if (hh < 10)
                 time += "0";
 
             time += hh + ":";
@@ -93,992 +95,1002 @@
             time += ss;
 
             //
-            return {0:localToday ,1:week[d.getDay()],2:time }
+            return { 0: localToday, 1: week[d.getDay()], 2: time }
         }
     </script>
 </head>
+
 <body>
-<div id="mapContainer"><iframe name="footer" width=100% height=100% src="map/万松园路.html" frameborder=0>
-</iframe></div>
-<div class="nav-top">
-    <span class="nav-top-back"><a href="index.html"><img src="icon/返回.png"/></a></span>
-    <span class="nav-top-title"><img src="icon/xingche.png" align="center" width:50% height="50px"/>&nbsp&nbsp&nbsp 道路可视化</span>
-    <div class="nav-top-time">
-        <span id="date">日期</span>
-        <span id="time">时间</span>
+    <div id="mapContainer"><iframe name="footer" width=100% height=100% src="map/万松园路.html" frameborder=0>
+        </iframe></div>
+    <div class="nav-top">
+        <span class="nav-top-back"><a href="index.html"><img src="icon/返回.png" /></a></span>
+        <span class="nav-top-title"><img src="icon/xingche.png" align="center" width:50% height="50px" />&nbsp&nbsp&nbsp
+            道路可视化</span>
+        <div class="nav-top-time">
+            <span id="date">日期</span>
+            <span id="time">时间</span>
+        </div>
     </div>
-</div>
-<!--大屏-->
-<script type="text/javascript" src="loadingScript.js"></script>
-<script type="text/javascript">
-    //roads data
-    let roads=[{"name":"万松园路","ref":"map/万松园路.html","total":56.10,"security_tot": 51.57,"patency_tot": 61.57,"convenience_tot": 66.86},
-        {"name":"建设大道","ref":"map/建设大道.html","total":61.28,"security_tot": 55.88,"patency_tot": 70.43,"convenience_tot": 66.25},
-        {"name":"新华路","ref":"map/新华路.html","total":73.68,"security_tot": 69.41,"patency_tot": 81.36,"convenience_tot": 76.29},
-        {"name":"青年路","ref":"map/青年路.html","total":51.70,"security_tot": 52.04,"patency_tot": 46.83,"convenience_tot": 64.29},
-        {"name":"常青路","ref":"map/常青路.html","total":46.89,"security_tot": 42.29,"patency_tot": 52.10,"convenience_tot": 58.86},
-        {"name":"发展大道","ref":"map/发展大道.html","total":14.33,"security_tot": 11.32,"patency_tot": 14.92,"convenience_tot": 30.60},
-        {"name":"常青一路","ref":"map/常青一路.html","total":39.38,"security_tot": 35.90,"patency_tot": 43.80,"patency_tot": 47.00},
-        {"name":"红旗渠路","ref":"map/红旗渠路.html","total":12.06,"security_tot": 9.23,"patency_tot": 10.46,"convenience_tot": 33.85},
-        {"name":"常青三路","ref":"map/常青三路.html","total":4.27,"security_tot": 2.00,"patency_tot": 0.00,"convenience_tot": 30.67},
-        {"name":"江发路","ref":"map/江发路.html","total":53.88,"security_tot": 48.36,"patency_tot": 62.27,"convenience_tot": 61.82},
-        {"name":"江兴路","ref":"map/江兴路.html","total":3.86,"security_tot": 1.75,"patency_tot": 0.00,"convenience_tot": 28.13},
-        {"name":"常青五路","ref":"map/常青五路.html","total":12.25,"security_tot": 10.17,"patency_tot": 9.67,"convenience_tot": 32.50},
-        {"name":"新湾五路","ref":"map/新湾五路.html","total":16.77,"security_tot": 14.50,"patency_tot": 16.75,"convenience_tot": 30.42},
-        {"name":"新湾三路","ref":"map/新湾三路.html","total":15.21,"security_tot": 12.90,"patency_tot": 14.50,"convenience_tot": 31.20},
-        {"name":"新湾路","ref":"map/新湾路.html","total":5.67,"security_tot": 4.17,"patency_tot": 1.25,"convenience_tot": 27.92},
-        {"name":"新湾北路","ref":"map/新湾北路.html","total":3.70,"security_tot": 2.00,"patency_tot": 0.00,"convenience_tot": 25.00},
-        {"name":"江达路","ref":"map/江达路.html","total":6.74,"security_tot": 6.13,"patency_tot": 0.63,"convenience_tot": 28.75},
-        {"name":"长港路","ref":"map/长港路.html","total":3.56,"security_tot": 1.38,"patency_tot": 0.00,"convenience_tot": 27.31},
-        {"name":"绿柳路","ref":"map/绿柳路.html","total":52.34,"security_tot": 48.50,"patency_tot": 58.08,"convenience_tot": 58.17},
-        {"name":"姑嫂树路","ref":"map/姑嫂树路.html","total":16.30,"security_tot": 14.20,"patency_tot": 13.60,"convenience_tot": 37.00},
-        {"name":"云飞路","ref":"map/云飞路.html","total":58.27,"security_tot": 54.64,"patency_tot": 64.73,"convenience_tot": 60.64},
-        {"name":"淮海路","ref":"map/淮海路.html","total":55.52,"security_tot": 49.56,"patency_tot": 64.17,"convenience_tot": 65.33},
-        {"name":"振兴路","ref":"map/振兴路.html","total":26.13,"security_tot": 24.00,"patency_tot": 27.67,"convenience_tot": 34.33},
-        {"name":"京汉大道","ref":"map/京汉大道.html","total":35.13,"security_tot": 30.79,"patency_tot": 40.36,"convenience_tot": 45.50},
-        {"name":"中山大道","ref":"map/中山大道.html","total":9.32,"security_tot": 6.82,"patency_tot": 5.91,"convenience_tot": 34.55},
-        {"name":"民主一街","ref":"map/民主一街.html","total":3.47,"security_tot": 1.14,"patency_tot": 0.00,"convenience_tot": 27.86},
-        {"name":"沿江大道","ref":"map/沿江大道.html","total":55.12,"security_tot": 48.75,"patency_tot": 65.25,"convenience_tot": 63.00},
-        {"name":"香港路","ref":"map/香港路.html","total":33.36,"security_tot": 32.30,"patency_tot": 30.80,"convenience_tot": 47.40},
-        {"name":"三眼桥路","ref":"map/三眼桥路.html","total":18.22,"security_tot": 17.29,"patency_tot": 15.50,"convenience_tot": 32.00},
-        {"name":"马场路","ref":"map/马场路.html","total":7.42,"security_tot": 6.63,"patency_tot": 1.88,"convenience_tot": 28.75}]
+    <!--大屏-->
+    <script type="text/javascript" src="loadingScript.js"></script>
+    <script type="text/javascript">
+        //roads data
+        let roads = [{ "name": "万松园路", "ref": "map/万松园路.html", "total": 56.10, "security_tot": 51.57, "patency_tot": 61.57, "convenience_tot": 66.86 },
+        { "name": "建设大道", "ref": "map/建设大道.html", "total": 61.28, "security_tot": 55.88, "patency_tot": 70.43, "convenience_tot": 66.25 },
+        { "name": "新华路", "ref": "map/新华路.html", "total": 73.68, "security_tot": 69.41, "patency_tot": 81.36, "convenience_tot": 76.29 },
+        { "name": "青年路", "ref": "map/青年路.html", "total": 51.70, "security_tot": 52.04, "patency_tot": 46.83, "convenience_tot": 64.29 },
+        { "name": "常青路", "ref": "map/常青路.html", "total": 46.89, "security_tot": 42.29, "patency_tot": 52.10, "convenience_tot": 58.86 },
+        { "name": "发展大道", "ref": "map/发展大道.html", "total": 14.33, "security_tot": 11.32, "patency_tot": 14.92, "convenience_tot": 30.60 },
+        { "name": "常青一路", "ref": "map/常青一路.html", "total": 39.38, "security_tot": 35.90, "patency_tot": 43.80, "patency_tot": 47.00 },
+        { "name": "红旗渠路", "ref": "map/红旗渠路.html", "total": 12.06, "security_tot": 9.23, "patency_tot": 10.46, "convenience_tot": 33.85 },
+        { "name": "常青三路", "ref": "map/常青三路.html", "total": 4.27, "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.67 },
+        { "name": "江发路", "ref": "map/江发路.html", "total": 53.88, "security_tot": 48.36, "patency_tot": 62.27, "convenience_tot": 61.82 },
+        { "name": "江兴路", "ref": "map/江兴路.html", "total": 3.86, "security_tot": 1.75, "patency_tot": 0.00, "convenience_tot": 28.13 },
+        { "name": "常青五路", "ref": "map/常青五路.html", "total": 12.25, "security_tot": 10.17, "patency_tot": 9.67, "convenience_tot": 32.50 },
+        { "name": "新湾五路", "ref": "map/新湾五路.html", "total": 16.77, "security_tot": 14.50, "patency_tot": 16.75, "convenience_tot": 30.42 },
+        { "name": "新湾三路", "ref": "map/新湾三路.html", "total": 15.21, "security_tot": 12.90, "patency_tot": 14.50, "convenience_tot": 31.20 },
+        { "name": "新湾路", "ref": "map/新湾路.html", "total": 5.67, "security_tot": 4.17, "patency_tot": 1.25, "convenience_tot": 27.92 },
+        { "name": "新湾北路", "ref": "map/新湾北路.html", "total": 3.70, "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 25.00 },
+        { "name": "江达路", "ref": "map/江达路.html", "total": 6.74, "security_tot": 6.13, "patency_tot": 0.63, "convenience_tot": 28.75 },
+        { "name": "长港路", "ref": "map/长港路.html", "total": 3.56, "security_tot": 1.38, "patency_tot": 0.00, "convenience_tot": 27.31 },
+        { "name": "绿柳路", "ref": "map/绿柳路.html", "total": 52.34, "security_tot": 48.50, "patency_tot": 58.08, "convenience_tot": 58.17 },
+        { "name": "姑嫂树路", "ref": "map/姑嫂树路.html", "total": 16.30, "security_tot": 14.20, "patency_tot": 13.60, "convenience_tot": 37.00 },
+        { "name": "云飞路", "ref": "map/云飞路.html", "total": 58.27, "security_tot": 54.64, "patency_tot": 64.73, "convenience_tot": 60.64 },
+        { "name": "淮海路", "ref": "map/淮海路.html", "total": 55.52, "security_tot": 49.56, "patency_tot": 64.17, "convenience_tot": 65.33 },
+        { "name": "振兴路", "ref": "map/振兴路.html", "total": 26.13, "security_tot": 24.00, "patency_tot": 27.67, "convenience_tot": 34.33 },
+        { "name": "京汉大道", "ref": "map/京汉大道.html", "total": 35.13, "security_tot": 30.79, "patency_tot": 40.36, "convenience_tot": 45.50 },
+        { "name": "中山大道", "ref": "map/中山大道.html", "total": 9.32, "security_tot": 6.82, "patency_tot": 5.91, "convenience_tot": 34.55 },
+        { "name": "民主一街", "ref": "map/民主一街.html", "total": 3.47, "security_tot": 1.14, "patency_tot": 0.00, "convenience_tot": 27.86 },
+        { "name": "沿江大道", "ref": "map/沿江大道.html", "total": 55.12, "security_tot": 48.75, "patency_tot": 65.25, "convenience_tot": 63.00 },
+        { "name": "香港路", "ref": "map/香港路.html", "total": 33.36, "security_tot": 32.30, "patency_tot": 30.80, "convenience_tot": 47.40 },
+        { "name": "三眼桥路", "ref": "map/三眼桥路.html", "total": 18.22, "security_tot": 17.29, "patency_tot": 15.50, "convenience_tot": 32.00 },
+        { "name": "马场路", "ref": "map/马场路.html", "total": 7.42, "security_tot": 6.63, "patency_tot": 1.88, "convenience_tot": 28.75 }]
 
         //intervals data
-        let intervals=[{"road_name": "万松园路","int_name": "解放大道->银松路", "security_tot": 61.00, "patency_tot": 66.00, "convenience_tot": 66.00},
-        {"road_name": "万松园路","int_name": "雪松路->建设大道", "security_tot": 62.00, "patency_tot": 86.00, "convenience_tot": 71.00},
-        {"road_name": "万松园路","int_name": "银松路->雪松路", "security_tot": 68.00, "patency_tot": 68.00, "convenience_tot": 75.00},
-        {"road_name": "万松园路","int_name": "雪松路->云松路", "security_tot": 67.00, "patency_tot": 65.00, "convenience_tot": 85.00},
-        {"road_name": "万松园路","int_name": "云松路->万松园横路", "security_tot": 67.00, "patency_tot": 62.00, "convenience_tot": 67.00},
-        {"road_name": "万松园路","int_name": "万松园横路->解放大道", "security_tot": 0.00, "patency_tot": 10.00, "convenience_tot": 35.00},
-        {"road_name": "建设大道","int_name": "新华路->西北湖路", "security_tot": 78.00, "patency_tot": 93.00, "convenience_tot": 70.00},
-        {"road_name": "建设大道","int_name": "青年路->航空路", "security_tot": 67.00, "patency_tot": 85.00, "convenience_tot": 60.00},
-        {"road_name": "建设大道","int_name": "西北湖路->青年路", "security_tot": 65.00, "patency_tot": 95.00, "convenience_tot": 85.00},
-        {"road_name": "建设大道","int_name": "航空路->妙墩路", "security_tot": 70.00, "patency_tot": 85.00, "convenience_tot": 70.00},
-        {"road_name": "建设大道","int_name": "妙墩路->青年路", "security_tot": 70.00, "patency_tot": 95.00, "convenience_tot": 85.00},
-        {"road_name": "建设大道","int_name": "青年路->万松园路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "建设大道","int_name": "万松园路->劲松巷", "security_tot": 70.00, "patency_tot": 95.00, "convenience_tot": 90.00},
-        {"road_name": "建设大道","int_name": "劲松巷->新华路", "security_tot": 25.00, "patency_tot": 10.00, "convenience_tot": 40.00},
-        {"road_name": "新华路","int_name": "解放大道->精武横路", "security_tot": 85.00, "patency_tot": 85.00, "convenience_tot": 79.00},
-        {"road_name": "新华路","int_name": "精武横路->江汉北路", "security_tot": 78.00, "patency_tot": 89.00, "convenience_tot": 89.00},
-        {"road_name": "新华路","int_name": "江汉北路->台北一路", "security_tot": 75.00, "patency_tot": 89.00, "convenience_tot": 84.00},
-        {"road_name": "新华路","int_name": "台北一路->建设大道", "security_tot": 85.00, "patency_tot": 85.00, "convenience_tot": 79.00},
-        {"road_name": "新华路","int_name": "建设大道->黄孝北路", "security_tot": 85.00, "patency_tot": 85.00, "convenience_tot": 74.00},
-        {"road_name": "新华路","int_name": "黄孝北路->北湖正街", "security_tot": 68.00, "patency_tot": 85.00, "convenience_tot": 89.00},
-        {"road_name": "新华路","int_name": "北湖正街->长江日报路", "security_tot": 75.00, "patency_tot": 85.00, "convenience_tot": 84.00},
-        {"road_name": "新华路","int_name": "长江日报路->唐家墩路", "security_tot": 80.00, "patency_tot": 85.00, "convenience_tot": 84.00},
-        {"road_name": "新华路","int_name": "兴唐街->马场路", "security_tot": 73.00, "patency_tot": 80.00, "convenience_tot": 86.00},
-        {"road_name": "新华路","int_name": "马场路->发展大道", "security_tot": 70.00, "patency_tot": 85.00, "convenience_tot": 89.00},
-        {"road_name": "新华路","int_name": "发展大道->八古墩北路", "security_tot": 58.00, "patency_tot": 80.00, "convenience_tot": 66.00},
-        {"road_name": "新华路","int_name": "铁路窑口->常青一路", "security_tot": 55.00, "patency_tot": 80.00, "convenience_tot": 76.00},
-        {"road_name": "新华路","int_name": "常青一路->红旗渠路", "security_tot": 63.00, "patency_tot": 60.00, "convenience_tot": 63.00},
-        {"road_name": "新华路","int_name": "红旗渠路->常青三路", "security_tot": 56.00, "patency_tot": 80.00, "convenience_tot": 61.00},
-        {"road_name": "新华路","int_name": "常青三路->红旗渠路", "security_tot": 63.00, "patency_tot": 86.00, "convenience_tot": 66.00},
-        {"road_name": "新华路","int_name": "红旗渠路->常青一路", "security_tot": 64.00, "patency_tot": 65.00, "convenience_tot": 75.00},
-        {"road_name": "新华路","int_name": "常青一路->铁路通道", "security_tot": 58.00, "patency_tot": 86.00, "convenience_tot": 61.00},
-        {"road_name": "新华路","int_name": "八古墩北路->发展大道", "security_tot": 56.00, "patency_tot": 76.00, "convenience_tot": 71.00},
-        {"road_name": "新华路","int_name": "发展大道->马场路", "security_tot": 64.00, "patency_tot": 80.00, "convenience_tot": 86.00},
-        {"road_name": "新华路","int_name": "马场路->牯牛洲街", "security_tot": 66.00, "patency_tot": 82.00, "convenience_tot": 89.00},
-        {"road_name": "新华路","int_name": "牯牛洲街->马场角小路", "security_tot": 66.00, "patency_tot": 78.00, "convenience_tot": 74.00},
-        {"road_name": "新华路","int_name": "马场角小路->马场角路", "security_tot": 73.00, "patency_tot": 89.00, "convenience_tot": 74.00},
-        {"road_name": "新华路","int_name": "马场角路->北湖西路", "security_tot": 78.00, "patency_tot": 85.00, "convenience_tot": 89.00},
-        {"road_name": "新华路","int_name": "北湖西路->兴政小路", "security_tot": 75.00, "patency_tot": 89.00, "convenience_tot": 74.00},
-        {"road_name": "新华路","int_name": "兴政小路->兴体小路", "security_tot": 64.00, "patency_tot": 89.00, "convenience_tot": 84.00},
-        {"road_name": "新华路","int_name": "兴体小路->建设大道", "security_tot": 68.00, "patency_tot": 85.00, "convenience_tot": 89.00},
-        {"road_name": "新华路","int_name": "银松路（江汉北路）->解放大道", "security_tot": 73.00, "patency_tot": 80.00, "convenience_tot": 61.00},
-        {"road_name": "青年路","int_name": "发展大道->后襄河北路", "security_tot": 63.00, "patency_tot": 60.00, "convenience_tot": 82.00},
-        {"road_name": "青年路","int_name": "后襄河北路->后襄河南路", "security_tot": 56.00, "patency_tot": 42.00, "convenience_tot": 82.00},
-        {"road_name": "青年路","int_name": "后襄河南路->常青路", "security_tot": 55.00, "patency_tot": 62.00, "convenience_tot": 77.00},
-        {"road_name": "青年路","int_name": "常青路->范湖路", "security_tot": 63.00, "patency_tot": 70.00, "convenience_tot": 84.00},
-        {"road_name": "青年路","int_name": "范湖路->淮海路", "security_tot": 73.00, "patency_tot": 65.00, "convenience_tot": 82.00},
-        {"road_name": "青年路","int_name": "淮海路->水利路", "security_tot": 70.00, "patency_tot": 78.00, "convenience_tot": 79.00},
-        {"road_name": "青年路","int_name": "水利路->建设大道", "security_tot": 62.00, "patency_tot": 62.00, "convenience_tot": 82.00},
-        {"road_name": "青年路","int_name": "建设大道->妙墩横路", "security_tot": 77.00, "patency_tot": 68.00, "convenience_tot": 75.00},
-        {"road_name": "青年路","int_name": "妙墩横路->万松园横路", "security_tot": 74.00, "patency_tot": 56.00, "convenience_tot": 76.00},
-        {"road_name": "青年路","int_name": "万松园横路->电业路", "security_tot": 73.00, "patency_tot": 56.00, "convenience_tot": 90.00},
-        {"road_name": "青年路","int_name": "电业路->航空路", "security_tot": 82.00, "patency_tot": 75.00, "convenience_tot": 90.00},
-        {"road_name": "青年路","int_name": "航空路->解放大道", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 25.00},
-        {"road_name": "青年路","int_name": "解放大道->万松园横路", "security_tot": 37.00, "patency_tot": 5.00, "convenience_tot": 30.00},
-        {"road_name": "青年路","int_name": "万松园横路->云松路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "青年路","int_name": "云松路->雪松路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 25.00},
-        {"road_name": "青年路","int_name": "雪松路->建设大道", "security_tot": 69.00, "patency_tot": 65.00, "convenience_tot": 72.00},
-        {"road_name": "青年路","int_name": "建设大道->黄孝西路", "security_tot": 66.00, "patency_tot": 53.00, "convenience_tot": 79.00},
-        {"road_name": "青年路","int_name": "黄孝西路->北湖西路", "security_tot": 61.00, "patency_tot": 51.00, "convenience_tot": 52.00},
-        {"road_name": "青年路","int_name": "北湖西路->青年小路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 25.00},
-        {"road_name": "青年路","int_name": "青年路小路->马场角路", "security_tot": 68.00, "patency_tot": 68.00, "convenience_tot": 75.00},
-        {"road_name": "青年路","int_name": "马场角路->马场角小路", "security_tot": 61.00, "patency_tot": 61.00, "convenience_tot": 67.00},
-        {"road_name": "青年路","int_name": "马场角小路->牯牛洲街", "security_tot": 64.00, "patency_tot": 68.00, "convenience_tot": 60.00},
-        {"road_name": "青年路","int_name": "牯牛洲街->马场路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 35.00},
-        {"road_name": "青年路","int_name": "马场路->发展大道", "security_tot": 65.00, "patency_tot": 59.00, "convenience_tot": 69.00},
-        {"road_name": "常青路","int_name": "张公堤->江兴路", "security_tot": 47.00, "patency_tot": 40.00, "convenience_tot": 71.00},
-        {"road_name": "常青路","int_name": "江兴路->江发路", "security_tot": 61.00, "patency_tot": 69.00, "convenience_tot": 79.00},
-        {"road_name": "常青路","int_name": "江发路->江达路", "security_tot": 75.00, "patency_tot": 95.00, "convenience_tot": 90.00},
-        {"road_name": "常青路","int_name": "江达路->常青公园人行天桥", "security_tot": 60.00, "patency_tot": 62.00, "convenience_tot": 65.00},
-        {"road_name": "常青路","int_name": "常青公园人行天桥->常青二路", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "常青路","int_name": "常青二路->井南路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "常青路","int_name": "井南路->发展大道", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "常青路","int_name": "发展大道->振兴路", "security_tot": 65.00, "patency_tot": 95.00, "convenience_tot": 95.00},
-        {"road_name": "常青路","int_name": "振兴路->云飞路", "security_tot": 65.00, "patency_tot": 95.00, "convenience_tot": 95.00},
-        {"road_name": "常青路","int_name": "云飞路->云彩路", "security_tot": 63.00, "patency_tot": 92.00, "convenience_tot": 62.00},
-        {"road_name": "常青路","int_name": "云彩路->青年路", "security_tot": 61.00, "patency_tot": 69.00, "convenience_tot": 49.00},
-        {"road_name": "常青路","int_name": "青年路->后襄河南路", "security_tot": 68.00, "patency_tot": 86.00, "convenience_tot": 87.00},
-        {"road_name": "常青路","int_name": "后襄河南路->后襄河北路", "security_tot": 60.00, "patency_tot": 83.00, "convenience_tot": 90.00},
-        {"road_name": "常青路","int_name": "后襄河北路->发展大道", "security_tot": 66.00, "patency_tot": 88.00, "convenience_tot": 95.00},
-        {"road_name": "常青路","int_name": "发展大道->常青一路", "security_tot": 65.00, "patency_tot": 88.00, "convenience_tot": 55.00},
-        {"road_name": "常青路","int_name": "常青一路->红旗渠路", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "常青路","int_name": "红旗渠路->常青三路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "常青路","int_name": "常青三路->常青五路", "security_tot": 61.00, "patency_tot": 69.00, "convenience_tot": 49.00},
-        {"road_name": "常青路","int_name": "常青五路->长港路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "常青路","int_name": "长港路->新湾南路", "security_tot": 63.00, "patency_tot": 63.00, "convenience_tot": 44.00},
-        {"road_name": "常青路","int_name": "新湾南路->张公堤", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "发展大道","int_name": "常腾街->振兴三路", "security_tot": 2.00, "patency_tot": 10.00, "convenience_tot": 25.00},
-        {"road_name": "发展大道","int_name": "振兴三路->振兴二路", "security_tot": 2.00, "patency_tot": 10.00, "convenience_tot": 25.00},
-        {"road_name": "发展大道","int_name": "振兴二路->振兴一路", "security_tot": 2.00, "patency_tot": 4.00, "convenience_tot": 10.00},
-        {"road_name": "发展大道","int_name": "振兴一路->常青路", "security_tot": 2.00, "patency_tot": 10.00, "convenience_tot": 25.00},
-        {"road_name": "发展大道","int_name": "常青路->后襄河一路", "security_tot": 2.00, "patency_tot": 10.00, "convenience_tot": 35.00},
-        {"road_name": "发展大道","int_name": "后襄河一路->后襄河二路", "security_tot": 59.00, "patency_tot": 58.00, "convenience_tot": 59.00},
-        {"road_name": "发展大道","int_name": "后襄河二路->青年路", "security_tot": 2.00, "patency_tot": 10.00, "convenience_tot": 35.00},
-        {"road_name": "发展大道","int_name": "青年路->福利路", "security_tot": 2.00, "patency_tot": 10.00, "convenience_tot": 35.00},
-        {"road_name": "发展大道","int_name": "福利路->新华路", "security_tot": 2.00, "patency_tot": 4.00, "convenience_tot": 30.00},
-        {"road_name": "发展大道","int_name": "新华路->马场二路", "security_tot": 2.00, "patency_tot": 10.00, "convenience_tot": 30.00},
-        {"road_name": "发展大道","int_name": "马场二路->唐家墩路", "security_tot": 0.00, "patency_tot": 10.00, "convenience_tot": 30.00},
-        {"road_name": "发展大道","int_name": "唐家墩路->三眼桥路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "发展大道","int_name": "青松路（三眼桥路）->唐家墩路", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "发展大道","int_name": "唐家墩路->马场二路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 15.00},
-        {"road_name": "发展大道","int_name": "马场二路->陈家墩小路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "发展大道","int_name": "陈家墩小路->新华路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "发展大道","int_name": "新华路->金墩街", "security_tot": 56.00, "patency_tot": 55.00, "convenience_tot": 59.00},
-        {"road_name": "发展大道","int_name": "金墩街->汉口站东路", "security_tot": 4.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "发展大道","int_name": "汉口站东路->汉口站中路", "security_tot": 64.00, "patency_tot": 86.00, "convenience_tot": 56.00},
-        {"road_name": "发展大道","int_name": "汉口站中路->汉口站西路", "security_tot": 61.00, "patency_tot": 86.00, "convenience_tot": 31.00},
-        {"road_name": "发展大道","int_name": "汉口站西路->银墩街", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 15.00},
-        {"road_name": "发展大道","int_name": "银墩街->常青路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 35.00},
-        {"road_name": "发展大道","int_name": "常青路->常超街", "security_tot": 5.00, "patency_tot": 0.00, "convenience_tot": 25.00},
-        {"road_name": "发展大道","int_name": "常超街->常飞街", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "发展大道","int_name": "常飞街->常腾街", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 10.00},
-        {"road_name": "常青一路","int_name": "姑嫂树路->双华路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 35.00},
-        {"road_name": "常青一路","int_name": "双华路->新华路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "常青一路","int_name": "新华路->金墩街", "security_tot": 53.00, "patency_tot": 70.00, "convenience_tot": 51.00},
-        {"road_name": "常青一路","int_name": "金墩街->新湾二路", "security_tot": 25.00, "patency_tot": 15.00, "convenience_tot": 45.00},
-        {"road_name": "常青一路","int_name": "新湾二路->常青路", "security_tot": 53.00, "patency_tot": 65.00, "convenience_tot": 66.00},
-        {"road_name": "常青一路","int_name": "常青路->新湾二路", "security_tot": 58.00, "patency_tot": 80.00, "convenience_tot": 61.00},
-        {"road_name": "常青一路","int_name": "新湾二路->金墩街", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "常青一路","int_name": "金墩街->新华路", "security_tot": 53.00, "patency_tot": 70.00, "convenience_tot": 66.00},
-        {"road_name": "常青一路","int_name": "新华路->双华路", "security_tot": 58.00, "patency_tot": 65.00, "convenience_tot": 58.00},
-        {"road_name": "常青一路","int_name": "双华路->姑嫂树路", "security_tot": 53.00, "patency_tot": 73.00, "convenience_tot": 28.00},
-        {"road_name": "红旗渠路","int_name": "常青路->新湾二路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 25.00},
-        {"road_name": "红旗渠路","int_name": "新湾二路->新湾三路", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 35.00},
-        {"road_name": "红旗渠路","int_name": "新湾三路->金墩街", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 35.00},
-        {"road_name": "红旗渠路","int_name": "金墩街（在修路）->新华路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 25.00},
-        {"road_name": "红旗渠路","int_name": "新华路->双华路", "security_tot": 45.00, "patency_tot": 68.00, "convenience_tot": 55.00},
-        {"road_name": "红旗渠路","int_name": "双华路（在修路）->姑嫂树路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "红旗渠路","int_name": "姑嫂树路->双华路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 35.00},
-        {"road_name": "红旗渠路","int_name": "双华路->新华路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 35.00},
-        {"road_name": "红旗渠路","int_name": "新华路->新湾五路", "security_tot": 57.00, "patency_tot": 68.00, "convenience_tot": 60.00},
-        {"road_name": "红旗渠路","int_name": "新湾五路->新湾三路", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 35.00},
-        {"road_name": "红旗渠路","int_name": "新湾三路->新湾二路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "红旗渠路","int_name": "新湾二路->新湾一路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 15.00},
-        {"road_name": "红旗渠路","int_name": "新湾一路->常青路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 25.00},
-        {"road_name": "常青三路","int_name": "姑嫂树路->双华路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 35.00},
-        {"road_name": "常青三路","int_name": "双华路->常兴街", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 35.00},
-        {"road_name": "常青三路","int_name": "常兴街->新湾五路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "常青三路","int_name": "新湾五路->新湾四路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 35.00},
-        {"road_name": "常青三路","int_name": "新湾四路->新湾三路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "常青三路","int_name": "新湾三路->新湾二路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 20.00},
-        {"road_name": "常青三路","int_name": "新湾二路->新湾一路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 35.00},
-        {"road_name": "常青三路","int_name": "新湾一路->常青路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 35.00},
-        {"road_name": "常青三路","int_name": "常青路->新湾一路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 10.00},
-        {"road_name": "常青三路","int_name": "新湾一路->新湾二路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "常青三路","int_name": "新湾二路->新湾三路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 35.00},
-        {"road_name": "常青三路","int_name": "新湾三路->新湾五路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 25.00},
-        {"road_name": "常青三路","int_name": "新湾五路->新华路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 35.00},
-        {"road_name": "常青三路","int_name": "新华路->双华路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 35.00},
-        {"road_name": "常青三路","int_name": "双华路->姑嫂树路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 35.00},
-        {"road_name": "江发路","int_name": "常青路->发展一路", "security_tot": 40.00, "patency_tot": 60.00, "convenience_tot": 55.00},
-        {"road_name": "江发路","int_name": "发展一路->发展二路", "security_tot": 40.00, "patency_tot": 43.00, "convenience_tot": 70.00},
-        {"road_name": "江发路","int_name": "发展二路->发展三路", "security_tot": 35.00, "patency_tot": 43.00, "convenience_tot": 60.00},
-        {"road_name": "江发路","int_name": "发展三路->发展四路", "security_tot": 30.00, "patency_tot": 43.00, "convenience_tot": 50.00},
-        {"road_name": "江发路","int_name": "发展四路->园博园东路", "security_tot": 67.00, "patency_tot": 68.00, "convenience_tot": 65.00},
-        {"road_name": "江发路","int_name": "园博园东路->发展五路", "security_tot": 2.00, "patency_tot": 10.00, "convenience_tot": 55.00},
-        {"road_name": "江发路","int_name": "发展五路->发展四路", "security_tot": 59.00, "patency_tot": 86.00, "convenience_tot": 61.00},
-        {"road_name": "江发路","int_name": "发展四路->发展三路", "security_tot": 72.00, "patency_tot": 80.00, "convenience_tot": 76.00},
-        {"road_name": "江发路","int_name": "发展三路->发展二路", "security_tot": 67.00, "patency_tot": 86.00, "convenience_tot": 66.00},
-        {"road_name": "江发路","int_name": "发展二路->发展一路", "security_tot": 61.00, "patency_tot": 80.00, "convenience_tot": 71.00},
-        {"road_name": "江发路","int_name": "发展一路->常青路", "security_tot": 59.00, "patency_tot": 86.00, "convenience_tot": 51.00},
-        {"road_name": "江兴路","int_name": "园博园东路->发展四路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "江兴路","int_name": "发展四路->发展三路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "江兴路","int_name": "发展三路->发展二路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "江兴路","int_name": "发展二路->发展一路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 10.00},
-        {"road_name": "江兴路","int_name": "发展一路->常青路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "江兴路","int_name": "常青路->发展三路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "江兴路","int_name": "发展三路->发展四路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "江兴路","int_name": "发展四路->园博园东路", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 35.00},
-        {"road_name": "常青五路","int_name": "常青路->新湾一路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "常青五路","int_name": "新湾一路->新湾二路", "security_tot": 22.00, "patency_tot": 43.00, "convenience_tot": 40.00},
-        {"road_name": "常青五路","int_name": "新湾二路->新湾三路", "security_tot": 22.00, "patency_tot": 43.00, "convenience_tot": 30.00},
-        {"road_name": "常青五路","int_name": "新湾三路->新湾四路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 35.00},
-        {"road_name": "常青五路","int_name": "新湾四路->新湾五路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "常青五路","int_name": "新湾五路->常兴街", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 25.00},
-        {"road_name": "常青五路","int_name": "常兴街->姑嫂树路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "常青五路","int_name": "姑嫂树路->新湾五路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "常青五路","int_name": "新湾五路->新湾四路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "常青五路","int_name": "新湾四路->新湾三路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 10.00},
-        {"road_name": "常青五路","int_name": "新湾三路->新湾二路", "security_tot": 30.00, "patency_tot": 15.00, "convenience_tot": 50.00},
-        {"road_name": "常青五路","int_name": "新湾二路->新湾一路", "security_tot": 32.00, "patency_tot": 15.00, "convenience_tot": 50.00},
-        {"road_name": "新湾五路","int_name": "常青一路->红旗渠路", "security_tot": 53.00, "patency_tot": 53.00, "convenience_tot": 59.00},
-        {"road_name": "新湾五路","int_name": "红旗渠路->常青三路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "新湾五路","int_name": "常青三路->常青五路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "新湾五路","int_name": "常青五路->长港路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 25.00},
-        {"road_name": "新湾五路","int_name": "长港路->新湾路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 25.00},
-        {"road_name": "新湾五路","int_name": "新湾路->新湾北路", "security_tot": 49.00, "patency_tot": 68.00, "convenience_tot": 45.00},
-        {"road_name": "新湾五路","int_name": "新湾北路->新湾路", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "新湾五路","int_name": "新湾路->长港路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 25.00},
-        {"road_name": "新湾五路","int_name": "长港路->常青五路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 10.00},
-        {"road_name": "新湾五路","int_name": "常青五路->常青三路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 25.00},
-        {"road_name": "新湾五路","int_name": "常青三路->红旗渠路", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 20.00},
-        {"road_name": "新湾五路","int_name": "红旗渠路->常青一路", "security_tot": 58.00, "patency_tot": 80.00, "convenience_tot": 41.00},
-        {"road_name": "新湾三路","int_name": "新湾路->长港路", "security_tot": 54.00, "patency_tot": 65.00, "convenience_tot": 61.00},
-        {"road_name": "新湾三路","int_name": "长港路->常青五路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 25.00},
-        {"road_name": "新湾三路","int_name": "常青五路->常青三路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "新湾三路","int_name": "常青三路->红旗渠路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "新湾三路","int_name": "红旗渠路->腾越驾校", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "新湾三路","int_name": "新湾三路南端->红旗渠路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 10.00},
-        {"road_name": "新湾三路","int_name": "红旗渠路->常青三路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 25.00},
-        {"road_name": "新湾三路","int_name": "常青三路->常青五路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "新湾三路","int_name": "常青五路->长港路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 10.00},
-        {"road_name": "新湾三路","int_name": "长港路->新湾路", "security_tot": 59.00, "patency_tot": 80.00, "convenience_tot": 61.00},
-        {"road_name": "新湾路","int_name": "常青路->新湾南路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 25.00},
-        {"road_name": "新湾路","int_name": "新湾南路->新湾一路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 25.00},
-        {"road_name": "新湾路","int_name": "新湾一路->新湾二路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "新湾路","int_name": "新湾二路->新湾三路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 35.00},
-        {"road_name": "新湾路","int_name": "新湾三路->新湾四路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 35.00},
-        {"road_name": "新湾路","int_name": "新湾四路->新湾五路", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "新湾路","int_name": "新湾五路->姑嫂树路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 20.00},
-        {"road_name": "新湾路","int_name": "姑嫂树路->新湾五路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 20.00},
-        {"road_name": "新湾路","int_name": "新湾五路->新湾四路", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 35.00},
-        {"road_name": "新湾路","int_name": "新湾四路->新湾二路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "新湾路","int_name": "新湾二路->新湾一路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "新湾路","int_name": "新湾一路->三环线辅路", "security_tot": 32.00, "patency_tot": 15.00, "convenience_tot": 20.00},
-        {"road_name": "新湾北路","int_name": "姑嫂树路->新湾一路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 25.00},
-        {"road_name": "新湾北路","int_name": "新湾一路->新湾二路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 25.00},
-        {"road_name": "新湾北路","int_name": "新湾二路->新湾四路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 25.00},
-        {"road_name": "新湾北路","int_name": "新湾四路->新湾五路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 25.00},
-        {"road_name": "新湾北路","int_name": "新湾五路->姑嫂树路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 25.00},
-        {"road_name": "江达路","int_name": "常青路->发展一路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 25.00},
-        {"road_name": "江达路","int_name": "发展一路->发展二路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 35.00},
-        {"road_name": "江达路","int_name": "发展二路->发展三路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 25.00},
-        {"road_name": "江达路","int_name": "发展三路->发展四路", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "江达路","int_name": "发展四路->发展五路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "江达路","int_name": "发展五路->园博园东路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 25.00},
-        {"road_name": "江达路","int_name": "园博园东路->发展五路", "security_tot": 37.00, "patency_tot": 5.00, "convenience_tot": 45.00},
-        {"road_name": "江达路","int_name": "发展五路->常青路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 15.00},
-        {"road_name": "长港路","int_name": "常青路->新湾一路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "长港路","int_name": "新湾一路->新湾二路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "长港路","int_name": "新湾二路->新湾三路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 35.00},
-        {"road_name": "长港路","int_name": "新湾三路->新湾四路", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "长港路","int_name": "新湾四路->新湾五路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 35.00},
-        {"road_name": "长港路","int_name": "新湾五路->姑嫂树路", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 15.00},
-        {"road_name": "长港路","int_name": "姑嫂树路->新湾五路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 15.00},
-        {"road_name": "长港路","int_name": "新湾五路->新湾四路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 15.00},
-        {"road_name": "长港路","int_name": "新湾四路->新湾三路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "长港路","int_name": "新湾三路->新湾二路", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "长港路","int_name": "新湾二路->新湾一路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "长港路","int_name": "新湾一路->南航小路", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "长港路","int_name": "南航小路->常青路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "绿柳路","int_name": "夏娟街->和谐大道", "security_tot": 59.00, "patency_tot": 89.00, "convenience_tot": 74.00},
-        {"road_name": "绿柳路","int_name": "和谐大道->秋桂街", "security_tot": 59.00, "patency_tot": 50.00, "convenience_tot": 71.00},
-        {"road_name": "绿柳路","int_name": "秋桂街->后湖大道", "security_tot": 56.00, "patency_tot": 69.00, "convenience_tot": 64.00},
-        {"road_name": "绿柳路","int_name": "后湖大道->冬梅街", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "绿柳路","int_name": "冬梅街->兴业路", "security_tot": 71.00, "patency_tot": 89.00, "convenience_tot": 69.00},
-        {"road_name": "绿柳路","int_name": "兴业路->石桥一路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "绿柳路","int_name": "石桥一路->兴业路", "security_tot": 63.00, "patency_tot": 89.00, "convenience_tot": 69.00},
-        {"road_name": "绿柳路","int_name": "兴业路->冬梅路", "security_tot": 69.00, "patency_tot": 89.00, "convenience_tot": 64.00},
-        {"road_name": "绿柳路","int_name": "冬梅路->后湖大道", "security_tot": 68.00, "patency_tot": 79.00, "convenience_tot": 69.00},
-        {"road_name": "绿柳路","int_name": "后湖大道->秋桂街", "security_tot": 60.00, "patency_tot": 74.00, "convenience_tot": 59.00},
-        {"road_name": "绿柳路","int_name": "秋桂街->和谐大道", "security_tot": 73.00, "patency_tot": 69.00, "convenience_tot": 64.00},
-        {"road_name": "绿柳路","int_name": "和谐大道->夏鹃街（有路无标）", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 35.00},
-        {"road_name": "姑嫂树路","int_name": "石桥一路->兴业路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "姑嫂树路","int_name": "兴业路->冬梅街", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "姑嫂树路","int_name": "冬梅街->后湖大道", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "姑嫂树路","int_name": "后湖大道->秋桂街", "security_tot": 62.00, "patency_tot": 68.00, "convenience_tot": 55.00},
-        {"road_name": "姑嫂树路","int_name": "秋桂街->和谐大道", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "姑嫂树路","int_name": "和谐大道->夏鹃街", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 35.00},
-        {"road_name": "姑嫂树路","int_name": "夏鹃街->姑嫂树立交桥", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 35.00},
-        {"road_name": "姑嫂树路","int_name": "新湾北路->新湾路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 35.00},
-        {"road_name": "姑嫂树路","int_name": "新湾路->长港路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "姑嫂树路","int_name": "长港路->远洋路", "security_tot": 67.00, "patency_tot": 68.00, "convenience_tot": 65.00},
-        {"road_name": "姑嫂树路","int_name": "远洋路->常青五路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 25.00},
-        {"road_name": "姑嫂树路","int_name": "常青五路->常青三路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "姑嫂树路","int_name": "常青三路->红旗渠路", "security_tot": 64.00, "patency_tot": 68.00, "convenience_tot": 55.00},
-        {"road_name": "姑嫂树路","int_name": "红旗渠路->常青一路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 35.00},
-        {"road_name": "姑嫂树路","int_name": "常青一路->京广线铁路桥下", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 35.00},
-        {"road_name": "云飞路","int_name": "南部临时连通道->泛海路", "security_tot": 59.00, "patency_tot": 79.00, "convenience_tot": 66.00},
-        {"road_name": "云飞路","int_name": "泛海路->珠江路", "security_tot": 68.00, "patency_tot": 86.00, "convenience_tot": 66.00},
-        {"road_name": "云飞路","int_name": "珠江路->淮海路", "security_tot": 71.00, "patency_tot": 79.00, "convenience_tot": 66.00},
-        {"road_name": "云飞路","int_name": "淮海路->商务西路", "security_tot": 70.00, "patency_tot": 85.00, "convenience_tot": 82.00},
-        {"road_name": "云飞路","int_name": "商务西路->清江路", "security_tot": 68.00, "patency_tot": 70.00, "convenience_tot": 62.00},
-        {"road_name": "云飞路","int_name": "清江路->云霞路", "security_tot": 58.00, "patency_tot": 62.00, "convenience_tot": 72.00},
-        {"road_name": "云飞路","int_name": "常青路->振兴二路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "云飞路","int_name": "振兴二路->振兴三路", "security_tot": 4.00, "patency_tot": 0.00, "convenience_tot": 25.00},
-        {"road_name": "云飞路","int_name": "振兴三路->振兴四路", "security_tot": 61.00, "patency_tot": 86.00, "convenience_tot": 71.00},
-        {"road_name": "云飞路","int_name": "振兴四路->淮海路", "security_tot": 71.00, "patency_tot": 79.00, "convenience_tot": 66.00},
-        {"road_name": "云飞路","int_name": "淮海路->终点（泛海路方向）", "security_tot": 69.00, "patency_tot": 86.00, "convenience_tot": 61.00},
-        {"road_name": "淮海路","int_name": "青年路->水利北路", "security_tot": 58.00, "patency_tot": 80.00, "convenience_tot": 76.00},
-        {"road_name": "淮海路","int_name": "水利北路->云杉路", "security_tot": 58.00, "patency_tot": 80.00, "convenience_tot": 76.00},
-        {"road_name": "淮海路","int_name": "云杉路->云彩路", "security_tot": 58.00, "patency_tot": 86.00, "convenience_tot": 66.00},
-        {"road_name": "淮海路","int_name": "云彩路->云霞路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "淮海路","int_name": "云霞路->商务东路", "security_tot": 61.00, "patency_tot": 77.00, "convenience_tot": 73.00},
-        {"road_name": "淮海路","int_name": "商务东路->商务中路", "security_tot": 58.00, "patency_tot": 86.00, "convenience_tot": 71.00},
-        {"road_name": "淮海路","int_name": "商务中路->商务西路", "security_tot": 63.00, "patency_tot": 86.00, "convenience_tot": 71.00},
-        {"road_name": "淮海路","int_name": "商务西路->云飞路", "security_tot": 64.00, "patency_tot": 80.00, "convenience_tot": 81.00},
-        {"road_name": "淮海路","int_name": "云飞路->振兴路", "security_tot": 59.00, "patency_tot": 80.00, "convenience_tot": 81.00},
-        {"road_name": "淮海路","int_name": "振兴路->发展大道", "security_tot": 59.00, "patency_tot": 79.00, "convenience_tot": 81.00},
-        {"road_name": "淮海路","int_name": "汉西路->泰山路", "security_tot": 33.00, "patency_tot": 15.00, "convenience_tot": 65.00},
-        {"road_name": "淮海路","int_name": "泰山路->云飞路", "security_tot": 78.00, "patency_tot": 89.00, "convenience_tot": 84.00},
-        {"road_name": "淮海路","int_name": "云飞路->商务西路", "security_tot": 61.00, "patency_tot": 75.00, "convenience_tot": 63.00},
-        {"road_name": "淮海路","int_name": "商务西路->商务中路（有道无标）", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "淮海路","int_name": "商务中路->商务东路", "security_tot": 53.00, "patency_tot": 76.00, "convenience_tot": 61.00},
-        {"road_name": "淮海路","int_name": "商务东路->云霞路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "淮海路","int_name": "云霞路->青阳路", "security_tot": 63.00, "patency_tot": 86.00, "convenience_tot": 76.00},
-        {"road_name": "淮海路","int_name": "青阳路->青年路", "security_tot": 60.00, "patency_tot": 80.00, "convenience_tot": 61.00},
-        {"road_name": "振兴路","int_name": "淮海路->振兴四路", "security_tot": 68.00, "patency_tot": 70.00, "convenience_tot": 69.00},
-        {"road_name": "振兴路","int_name": "振兴四路->振兴三路", "security_tot": 53.00, "patency_tot": 69.00, "convenience_tot": 49.00},
-        {"road_name": "振兴路","int_name": "振兴三路->振兴二路", "security_tot": 29.00, "patency_tot": 50.00, "convenience_tot": 50.00},
-        {"road_name": "振兴路","int_name": "振兴二路->常青路", "security_tot": 56.00, "patency_tot": 60.00, "convenience_tot": 76.00},
-        {"road_name": "振兴路","int_name": "常青路->振兴一路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 10.00},
-        {"road_name": "振兴路","int_name": "振兴一路->振兴二路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 25.00},
-        {"road_name": "振兴路","int_name": "振兴二路->振兴三路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 10.00},
-        {"road_name": "振兴路","int_name": "振兴三路->振兴四路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 10.00},
-        {"road_name": "振兴路","int_name": "振兴四路->淮海路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 10.00},
-        {"road_name": "京汉大道","int_name": "利济北路->游艺路", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "京汉大道","int_name": "游艺路->民意四路", "security_tot": 59.00, "patency_tot": 67.00, "convenience_tot": 46.00},
-        {"road_name": "京汉大道","int_name": "民意四路->友谊路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "京汉大道","int_name": "友谊路->前进一路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "京汉大道","int_name": "前进一路->前进四路", "security_tot": 62.00, "patency_tot": 86.00, "convenience_tot": 71.00},
-        {"road_name": "京汉大道","int_name": "前进四路->前进五路", "security_tot": 59.00, "patency_tot": 86.00, "convenience_tot": 71.00},
-        {"road_name": "京汉大道","int_name": "前进五路->江汉路", "security_tot": 61.00, "patency_tot": 80.00, "convenience_tot": 61.00},
-        {"road_name": "京汉大道","int_name": "江汉路->单洞路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "京汉大道","int_name": "单洞路->单洞三路", "security_tot": 60.00, "patency_tot": 80.00, "convenience_tot": 71.00},
-        {"road_name": "京汉大道","int_name": "单洞三路->双洞正街", "security_tot": 59.00, "patency_tot": 86.00, "convenience_tot": 71.00},
-        {"road_name": "京汉大道","int_name": "双洞正街->武展东路", "security_tot": 61.00, "patency_tot": 80.00, "convenience_tot": 41.00},
-        {"road_name": "京汉大道","int_name": "武展东路->武展西路", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "京汉大道","int_name": "武展西路->武商路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 25.00},
-        {"road_name": "京汉大道","int_name": "武商路->利济北路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "中山大道","int_name": "江汉路->前进四路-前进二路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "中山大道","int_name": "前进二路->前进一路", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "中山大道","int_name": "前进一路->民意一路", "security_tot": 65.00, "patency_tot": 65.00, "convenience_tot": 75.00},
-        {"road_name": "中山大道","int_name": "民意一路->友谊路", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "中山大道","int_name": "友谊路->民意四路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "中山大道","int_name": "民意四路->满春路", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "中山大道","int_name": "满春路->友谊南路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "中山大道","int_name": "友谊南路->三民路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "中山大道","int_name": "三民路->民生路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "中山大道","int_name": "民生路->交通路", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "中山大道","int_name": "交通路->江汉路", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 35.00},
-        {"road_name": "民主一街","int_name": "民意四路->民意三路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "民主一街","int_name": "民意三路->友谊路", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 35.00},
-        {"road_name": "民主一街","int_name": "友谊路->民意一路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "民主一街","int_name": "民意一路->前进一路", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "民主一街","int_name": "前进一路->前进二路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "民主一街","int_name": "前进二路->前进四路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 25.00},
-        {"road_name": "民主一街","int_name": "前进四路->前进五路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 35.00},
-        {"road_name": "民主一街","int_name": "前进五路->前进四路", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "民主一街","int_name": "前进四路->前进二路", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "民主一街","int_name": "前进二路->前进一路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "民主一街","int_name": "前进一路->民意一路", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "民主一街","int_name": "民意一路->友谊路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 15.00},
-        {"road_name": "民主一街","int_name": "友谊路->民意三路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 10.00},
-        {"road_name": "民主一街","int_name": "民意三路->民意四路", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "沿江大道","int_name": "大兴一路->武汉关", "security_tot": 63.00, "patency_tot": 86.00, "convenience_tot": 66.00},
-        {"road_name": "沿江大道","int_name": "江汉关博物馆（朝向科技馆）->民生路", "security_tot": 63.00, "patency_tot": 80.00, "convenience_tot": 81.00},
-        {"road_name": "沿江大道","int_name": "民生路->民权路", "security_tot": 67.00, "patency_tot": 95.00, "convenience_tot": 75.00},
-        {"road_name": "沿江大道","int_name": "民权路->大兴一路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "香港路","int_name": "建设大道->长福沁苑公寓", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "香港路","int_name": "长福沁苑公寓->三眼桥北路", "security_tot": 63.00, "patency_tot": 50.00, "convenience_tot": 61.00},
-        {"road_name": "香港路","int_name": "三眼桥北路->荷花池街", "security_tot": 60.00, "patency_tot": 68.00, "convenience_tot": 65.00},
-        {"road_name": "香港路","int_name": "荷花池街->唐蔡路", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 35.00},
-        {"road_name": "香港路","int_name": "唐家墩路->菱角湖路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "香港路","int_name": "菱角湖路->天门墩路", "security_tot": 69.00, "patency_tot": 46.00, "convenience_tot": 70.00},
-        {"road_name": "香港路","int_name": "天门墩路->台北路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 25.00},
-        {"road_name": "香港路","int_name": "台北路->香江路", "security_tot": 68.00, "patency_tot": 75.00, "convenience_tot": 69.00},
-        {"road_name": "香港路","int_name": "香江路->香江东路", "security_tot": 57.00, "patency_tot": 69.00, "convenience_tot": 59.00},
-        {"road_name": "香港路","int_name": "香江东路->建设大道", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "三眼桥路","int_name": "发展大道->唐蔡路", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "三眼桥路","int_name": "唐蔡路->荷花池街", "security_tot": 48.00, "patency_tot": 31.00, "convenience_tot": 54.00},
-        {"road_name": "三眼桥路","int_name": "荷花池街->三眼桥北路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "三眼桥路","int_name": "三眼桥北路->建设大道", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "三眼桥路","int_name": "建设大道->三眼桥北路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 15.00},
-        {"road_name": "三眼桥路","int_name": "三眼桥北路->江大路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 10.00},
-        {"road_name": "三眼桥路","int_name": "江大路->发展大道", "security_tot": 65.00, "patency_tot": 75.00, "convenience_tot": 55.00},
-        {"road_name": "马场路","int_name": "青年路->新华路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "马场路","int_name": "新华路->马场一路", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "马场路","int_name": "马场一路->唐家墩路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 25.00},
-        {"road_name": "马场路","int_name": "香港路->唐家墩路", "security_tot": 41.00, "patency_tot": 15.00, "convenience_tot": 45.00},
-        {"road_name": "马场路","int_name": "唐家墩路->马场二路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 10.00},
-        {"road_name": "马场路","int_name": "马场二路->新华路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "马场路","int_name": "新华路->福利路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00},
-        {"road_name": "马场路","int_name": "福利路->青年路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00}
-    ]
-    let index_of_img=0;
-    let img_url="picture/万松园路/0.jpeg";
-    let img_change_int=0;
-    let picture_nums=[3,3,14,12,11,12,5,6,8,5,5,7,6,5,7,1,6,5,6,7,6,10,4,7,5,7,1,4,4,3];
-    let picture_num=3;
-    //初始化地图
+        let intervals = [{ "road_name": "万松园路", "int_name": "解放大道->银松路", "security_tot": 61.00, "patency_tot": 66.00, "convenience_tot": 66.00 },
+        { "road_name": "万松园路", "int_name": "雪松路->建设大道", "security_tot": 62.00, "patency_tot": 86.00, "convenience_tot": 71.00 },
+        { "road_name": "万松园路", "int_name": "银松路->雪松路", "security_tot": 68.00, "patency_tot": 68.00, "convenience_tot": 75.00 },
+        { "road_name": "万松园路", "int_name": "雪松路->云松路", "security_tot": 67.00, "patency_tot": 65.00, "convenience_tot": 85.00 },
+        { "road_name": "万松园路", "int_name": "云松路->万松园横路", "security_tot": 67.00, "patency_tot": 62.00, "convenience_tot": 67.00 },
+        { "road_name": "万松园路", "int_name": "万松园横路->解放大道", "security_tot": 0.00, "patency_tot": 10.00, "convenience_tot": 35.00 },
+        { "road_name": "建设大道", "int_name": "新华路->西北湖路", "security_tot": 78.00, "patency_tot": 93.00, "convenience_tot": 70.00 },
+        { "road_name": "建设大道", "int_name": "青年路->航空路", "security_tot": 67.00, "patency_tot": 85.00, "convenience_tot": 60.00 },
+        { "road_name": "建设大道", "int_name": "西北湖路->青年路", "security_tot": 65.00, "patency_tot": 95.00, "convenience_tot": 85.00 },
+        { "road_name": "建设大道", "int_name": "航空路->妙墩路", "security_tot": 70.00, "patency_tot": 85.00, "convenience_tot": 70.00 },
+        { "road_name": "建设大道", "int_name": "妙墩路->青年路", "security_tot": 70.00, "patency_tot": 95.00, "convenience_tot": 85.00 },
+        { "road_name": "建设大道", "int_name": "青年路->万松园路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "建设大道", "int_name": "万松园路->劲松巷", "security_tot": 70.00, "patency_tot": 95.00, "convenience_tot": 90.00 },
+        { "road_name": "建设大道", "int_name": "劲松巷->新华路", "security_tot": 25.00, "patency_tot": 10.00, "convenience_tot": 40.00 },
+        { "road_name": "新华路", "int_name": "解放大道->精武横路", "security_tot": 85.00, "patency_tot": 85.00, "convenience_tot": 79.00 },
+        { "road_name": "新华路", "int_name": "精武横路->江汉北路", "security_tot": 78.00, "patency_tot": 89.00, "convenience_tot": 89.00 },
+        { "road_name": "新华路", "int_name": "江汉北路->台北一路", "security_tot": 75.00, "patency_tot": 89.00, "convenience_tot": 84.00 },
+        { "road_name": "新华路", "int_name": "台北一路->建设大道", "security_tot": 85.00, "patency_tot": 85.00, "convenience_tot": 79.00 },
+        { "road_name": "新华路", "int_name": "建设大道->黄孝北路", "security_tot": 85.00, "patency_tot": 85.00, "convenience_tot": 74.00 },
+        { "road_name": "新华路", "int_name": "黄孝北路->北湖正街", "security_tot": 68.00, "patency_tot": 85.00, "convenience_tot": 89.00 },
+        { "road_name": "新华路", "int_name": "北湖正街->长江日报路", "security_tot": 75.00, "patency_tot": 85.00, "convenience_tot": 84.00 },
+        { "road_name": "新华路", "int_name": "长江日报路->唐家墩路", "security_tot": 80.00, "patency_tot": 85.00, "convenience_tot": 84.00 },
+        { "road_name": "新华路", "int_name": "兴唐街->马场路", "security_tot": 73.00, "patency_tot": 80.00, "convenience_tot": 86.00 },
+        { "road_name": "新华路", "int_name": "马场路->发展大道", "security_tot": 70.00, "patency_tot": 85.00, "convenience_tot": 89.00 },
+        { "road_name": "新华路", "int_name": "发展大道->八古墩北路", "security_tot": 58.00, "patency_tot": 80.00, "convenience_tot": 66.00 },
+        { "road_name": "新华路", "int_name": "铁路窑口->常青一路", "security_tot": 55.00, "patency_tot": 80.00, "convenience_tot": 76.00 },
+        { "road_name": "新华路", "int_name": "常青一路->红旗渠路", "security_tot": 63.00, "patency_tot": 60.00, "convenience_tot": 63.00 },
+        { "road_name": "新华路", "int_name": "红旗渠路->常青三路", "security_tot": 56.00, "patency_tot": 80.00, "convenience_tot": 61.00 },
+        { "road_name": "新华路", "int_name": "常青三路->红旗渠路", "security_tot": 63.00, "patency_tot": 86.00, "convenience_tot": 66.00 },
+        { "road_name": "新华路", "int_name": "红旗渠路->常青一路", "security_tot": 64.00, "patency_tot": 65.00, "convenience_tot": 75.00 },
+        { "road_name": "新华路", "int_name": "常青一路->铁路通道", "security_tot": 58.00, "patency_tot": 86.00, "convenience_tot": 61.00 },
+        { "road_name": "新华路", "int_name": "八古墩北路->发展大道", "security_tot": 56.00, "patency_tot": 76.00, "convenience_tot": 71.00 },
+        { "road_name": "新华路", "int_name": "发展大道->马场路", "security_tot": 64.00, "patency_tot": 80.00, "convenience_tot": 86.00 },
+        { "road_name": "新华路", "int_name": "马场路->牯牛洲街", "security_tot": 66.00, "patency_tot": 82.00, "convenience_tot": 89.00 },
+        { "road_name": "新华路", "int_name": "牯牛洲街->马场角小路", "security_tot": 66.00, "patency_tot": 78.00, "convenience_tot": 74.00 },
+        { "road_name": "新华路", "int_name": "马场角小路->马场角路", "security_tot": 73.00, "patency_tot": 89.00, "convenience_tot": 74.00 },
+        { "road_name": "新华路", "int_name": "马场角路->北湖西路", "security_tot": 78.00, "patency_tot": 85.00, "convenience_tot": 89.00 },
+        { "road_name": "新华路", "int_name": "北湖西路->兴政小路", "security_tot": 75.00, "patency_tot": 89.00, "convenience_tot": 74.00 },
+        { "road_name": "新华路", "int_name": "兴政小路->兴体小路", "security_tot": 64.00, "patency_tot": 89.00, "convenience_tot": 84.00 },
+        { "road_name": "新华路", "int_name": "兴体小路->建设大道", "security_tot": 68.00, "patency_tot": 85.00, "convenience_tot": 89.00 },
+        { "road_name": "新华路", "int_name": "银松路（江汉北路）->解放大道", "security_tot": 73.00, "patency_tot": 80.00, "convenience_tot": 61.00 },
+        { "road_name": "青年路", "int_name": "发展大道->后襄河北路", "security_tot": 63.00, "patency_tot": 60.00, "convenience_tot": 82.00 },
+        { "road_name": "青年路", "int_name": "后襄河北路->后襄河南路", "security_tot": 56.00, "patency_tot": 42.00, "convenience_tot": 82.00 },
+        { "road_name": "青年路", "int_name": "后襄河南路->常青路", "security_tot": 55.00, "patency_tot": 62.00, "convenience_tot": 77.00 },
+        { "road_name": "青年路", "int_name": "常青路->范湖路", "security_tot": 63.00, "patency_tot": 70.00, "convenience_tot": 84.00 },
+        { "road_name": "青年路", "int_name": "范湖路->淮海路", "security_tot": 73.00, "patency_tot": 65.00, "convenience_tot": 82.00 },
+        { "road_name": "青年路", "int_name": "淮海路->水利路", "security_tot": 70.00, "patency_tot": 78.00, "convenience_tot": 79.00 },
+        { "road_name": "青年路", "int_name": "水利路->建设大道", "security_tot": 62.00, "patency_tot": 62.00, "convenience_tot": 82.00 },
+        { "road_name": "青年路", "int_name": "建设大道->妙墩横路", "security_tot": 77.00, "patency_tot": 68.00, "convenience_tot": 75.00 },
+        { "road_name": "青年路", "int_name": "妙墩横路->万松园横路", "security_tot": 74.00, "patency_tot": 56.00, "convenience_tot": 76.00 },
+        { "road_name": "青年路", "int_name": "万松园横路->电业路", "security_tot": 73.00, "patency_tot": 56.00, "convenience_tot": 90.00 },
+        { "road_name": "青年路", "int_name": "电业路->航空路", "security_tot": 82.00, "patency_tot": 75.00, "convenience_tot": 90.00 },
+        { "road_name": "青年路", "int_name": "航空路->解放大道", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 25.00 },
+        { "road_name": "青年路", "int_name": "解放大道->万松园横路", "security_tot": 37.00, "patency_tot": 5.00, "convenience_tot": 30.00 },
+        { "road_name": "青年路", "int_name": "万松园横路->云松路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "青年路", "int_name": "云松路->雪松路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 25.00 },
+        { "road_name": "青年路", "int_name": "雪松路->建设大道", "security_tot": 69.00, "patency_tot": 65.00, "convenience_tot": 72.00 },
+        { "road_name": "青年路", "int_name": "建设大道->黄孝西路", "security_tot": 66.00, "patency_tot": 53.00, "convenience_tot": 79.00 },
+        { "road_name": "青年路", "int_name": "黄孝西路->北湖西路", "security_tot": 61.00, "patency_tot": 51.00, "convenience_tot": 52.00 },
+        { "road_name": "青年路", "int_name": "北湖西路->青年小路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 25.00 },
+        { "road_name": "青年路", "int_name": "青年路小路->马场角路", "security_tot": 68.00, "patency_tot": 68.00, "convenience_tot": 75.00 },
+        { "road_name": "青年路", "int_name": "马场角路->马场角小路", "security_tot": 61.00, "patency_tot": 61.00, "convenience_tot": 67.00 },
+        { "road_name": "青年路", "int_name": "马场角小路->牯牛洲街", "security_tot": 64.00, "patency_tot": 68.00, "convenience_tot": 60.00 },
+        { "road_name": "青年路", "int_name": "牯牛洲街->马场路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 35.00 },
+        { "road_name": "青年路", "int_name": "马场路->发展大道", "security_tot": 65.00, "patency_tot": 59.00, "convenience_tot": 69.00 },
+        { "road_name": "常青路", "int_name": "张公堤->江兴路", "security_tot": 47.00, "patency_tot": 40.00, "convenience_tot": 71.00 },
+        { "road_name": "常青路", "int_name": "江兴路->江发路", "security_tot": 61.00, "patency_tot": 69.00, "convenience_tot": 79.00 },
+        { "road_name": "常青路", "int_name": "江发路->江达路", "security_tot": 75.00, "patency_tot": 95.00, "convenience_tot": 90.00 },
+        { "road_name": "常青路", "int_name": "江达路->常青公园人行天桥", "security_tot": 60.00, "patency_tot": 62.00, "convenience_tot": 65.00 },
+        { "road_name": "常青路", "int_name": "常青公园人行天桥->常青二路", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "常青路", "int_name": "常青二路->井南路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "常青路", "int_name": "井南路->发展大道", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "常青路", "int_name": "发展大道->振兴路", "security_tot": 65.00, "patency_tot": 95.00, "convenience_tot": 95.00 },
+        { "road_name": "常青路", "int_name": "振兴路->云飞路", "security_tot": 65.00, "patency_tot": 95.00, "convenience_tot": 95.00 },
+        { "road_name": "常青路", "int_name": "云飞路->云彩路", "security_tot": 63.00, "patency_tot": 92.00, "convenience_tot": 62.00 },
+        { "road_name": "常青路", "int_name": "云彩路->青年路", "security_tot": 61.00, "patency_tot": 69.00, "convenience_tot": 49.00 },
+        { "road_name": "常青路", "int_name": "青年路->后襄河南路", "security_tot": 68.00, "patency_tot": 86.00, "convenience_tot": 87.00 },
+        { "road_name": "常青路", "int_name": "后襄河南路->后襄河北路", "security_tot": 60.00, "patency_tot": 83.00, "convenience_tot": 90.00 },
+        { "road_name": "常青路", "int_name": "后襄河北路->发展大道", "security_tot": 66.00, "patency_tot": 88.00, "convenience_tot": 95.00 },
+        { "road_name": "常青路", "int_name": "发展大道->常青一路", "security_tot": 65.00, "patency_tot": 88.00, "convenience_tot": 55.00 },
+        { "road_name": "常青路", "int_name": "常青一路->红旗渠路", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "常青路", "int_name": "红旗渠路->常青三路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "常青路", "int_name": "常青三路->常青五路", "security_tot": 61.00, "patency_tot": 69.00, "convenience_tot": 49.00 },
+        { "road_name": "常青路", "int_name": "常青五路->长港路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "常青路", "int_name": "长港路->新湾南路", "security_tot": 63.00, "patency_tot": 63.00, "convenience_tot": 44.00 },
+        { "road_name": "常青路", "int_name": "新湾南路->张公堤", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "发展大道", "int_name": "常腾街->振兴三路", "security_tot": 2.00, "patency_tot": 10.00, "convenience_tot": 25.00 },
+        { "road_name": "发展大道", "int_name": "振兴三路->振兴二路", "security_tot": 2.00, "patency_tot": 10.00, "convenience_tot": 25.00 },
+        { "road_name": "发展大道", "int_name": "振兴二路->振兴一路", "security_tot": 2.00, "patency_tot": 4.00, "convenience_tot": 10.00 },
+        { "road_name": "发展大道", "int_name": "振兴一路->常青路", "security_tot": 2.00, "patency_tot": 10.00, "convenience_tot": 25.00 },
+        { "road_name": "发展大道", "int_name": "常青路->后襄河一路", "security_tot": 2.00, "patency_tot": 10.00, "convenience_tot": 35.00 },
+        { "road_name": "发展大道", "int_name": "后襄河一路->后襄河二路", "security_tot": 59.00, "patency_tot": 58.00, "convenience_tot": 59.00 },
+        { "road_name": "发展大道", "int_name": "后襄河二路->青年路", "security_tot": 2.00, "patency_tot": 10.00, "convenience_tot": 35.00 },
+        { "road_name": "发展大道", "int_name": "青年路->福利路", "security_tot": 2.00, "patency_tot": 10.00, "convenience_tot": 35.00 },
+        { "road_name": "发展大道", "int_name": "福利路->新华路", "security_tot": 2.00, "patency_tot": 4.00, "convenience_tot": 30.00 },
+        { "road_name": "发展大道", "int_name": "新华路->马场二路", "security_tot": 2.00, "patency_tot": 10.00, "convenience_tot": 30.00 },
+        { "road_name": "发展大道", "int_name": "马场二路->唐家墩路", "security_tot": 0.00, "patency_tot": 10.00, "convenience_tot": 30.00 },
+        { "road_name": "发展大道", "int_name": "唐家墩路->三眼桥路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "发展大道", "int_name": "青松路（三眼桥路）->唐家墩路", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "发展大道", "int_name": "唐家墩路->马场二路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 15.00 },
+        { "road_name": "发展大道", "int_name": "马场二路->陈家墩小路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "发展大道", "int_name": "陈家墩小路->新华路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "发展大道", "int_name": "新华路->金墩街", "security_tot": 56.00, "patency_tot": 55.00, "convenience_tot": 59.00 },
+        { "road_name": "发展大道", "int_name": "金墩街->汉口站东路", "security_tot": 4.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "发展大道", "int_name": "汉口站东路->汉口站中路", "security_tot": 64.00, "patency_tot": 86.00, "convenience_tot": 56.00 },
+        { "road_name": "发展大道", "int_name": "汉口站中路->汉口站西路", "security_tot": 61.00, "patency_tot": 86.00, "convenience_tot": 31.00 },
+        { "road_name": "发展大道", "int_name": "汉口站西路->银墩街", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 15.00 },
+        { "road_name": "发展大道", "int_name": "银墩街->常青路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 35.00 },
+        { "road_name": "发展大道", "int_name": "常青路->常超街", "security_tot": 5.00, "patency_tot": 0.00, "convenience_tot": 25.00 },
+        { "road_name": "发展大道", "int_name": "常超街->常飞街", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "发展大道", "int_name": "常飞街->常腾街", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 10.00 },
+        { "road_name": "常青一路", "int_name": "姑嫂树路->双华路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 35.00 },
+        { "road_name": "常青一路", "int_name": "双华路->新华路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "常青一路", "int_name": "新华路->金墩街", "security_tot": 53.00, "patency_tot": 70.00, "convenience_tot": 51.00 },
+        { "road_name": "常青一路", "int_name": "金墩街->新湾二路", "security_tot": 25.00, "patency_tot": 15.00, "convenience_tot": 45.00 },
+        { "road_name": "常青一路", "int_name": "新湾二路->常青路", "security_tot": 53.00, "patency_tot": 65.00, "convenience_tot": 66.00 },
+        { "road_name": "常青一路", "int_name": "常青路->新湾二路", "security_tot": 58.00, "patency_tot": 80.00, "convenience_tot": 61.00 },
+        { "road_name": "常青一路", "int_name": "新湾二路->金墩街", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "常青一路", "int_name": "金墩街->新华路", "security_tot": 53.00, "patency_tot": 70.00, "convenience_tot": 66.00 },
+        { "road_name": "常青一路", "int_name": "新华路->双华路", "security_tot": 58.00, "patency_tot": 65.00, "convenience_tot": 58.00 },
+        { "road_name": "常青一路", "int_name": "双华路->姑嫂树路", "security_tot": 53.00, "patency_tot": 73.00, "convenience_tot": 28.00 },
+        { "road_name": "红旗渠路", "int_name": "常青路->新湾二路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 25.00 },
+        { "road_name": "红旗渠路", "int_name": "新湾二路->新湾三路", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 35.00 },
+        { "road_name": "红旗渠路", "int_name": "新湾三路->金墩街", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 35.00 },
+        { "road_name": "红旗渠路", "int_name": "金墩街（在修路）->新华路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 25.00 },
+        { "road_name": "红旗渠路", "int_name": "新华路->双华路", "security_tot": 45.00, "patency_tot": 68.00, "convenience_tot": 55.00 },
+        { "road_name": "红旗渠路", "int_name": "双华路（在修路）->姑嫂树路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "红旗渠路", "int_name": "姑嫂树路->双华路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 35.00 },
+        { "road_name": "红旗渠路", "int_name": "双华路->新华路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 35.00 },
+        { "road_name": "红旗渠路", "int_name": "新华路->新湾五路", "security_tot": 57.00, "patency_tot": 68.00, "convenience_tot": 60.00 },
+        { "road_name": "红旗渠路", "int_name": "新湾五路->新湾三路", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 35.00 },
+        { "road_name": "红旗渠路", "int_name": "新湾三路->新湾二路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "红旗渠路", "int_name": "新湾二路->新湾一路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 15.00 },
+        { "road_name": "红旗渠路", "int_name": "新湾一路->常青路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 25.00 },
+        { "road_name": "常青三路", "int_name": "姑嫂树路->双华路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 35.00 },
+        { "road_name": "常青三路", "int_name": "双华路->常兴街", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 35.00 },
+        { "road_name": "常青三路", "int_name": "常兴街->新湾五路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "常青三路", "int_name": "新湾五路->新湾四路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 35.00 },
+        { "road_name": "常青三路", "int_name": "新湾四路->新湾三路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "常青三路", "int_name": "新湾三路->新湾二路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 20.00 },
+        { "road_name": "常青三路", "int_name": "新湾二路->新湾一路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 35.00 },
+        { "road_name": "常青三路", "int_name": "新湾一路->常青路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 35.00 },
+        { "road_name": "常青三路", "int_name": "常青路->新湾一路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 10.00 },
+        { "road_name": "常青三路", "int_name": "新湾一路->新湾二路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "常青三路", "int_name": "新湾二路->新湾三路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 35.00 },
+        { "road_name": "常青三路", "int_name": "新湾三路->新湾五路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 25.00 },
+        { "road_name": "常青三路", "int_name": "新湾五路->新华路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 35.00 },
+        { "road_name": "常青三路", "int_name": "新华路->双华路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 35.00 },
+        { "road_name": "常青三路", "int_name": "双华路->姑嫂树路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 35.00 },
+        { "road_name": "江发路", "int_name": "常青路->发展一路", "security_tot": 40.00, "patency_tot": 60.00, "convenience_tot": 55.00 },
+        { "road_name": "江发路", "int_name": "发展一路->发展二路", "security_tot": 40.00, "patency_tot": 43.00, "convenience_tot": 70.00 },
+        { "road_name": "江发路", "int_name": "发展二路->发展三路", "security_tot": 35.00, "patency_tot": 43.00, "convenience_tot": 60.00 },
+        { "road_name": "江发路", "int_name": "发展三路->发展四路", "security_tot": 30.00, "patency_tot": 43.00, "convenience_tot": 50.00 },
+        { "road_name": "江发路", "int_name": "发展四路->园博园东路", "security_tot": 67.00, "patency_tot": 68.00, "convenience_tot": 65.00 },
+        { "road_name": "江发路", "int_name": "园博园东路->发展五路", "security_tot": 2.00, "patency_tot": 10.00, "convenience_tot": 55.00 },
+        { "road_name": "江发路", "int_name": "发展五路->发展四路", "security_tot": 59.00, "patency_tot": 86.00, "convenience_tot": 61.00 },
+        { "road_name": "江发路", "int_name": "发展四路->发展三路", "security_tot": 72.00, "patency_tot": 80.00, "convenience_tot": 76.00 },
+        { "road_name": "江发路", "int_name": "发展三路->发展二路", "security_tot": 67.00, "patency_tot": 86.00, "convenience_tot": 66.00 },
+        { "road_name": "江发路", "int_name": "发展二路->发展一路", "security_tot": 61.00, "patency_tot": 80.00, "convenience_tot": 71.00 },
+        { "road_name": "江发路", "int_name": "发展一路->常青路", "security_tot": 59.00, "patency_tot": 86.00, "convenience_tot": 51.00 },
+        { "road_name": "江兴路", "int_name": "园博园东路->发展四路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "江兴路", "int_name": "发展四路->发展三路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "江兴路", "int_name": "发展三路->发展二路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "江兴路", "int_name": "发展二路->发展一路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 10.00 },
+        { "road_name": "江兴路", "int_name": "发展一路->常青路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "江兴路", "int_name": "常青路->发展三路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "江兴路", "int_name": "发展三路->发展四路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "江兴路", "int_name": "发展四路->园博园东路", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 35.00 },
+        { "road_name": "常青五路", "int_name": "常青路->新湾一路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "常青五路", "int_name": "新湾一路->新湾二路", "security_tot": 22.00, "patency_tot": 43.00, "convenience_tot": 40.00 },
+        { "road_name": "常青五路", "int_name": "新湾二路->新湾三路", "security_tot": 22.00, "patency_tot": 43.00, "convenience_tot": 30.00 },
+        { "road_name": "常青五路", "int_name": "新湾三路->新湾四路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 35.00 },
+        { "road_name": "常青五路", "int_name": "新湾四路->新湾五路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "常青五路", "int_name": "新湾五路->常兴街", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 25.00 },
+        { "road_name": "常青五路", "int_name": "常兴街->姑嫂树路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "常青五路", "int_name": "姑嫂树路->新湾五路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "常青五路", "int_name": "新湾五路->新湾四路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "常青五路", "int_name": "新湾四路->新湾三路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 10.00 },
+        { "road_name": "常青五路", "int_name": "新湾三路->新湾二路", "security_tot": 30.00, "patency_tot": 15.00, "convenience_tot": 50.00 },
+        { "road_name": "常青五路", "int_name": "新湾二路->新湾一路", "security_tot": 32.00, "patency_tot": 15.00, "convenience_tot": 50.00 },
+        { "road_name": "新湾五路", "int_name": "常青一路->红旗渠路", "security_tot": 53.00, "patency_tot": 53.00, "convenience_tot": 59.00 },
+        { "road_name": "新湾五路", "int_name": "红旗渠路->常青三路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "新湾五路", "int_name": "常青三路->常青五路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "新湾五路", "int_name": "常青五路->长港路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 25.00 },
+        { "road_name": "新湾五路", "int_name": "长港路->新湾路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 25.00 },
+        { "road_name": "新湾五路", "int_name": "新湾路->新湾北路", "security_tot": 49.00, "patency_tot": 68.00, "convenience_tot": 45.00 },
+        { "road_name": "新湾五路", "int_name": "新湾北路->新湾路", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "新湾五路", "int_name": "新湾路->长港路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 25.00 },
+        { "road_name": "新湾五路", "int_name": "长港路->常青五路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 10.00 },
+        { "road_name": "新湾五路", "int_name": "常青五路->常青三路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 25.00 },
+        { "road_name": "新湾五路", "int_name": "常青三路->红旗渠路", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 20.00 },
+        { "road_name": "新湾五路", "int_name": "红旗渠路->常青一路", "security_tot": 58.00, "patency_tot": 80.00, "convenience_tot": 41.00 },
+        { "road_name": "新湾三路", "int_name": "新湾路->长港路", "security_tot": 54.00, "patency_tot": 65.00, "convenience_tot": 61.00 },
+        { "road_name": "新湾三路", "int_name": "长港路->常青五路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 25.00 },
+        { "road_name": "新湾三路", "int_name": "常青五路->常青三路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "新湾三路", "int_name": "常青三路->红旗渠路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "新湾三路", "int_name": "红旗渠路->腾越驾校", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "新湾三路", "int_name": "新湾三路南端->红旗渠路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 10.00 },
+        { "road_name": "新湾三路", "int_name": "红旗渠路->常青三路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 25.00 },
+        { "road_name": "新湾三路", "int_name": "常青三路->常青五路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "新湾三路", "int_name": "常青五路->长港路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 10.00 },
+        { "road_name": "新湾三路", "int_name": "长港路->新湾路", "security_tot": 59.00, "patency_tot": 80.00, "convenience_tot": 61.00 },
+        { "road_name": "新湾路", "int_name": "常青路->新湾南路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 25.00 },
+        { "road_name": "新湾路", "int_name": "新湾南路->新湾一路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 25.00 },
+        { "road_name": "新湾路", "int_name": "新湾一路->新湾二路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "新湾路", "int_name": "新湾二路->新湾三路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 35.00 },
+        { "road_name": "新湾路", "int_name": "新湾三路->新湾四路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 35.00 },
+        { "road_name": "新湾路", "int_name": "新湾四路->新湾五路", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "新湾路", "int_name": "新湾五路->姑嫂树路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 20.00 },
+        { "road_name": "新湾路", "int_name": "姑嫂树路->新湾五路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 20.00 },
+        { "road_name": "新湾路", "int_name": "新湾五路->新湾四路", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 35.00 },
+        { "road_name": "新湾路", "int_name": "新湾四路->新湾二路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "新湾路", "int_name": "新湾二路->新湾一路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "新湾路", "int_name": "新湾一路->三环线辅路", "security_tot": 32.00, "patency_tot": 15.00, "convenience_tot": 20.00 },
+        { "road_name": "新湾北路", "int_name": "姑嫂树路->新湾一路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 25.00 },
+        { "road_name": "新湾北路", "int_name": "新湾一路->新湾二路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 25.00 },
+        { "road_name": "新湾北路", "int_name": "新湾二路->新湾四路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 25.00 },
+        { "road_name": "新湾北路", "int_name": "新湾四路->新湾五路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 25.00 },
+        { "road_name": "新湾北路", "int_name": "新湾五路->姑嫂树路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 25.00 },
+        { "road_name": "江达路", "int_name": "常青路->发展一路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 25.00 },
+        { "road_name": "江达路", "int_name": "发展一路->发展二路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 35.00 },
+        { "road_name": "江达路", "int_name": "发展二路->发展三路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 25.00 },
+        { "road_name": "江达路", "int_name": "发展三路->发展四路", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "江达路", "int_name": "发展四路->发展五路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "江达路", "int_name": "发展五路->园博园东路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 25.00 },
+        { "road_name": "江达路", "int_name": "园博园东路->发展五路", "security_tot": 37.00, "patency_tot": 5.00, "convenience_tot": 45.00 },
+        { "road_name": "江达路", "int_name": "发展五路->常青路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 15.00 },
+        { "road_name": "长港路", "int_name": "常青路->新湾一路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "长港路", "int_name": "新湾一路->新湾二路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "长港路", "int_name": "新湾二路->新湾三路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 35.00 },
+        { "road_name": "长港路", "int_name": "新湾三路->新湾四路", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "长港路", "int_name": "新湾四路->新湾五路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 35.00 },
+        { "road_name": "长港路", "int_name": "新湾五路->姑嫂树路", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 15.00 },
+        { "road_name": "长港路", "int_name": "姑嫂树路->新湾五路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 15.00 },
+        { "road_name": "长港路", "int_name": "新湾五路->新湾四路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 15.00 },
+        { "road_name": "长港路", "int_name": "新湾四路->新湾三路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "长港路", "int_name": "新湾三路->新湾二路", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "长港路", "int_name": "新湾二路->新湾一路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "长港路", "int_name": "新湾一路->南航小路", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "长港路", "int_name": "南航小路->常青路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "绿柳路", "int_name": "夏娟街->和谐大道", "security_tot": 59.00, "patency_tot": 89.00, "convenience_tot": 74.00 },
+        { "road_name": "绿柳路", "int_name": "和谐大道->秋桂街", "security_tot": 59.00, "patency_tot": 50.00, "convenience_tot": 71.00 },
+        { "road_name": "绿柳路", "int_name": "秋桂街->后湖大道", "security_tot": 56.00, "patency_tot": 69.00, "convenience_tot": 64.00 },
+        { "road_name": "绿柳路", "int_name": "后湖大道->冬梅街", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "绿柳路", "int_name": "冬梅街->兴业路", "security_tot": 71.00, "patency_tot": 89.00, "convenience_tot": 69.00 },
+        { "road_name": "绿柳路", "int_name": "兴业路->石桥一路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "绿柳路", "int_name": "石桥一路->兴业路", "security_tot": 63.00, "patency_tot": 89.00, "convenience_tot": 69.00 },
+        { "road_name": "绿柳路", "int_name": "兴业路->冬梅路", "security_tot": 69.00, "patency_tot": 89.00, "convenience_tot": 64.00 },
+        { "road_name": "绿柳路", "int_name": "冬梅路->后湖大道", "security_tot": 68.00, "patency_tot": 79.00, "convenience_tot": 69.00 },
+        { "road_name": "绿柳路", "int_name": "后湖大道->秋桂街", "security_tot": 60.00, "patency_tot": 74.00, "convenience_tot": 59.00 },
+        { "road_name": "绿柳路", "int_name": "秋桂街->和谐大道", "security_tot": 73.00, "patency_tot": 69.00, "convenience_tot": 64.00 },
+        { "road_name": "绿柳路", "int_name": "和谐大道->夏鹃街（有路无标）", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 35.00 },
+        { "road_name": "姑嫂树路", "int_name": "石桥一路->兴业路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "姑嫂树路", "int_name": "兴业路->冬梅街", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "姑嫂树路", "int_name": "冬梅街->后湖大道", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "姑嫂树路", "int_name": "后湖大道->秋桂街", "security_tot": 62.00, "patency_tot": 68.00, "convenience_tot": 55.00 },
+        { "road_name": "姑嫂树路", "int_name": "秋桂街->和谐大道", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "姑嫂树路", "int_name": "和谐大道->夏鹃街", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 35.00 },
+        { "road_name": "姑嫂树路", "int_name": "夏鹃街->姑嫂树立交桥", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 35.00 },
+        { "road_name": "姑嫂树路", "int_name": "新湾北路->新湾路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 35.00 },
+        { "road_name": "姑嫂树路", "int_name": "新湾路->长港路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "姑嫂树路", "int_name": "长港路->远洋路", "security_tot": 67.00, "patency_tot": 68.00, "convenience_tot": 65.00 },
+        { "road_name": "姑嫂树路", "int_name": "远洋路->常青五路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 25.00 },
+        { "road_name": "姑嫂树路", "int_name": "常青五路->常青三路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "姑嫂树路", "int_name": "常青三路->红旗渠路", "security_tot": 64.00, "patency_tot": 68.00, "convenience_tot": 55.00 },
+        { "road_name": "姑嫂树路", "int_name": "红旗渠路->常青一路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 35.00 },
+        { "road_name": "姑嫂树路", "int_name": "常青一路->京广线铁路桥下", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 35.00 },
+        { "road_name": "云飞路", "int_name": "南部临时连通道->泛海路", "security_tot": 59.00, "patency_tot": 79.00, "convenience_tot": 66.00 },
+        { "road_name": "云飞路", "int_name": "泛海路->珠江路", "security_tot": 68.00, "patency_tot": 86.00, "convenience_tot": 66.00 },
+        { "road_name": "云飞路", "int_name": "珠江路->淮海路", "security_tot": 71.00, "patency_tot": 79.00, "convenience_tot": 66.00 },
+        { "road_name": "云飞路", "int_name": "淮海路->商务西路", "security_tot": 70.00, "patency_tot": 85.00, "convenience_tot": 82.00 },
+        { "road_name": "云飞路", "int_name": "商务西路->清江路", "security_tot": 68.00, "patency_tot": 70.00, "convenience_tot": 62.00 },
+        { "road_name": "云飞路", "int_name": "清江路->云霞路", "security_tot": 58.00, "patency_tot": 62.00, "convenience_tot": 72.00 },
+        { "road_name": "云飞路", "int_name": "常青路->振兴二路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "云飞路", "int_name": "振兴二路->振兴三路", "security_tot": 4.00, "patency_tot": 0.00, "convenience_tot": 25.00 },
+        { "road_name": "云飞路", "int_name": "振兴三路->振兴四路", "security_tot": 61.00, "patency_tot": 86.00, "convenience_tot": 71.00 },
+        { "road_name": "云飞路", "int_name": "振兴四路->淮海路", "security_tot": 71.00, "patency_tot": 79.00, "convenience_tot": 66.00 },
+        { "road_name": "云飞路", "int_name": "淮海路->终点（泛海路方向）", "security_tot": 69.00, "patency_tot": 86.00, "convenience_tot": 61.00 },
+        { "road_name": "淮海路", "int_name": "青年路->水利北路", "security_tot": 58.00, "patency_tot": 80.00, "convenience_tot": 76.00 },
+        { "road_name": "淮海路", "int_name": "水利北路->云杉路", "security_tot": 58.00, "patency_tot": 80.00, "convenience_tot": 76.00 },
+        { "road_name": "淮海路", "int_name": "云杉路->云彩路", "security_tot": 58.00, "patency_tot": 86.00, "convenience_tot": 66.00 },
+        { "road_name": "淮海路", "int_name": "云彩路->云霞路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "淮海路", "int_name": "云霞路->商务东路", "security_tot": 61.00, "patency_tot": 77.00, "convenience_tot": 73.00 },
+        { "road_name": "淮海路", "int_name": "商务东路->商务中路", "security_tot": 58.00, "patency_tot": 86.00, "convenience_tot": 71.00 },
+        { "road_name": "淮海路", "int_name": "商务中路->商务西路", "security_tot": 63.00, "patency_tot": 86.00, "convenience_tot": 71.00 },
+        { "road_name": "淮海路", "int_name": "商务西路->云飞路", "security_tot": 64.00, "patency_tot": 80.00, "convenience_tot": 81.00 },
+        { "road_name": "淮海路", "int_name": "云飞路->振兴路", "security_tot": 59.00, "patency_tot": 80.00, "convenience_tot": 81.00 },
+        { "road_name": "淮海路", "int_name": "振兴路->发展大道", "security_tot": 59.00, "patency_tot": 79.00, "convenience_tot": 81.00 },
+        { "road_name": "淮海路", "int_name": "汉西路->泰山路", "security_tot": 33.00, "patency_tot": 15.00, "convenience_tot": 65.00 },
+        { "road_name": "淮海路", "int_name": "泰山路->云飞路", "security_tot": 78.00, "patency_tot": 89.00, "convenience_tot": 84.00 },
+        { "road_name": "淮海路", "int_name": "云飞路->商务西路", "security_tot": 61.00, "patency_tot": 75.00, "convenience_tot": 63.00 },
+        { "road_name": "淮海路", "int_name": "商务西路->商务中路（有道无标）", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "淮海路", "int_name": "商务中路->商务东路", "security_tot": 53.00, "patency_tot": 76.00, "convenience_tot": 61.00 },
+        { "road_name": "淮海路", "int_name": "商务东路->云霞路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "淮海路", "int_name": "云霞路->青阳路", "security_tot": 63.00, "patency_tot": 86.00, "convenience_tot": 76.00 },
+        { "road_name": "淮海路", "int_name": "青阳路->青年路", "security_tot": 60.00, "patency_tot": 80.00, "convenience_tot": 61.00 },
+        { "road_name": "振兴路", "int_name": "淮海路->振兴四路", "security_tot": 68.00, "patency_tot": 70.00, "convenience_tot": 69.00 },
+        { "road_name": "振兴路", "int_name": "振兴四路->振兴三路", "security_tot": 53.00, "patency_tot": 69.00, "convenience_tot": 49.00 },
+        { "road_name": "振兴路", "int_name": "振兴三路->振兴二路", "security_tot": 29.00, "patency_tot": 50.00, "convenience_tot": 50.00 },
+        { "road_name": "振兴路", "int_name": "振兴二路->常青路", "security_tot": 56.00, "patency_tot": 60.00, "convenience_tot": 76.00 },
+        { "road_name": "振兴路", "int_name": "常青路->振兴一路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 10.00 },
+        { "road_name": "振兴路", "int_name": "振兴一路->振兴二路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 25.00 },
+        { "road_name": "振兴路", "int_name": "振兴二路->振兴三路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 10.00 },
+        { "road_name": "振兴路", "int_name": "振兴三路->振兴四路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 10.00 },
+        { "road_name": "振兴路", "int_name": "振兴四路->淮海路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 10.00 },
+        { "road_name": "京汉大道", "int_name": "利济北路->游艺路", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "京汉大道", "int_name": "游艺路->民意四路", "security_tot": 59.00, "patency_tot": 67.00, "convenience_tot": 46.00 },
+        { "road_name": "京汉大道", "int_name": "民意四路->友谊路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "京汉大道", "int_name": "友谊路->前进一路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "京汉大道", "int_name": "前进一路->前进四路", "security_tot": 62.00, "patency_tot": 86.00, "convenience_tot": 71.00 },
+        { "road_name": "京汉大道", "int_name": "前进四路->前进五路", "security_tot": 59.00, "patency_tot": 86.00, "convenience_tot": 71.00 },
+        { "road_name": "京汉大道", "int_name": "前进五路->江汉路", "security_tot": 61.00, "patency_tot": 80.00, "convenience_tot": 61.00 },
+        { "road_name": "京汉大道", "int_name": "江汉路->单洞路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "京汉大道", "int_name": "单洞路->单洞三路", "security_tot": 60.00, "patency_tot": 80.00, "convenience_tot": 71.00 },
+        { "road_name": "京汉大道", "int_name": "单洞三路->双洞正街", "security_tot": 59.00, "patency_tot": 86.00, "convenience_tot": 71.00 },
+        { "road_name": "京汉大道", "int_name": "双洞正街->武展东路", "security_tot": 61.00, "patency_tot": 80.00, "convenience_tot": 41.00 },
+        { "road_name": "京汉大道", "int_name": "武展东路->武展西路", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "京汉大道", "int_name": "武展西路->武商路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 25.00 },
+        { "road_name": "京汉大道", "int_name": "武商路->利济北路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "中山大道", "int_name": "江汉路->前进四路-前进二路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "中山大道", "int_name": "前进二路->前进一路", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "中山大道", "int_name": "前进一路->民意一路", "security_tot": 65.00, "patency_tot": 65.00, "convenience_tot": 75.00 },
+        { "road_name": "中山大道", "int_name": "民意一路->友谊路", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "中山大道", "int_name": "友谊路->民意四路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "中山大道", "int_name": "民意四路->满春路", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "中山大道", "int_name": "满春路->友谊南路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "中山大道", "int_name": "友谊南路->三民路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "中山大道", "int_name": "三民路->民生路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "中山大道", "int_name": "民生路->交通路", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "中山大道", "int_name": "交通路->江汉路", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 35.00 },
+        { "road_name": "民主一街", "int_name": "民意四路->民意三路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "民主一街", "int_name": "民意三路->友谊路", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 35.00 },
+        { "road_name": "民主一街", "int_name": "友谊路->民意一路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "民主一街", "int_name": "民意一路->前进一路", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "民主一街", "int_name": "前进一路->前进二路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "民主一街", "int_name": "前进二路->前进四路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 25.00 },
+        { "road_name": "民主一街", "int_name": "前进四路->前进五路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 35.00 },
+        { "road_name": "民主一街", "int_name": "前进五路->前进四路", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "民主一街", "int_name": "前进四路->前进二路", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "民主一街", "int_name": "前进二路->前进一路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "民主一街", "int_name": "前进一路->民意一路", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "民主一街", "int_name": "民意一路->友谊路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 15.00 },
+        { "road_name": "民主一街", "int_name": "友谊路->民意三路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 10.00 },
+        { "road_name": "民主一街", "int_name": "民意三路->民意四路", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "沿江大道", "int_name": "大兴一路->武汉关", "security_tot": 63.00, "patency_tot": 86.00, "convenience_tot": 66.00 },
+        { "road_name": "沿江大道", "int_name": "江汉关博物馆（朝向科技馆）->民生路", "security_tot": 63.00, "patency_tot": 80.00, "convenience_tot": 81.00 },
+        { "road_name": "沿江大道", "int_name": "民生路->民权路", "security_tot": 67.00, "patency_tot": 95.00, "convenience_tot": 75.00 },
+        { "road_name": "沿江大道", "int_name": "民权路->大兴一路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "香港路", "int_name": "建设大道->长福沁苑公寓", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "香港路", "int_name": "长福沁苑公寓->三眼桥北路", "security_tot": 63.00, "patency_tot": 50.00, "convenience_tot": 61.00 },
+        { "road_name": "香港路", "int_name": "三眼桥北路->荷花池街", "security_tot": 60.00, "patency_tot": 68.00, "convenience_tot": 65.00 },
+        { "road_name": "香港路", "int_name": "荷花池街->唐蔡路", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 35.00 },
+        { "road_name": "香港路", "int_name": "唐家墩路->菱角湖路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "香港路", "int_name": "菱角湖路->天门墩路", "security_tot": 69.00, "patency_tot": 46.00, "convenience_tot": 70.00 },
+        { "road_name": "香港路", "int_name": "天门墩路->台北路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 25.00 },
+        { "road_name": "香港路", "int_name": "台北路->香江路", "security_tot": 68.00, "patency_tot": 75.00, "convenience_tot": 69.00 },
+        { "road_name": "香港路", "int_name": "香江路->香江东路", "security_tot": 57.00, "patency_tot": 69.00, "convenience_tot": 59.00 },
+        { "road_name": "香港路", "int_name": "香江东路->建设大道", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "三眼桥路", "int_name": "发展大道->唐蔡路", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "三眼桥路", "int_name": "唐蔡路->荷花池街", "security_tot": 48.00, "patency_tot": 31.00, "convenience_tot": 54.00 },
+        { "road_name": "三眼桥路", "int_name": "荷花池街->三眼桥北路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "三眼桥路", "int_name": "三眼桥北路->建设大道", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "三眼桥路", "int_name": "建设大道->三眼桥北路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 15.00 },
+        { "road_name": "三眼桥路", "int_name": "三眼桥北路->江大路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 10.00 },
+        { "road_name": "三眼桥路", "int_name": "江大路->发展大道", "security_tot": 65.00, "patency_tot": 75.00, "convenience_tot": 55.00 },
+        { "road_name": "马场路", "int_name": "青年路->新华路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "马场路", "int_name": "新华路->马场一路", "security_tot": 0.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "马场路", "int_name": "马场一路->唐家墩路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 25.00 },
+        { "road_name": "马场路", "int_name": "香港路->唐家墩路", "security_tot": 41.00, "patency_tot": 15.00, "convenience_tot": 45.00 },
+        { "road_name": "马场路", "int_name": "唐家墩路->马场二路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 10.00 },
+        { "road_name": "马场路", "int_name": "马场二路->新华路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "马场路", "int_name": "新华路->福利路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 },
+        { "road_name": "马场路", "int_name": "福利路->青年路", "security_tot": 2.00, "patency_tot": 0.00, "convenience_tot": 30.00 }
+        ]
+        let index_of_img = 0;
+        let img_url = "picture/万松园路/0.jpeg";
+        let img_change_int = 0;
+        let picture_nums = [3, 3, 14, 12, 11, 12, 5, 6, 8, 5, 5, 7, 6, 5, 7, 1, 6, 5, 6, 7, 6, 10, 4, 7, 5, 7, 1, 4, 4, 3];
+        let picture_num = 3;
+        //初始化地图
 
 
-    function checkhHtml5()
-    {
-        if (typeof(Worker) === "undefined")
-        {
-            if(navigator.userAgent.indexOf("MSIE 9.0")<=0)
-            {
-                alert("IE9以下不兼容，推荐使用edge、chrome、firefox、safari、IE10");
+        function checkhHtml5() {
+            if (typeof (Worker) === "undefined") {
+                if (navigator.userAgent.indexOf("MSIE 9.0") <= 0) {
+                    alert("IE9以下不兼容，推荐使用edge、chrome、firefox、safari、IE10");
+                }
+
+            }
+        }
+        checkhHtml5();
+
+        //时间
+        var timer = null;
+        function setTime() {
+            if (timer !== null) {
+                clearTimeout(timer);
+            }
+            setTimeout(function () {
+                $("#date").text(getTime()[0]);
+                $("#time").text(getTime()[1] + "  " + getTime()[2]);
+                setTime();
+            }, 0);
+        }
+        setTime();
+
+
+        //生成卡片
+        //排行
+        var interval_score =
+            '<ul id="road_rank">' +
+            '<li><span class="interval_score-li-name">Top1<span class="typeStyle">   新华路</span></span><span class="interval_score-li-num">69.41</span></li>' +
+            '<li><span class="interval_score-li-name">Top2<span class="typeStyle">   建设大道</span></span><span class="interval_score-li-num">55.88</span></li>' +
+            '<li><span class="interval_score-li-name">Top3<span class="typeStyle">   云飞路</span></span><span class="interval_score-li-num">54.64</span></li>' +
+            '<li><span class="interval_score-li-name">Top4<span class="typeStyle">   青年路</span></span><span class="interval_score-li-num">52.04</span></li>' +
+            '<li><span class="interval_score-li-name">Top5<span class="typeStyle">   万松园路</span></span><span class="interval_score-li-num">51.57</span></li>' +
+            '</ul>';
+
+        var interval_score_tip = new CreateTip({
+            id: "i_s_tip",
+            titleName: "道路安全性得分Top5",
+            icon: "icon/排行.png",
+            pos: { position: "fixed", top: window.innerHeight * 0.12, left: window.innerWidth * 0.01 },
+            width: 20,
+        });
+        interval_score_tip.setData(interval_score);
+
+
+
+
+        // 大屏
+
+        //legend 生成图例
+        function createLegend1() {
+            var html = '';
+            html += '<div class="legend-container1">';
+            html += '<div class="legend-content1"><span><img src="icon/legend.png"/>道路名称</span></div>';
+            html += '<div class="legend-content1"><span><select id="sel_road" onchange="road_choose()"></div>';
+            html += '<option value="0">万松园路</option>';
+            html += '<option value="1">建设大道</option>';
+            html += '<option value="2">新华路</option>';
+            html += '<option value="3">青年路</option>';
+            html += '<option value="4">常青路</option>';
+            html += '<option value="5">发展大道</option>';
+            html += '<option value="6">常青一路</option>';
+            html += '<option value="7">红旗渠路</option>';
+            html += '<option value="8">常青三路</option>';
+            html += '<option value="9">江发路</option>';
+            html += '<option value="10">江兴路</option>';
+            html += '<option value="11">常青五路</option>';
+            html += '<option value="12">新湾五路</option>';
+            html += '<option value="13">新湾三路</option>';
+            html += '<option value="14">新湾路</option>';
+            html += '<option value="15">新湾北路</option>';
+            html += '<option value="16">江达路</option>';
+            html += '<option value="17">长港路</option>';
+            html += '<option value="18">绿柳路</option>';
+            html += '<option value="19">姑嫂树路</option>';
+            html += '<option value="20">云飞路</option>';
+            html += '<option value="21">淮海路</option>';
+            html += '<option value="22">振兴路</option>';
+            html += '<option value="23">京汉大道</option>';
+            html += '<option value="24">中山大道</option>';
+            html += '<option value="25">民主一街</option>';
+            html += '<option value="26">沿江大道</option>';
+            html += '<option value="27">香港路</option>';
+            html += '<option value="28">三眼桥路</option>';
+            html += '<option value="29">马场路</option>';
+            //html += '<div class="legend-content"><span><span class="red-legend"></span><span style="font-size: 14px;">安全性</span><span><span class="green-legend"></span><span style="font-size: 14px;">畅通性</span><span><span style="margin-right: -10px;"><img src="icon/高亮图标小.png"></span><span style="font-size: 14px;">舒适性</span></span></span></div>';
+            html += '</div>';
+            $("body").append(html);
+            setLegendPos1();
+
+
+        }
+
+        //照片
+        var photo =
+            /* '<ul>' +
+             '<div align="center" id="picture">' +
+             '<img src="icon/1.jpeg" width="240" height="200" />' +
+             '</div>' +
+             '</ul>';*/
+            '<style>' +
+            '#img{width: 18vw;height: 25vh;margin: 0;padding: 0;position: relative;}' +
+            '#img>.lleft{width: 1vw;height: 2vh;position: absolute;left: -1.64vw;top: 10vh;}' +
+            '#img>.rright{width: 1vw;height: 2vh;position: absolute;right: -0.4vw;top: 10vh;}' +
+            '</style>' +
+            '<div id="img">' +
+            '<img id="imgs" src="picture/万松园路/0.jpeg" alt="无法显示" style="width:18vw;height:24vh;"> ' +
+            '<div class="lleft">' +
+            '<img src="icon/左箭头.png" alt="无法显示">' +
+            '</div>' +
+            '<div class="rright">' +
+            '<img src="icon/右箭头.png" alt="无法显示">' +
+            '</div>' +
+            '</div>';
+
+
+        var photo_tip = new CreateTip({
+            id: "photo",
+            titleName: "照片展示区",
+            icon: "icon/多素材.png",
+            pos: { position: "fixed", top: window.innerHeight * 0.62, left: window.innerWidth * 0.01 },
+            width: 20,
+            body: "icon/多素材.png",
+
+            //        html:photo
+        });
+        photo_tip.setData(photo);
+
+        //let roads=[];
+        //let intervals=[];
+        /*$.getJSON('package.json',function (data){
+            roads=data.roads;
+            intervals=data.intervals;
+        })*/
+        function setLegendPos1() {
+            var $legendW = 200;
+            $(".legend-container1").css({
+                position: "fixed",
+                top: window.innerHeight * 0.12,
+                left: window.innerWidth * 0.22,
+                width: window.innerWidth * 0.545
+
+            });
+            //let roads=[
+            // {name:'万松园路',pictures:["road1/2_6_image.jpg","icon/2.jpeg"]},
+            // {name:'建设大道',pictures:["icon/3.jpeg","icon/4.jpeg"]},
+
+            // ]
+            var index;
+            //var imgs = document.getElementById("picture").getElementsByTagName("img");
+            var iframes = document.getElementById("mapContainer").getElementsByTagName("iframe");
+            road_choose = function () {
+                var img = document.getElementById("imgs");
+                index = document.getElementById("sel_road").value;
+                //imgs[0].src=roads[index].pictures[0];
+                iframes[0].src = roads[index].ref;
+                img_url = "picture/" + roads[index].name + "/0.jpeg";
+                picture_num = picture_nums[index];
+                img.src = img_url;
+                index_of_img = 0;
+                img_change_int = 0;
+                tot_score();
+                int_score();
+                interval_rank();
+            }
+        }
+        createLegend1();
+        createLegend2();
+        function createLegend2() {
+            var html = '';
+            html += '<div class="legend-container2">';
+            html += '<div class="legend-content2"><span>道路总得分： <span >100</span></span></div>';
+            html += '</div>';
+            $("body").append(html);
+            setLegendPos2();
+        }
+        function setLegendPos2() {
+            $(".legend-container2").css({
+                position: "fixed",
+                top: window.innerHeight * 0.12,
+                left: window.innerWidth * 0.57,
+                width: window.innerWidth * 0.545
+            });
+        }
+
+
+        //指标图例
+        function createIndicator() {
+            var html = '';
+            html += '<div class="indicator-container">';
+            html += '<div class="indicator-content"><span><img src="icon/legend.png"/>性能指标</span></div>';
+            html += '<div class="indicator-content"><span><select id="sel_indicator" onchange="indicator_choose()" ></span></div>';
+            html += '<option value="安全性">安全性</option>';
+            html += '<option value="畅通性">畅通性</option>';
+            html += '<option value="舒适性">舒适性</option>';
+            html += '</div>'
+            $("body").append(html);
+            setIndicatorPos();
+        }
+        function setIndicatorPos() {
+            $(".indicator-container").css({
+                position: "fixed",
+                top: window.innerHeight * 0.80,
+                left: window.innerWidth * 0.22,
+                width: window.innerWidth * 0.545
+            });
+
+        }
+        let indicator_choose = function () {
+            var road_rank1 = document.getElementsByClassName("tip-title")[0].getElementsByTagName("span")[1];
+            var indicator = document.getElementById("sel_indicator");
+            road_rank1.innerText = "道路" + indicator.value + "得分Top5";
+            road_rank();
+            interval_rank();
+            int_score();
+        }
+
+        createIndicator();
+        createIndicator1();
+        function createIndicator1() {
+            var html = '';
+            html += '<div class="indicator-container1">';
+            html += '<div class="indicator-content1"><span>道路总得分： <span >100</span></span></div>';
+            html += '</div>';
+            $("body").append(html);
+            setIndicatorPos2();
+        }
+        function setIndicatorPos2() {
+            $(".indicator-container1").css({
+                position: "fixed",
+                top: window.innerHeight * 0.80,
+                left: window.innerWidth * 0.57,
+                width: window.innerWidth * 0.1,
+            });
+        }
+
+        //路
+        var road =
+            '<ul id="int_rank">' +
+            '<li><span class="interval_score-li-name">Top1<span class="typeStyle">     新华路</span></span><span class="interval_score-li-num">73.68 </span></li>' +
+            '<li><span class="interval_score-li-name">Top2<span class="typeStyle">     建设大道</span></span><span class="interval_score-li-num">61.28 </span></li>' +
+            '<li><span class="interval_score-li-name">Top3<span class="typeStyle">     云飞路</span></span><span class="interval_score-li-num">58.27 </span></li>' +
+            '<li><span class="interval_score-li-name">Top4<span class="typeStyle">     万松园路</span></span><span class="interval_score-li-num">56.10 </span></li>' +
+            '<li><span class="interval_score-li-name">Top5<span class="typeStyle">     淮海路</span></span><span class="interval_score-li-num">55.52 </span></li>' +
+            '<li><span class="interval_score-li-name">Top6<span class="typeStyle">     沿江大道</span></span><span class="interval_score-li-num">55.13 </span></li>' +
+            '<li><span class="interval_score-li-name">Top7<span class="typeStyle">     江发路</span></span><span class="interval_score-li-num">53.88 </span></li>' +
+            '<li><span class="interval_score-li-name">Top8<span class="typeStyle">     绿柳路</span></span><span class="interval_score-li-num">52.34 </span></li>' +
+            '<li><span class="interval_score-li-name">Top9<span class="typeStyle">     青年路</span></span><span class="interval_score-li-num">51.70 </span></li>' +
+            '<li><span class="interval_score-li-name">Top10<span class="typeStyle">   常青路</span></span><span class="interval_score-li-num">46.89 </span></li>' +
+            '</ul>';
+
+        var rtip = new CreateTip({
+            id: "road",
+            titleName: "道路区间得分Top5",
+            icon: "icon/排行.png",
+            pos: { position: "fixed", top: window.innerHeight * 0.125, right: window.innerWidth * 0.01 },
+            width: 20,
+        });
+        rtip.setData(road);
+        function road_rank() {
+            var roads1 = [];
+            for (var i = 0; i < roads.length; i++) {
+                roads1.push(roads[i]);
+            }
+            var indicator = document.getElementById("sel_indicator").value;
+            var roadnames = document.getElementsByClassName("typeStyle");
+            var ind_tot = document.getElementsByClassName("interval_score-li-num");
+            if (indicator == "安全性") {
+                for (var i = 0; i < 5; i++) {
+                    for (var j = 0; j < roads1.length; j++) {
+                        for (var k = 0; k < roads1.length - 1 - j; k++)
+                            if (roads1[k].security_tot < roads1[k + 1].security_tot) {
+                                var t = roads1[k];
+                                roads1[k] = roads1[k + 1];
+                                roads1[k + 1] = t;
+                            }
+                    }
+
+                }
+                for (var i = 0; i < 5; i++) {
+                    roadnames[i].innerHTML = "<span className='typeStyle'>" + '     ' + roads1[i].name + "</span>";
+                    ind_tot[i].innerHTML = "<span className='interval_score-li-num'>" + roads1[i].security_tot + "</span>";
+                }
+            }
+            else if (indicator == "畅通性") {
+                for (var i = 0; i < 5; i++) {
+                    for (var j = 0; j < roads1.length; j++) {
+                        for (var k = 0; k < roads1.length - 1 - j; k++)
+                            if (roads1[k].patency_tot < roads1[k + 1].patency_tot) {
+                                var t = roads1[k];
+                                roads1[k] = roads1[k + 1];
+                                roads1[k + 1] = t;
+                            }
+                    }
+
+                }
+                for (var i = 0; i < 5; i++) {
+                    roadnames[i].innerHTML = "<span className='typeStyle'>" + '     ' + roads1[i].name + "</span>";
+                    ind_tot[i].innerHTML = "<span className='interval_score-li-num'>" + roads1[i].patency_tot + "</span>";
+                }
+            }
+            else {
+                for (var i = 0; i < 5; i++) {
+                    for (var j = 0; j < roads1.length; j++) {
+                        for (var k = 0; k < roads1.length - 1 - j; k++)
+                            if (roads1[k].convenience_tot < roads1[k + 1].convenience_tot) {
+                                var t = roads1[k];
+                                roads1[k] = roads1[k + 1];
+                                roads1[k + 1] = t;
+                            }
+                    }
+
+                }
+                for (var i = 0; i < 5; i++) {
+                    roadnames[i].innerHTML = "<span className='typeStyle'>" + '     ' + roads1[i].name + "</span>";
+                    ind_tot[i].innerHTML = "<span className='interval_score-li-num'>" + roads1[i].convenience_tot + "</span>";
+                }
             }
 
         }
-    }
-    checkhHtml5();
+        function interval_rank() {
+            var indicator = document.getElementById("sel_indicator").value;
+            var index = document.getElementById("sel_road").value;
+            var intervals1 = [];
+            for (var i = 0; i < intervals.length; i++) {
+                if (intervals[i].road_name == roads[index].name) intervals1.push(intervals[i]);
+            }
+            var arr = document.getElementById("int_rank")
+            arr.innerHTML = '<ul id="int_rank">'
+            var len;
+            if (intervals1.length < 5) len = intervals1.length;
+            else len = 5;
 
-    //时间
-    var timer = null;
-    function setTime(){
-        if(timer !== null){
-            clearTimeout(timer);
+
+            if (indicator == "安全性") {
+                for (var i = 5; i < 5 + len; i++) {
+                    for (var j = 0; j < intervals1.length; j++) {
+                        for (var k = 0; k < intervals1.length - 1 - j; k++) {
+                            if (intervals1[k].security_tot < intervals1[k + 1].security_tot) {
+                                var t = intervals1[k];
+                                intervals1[k] = intervals1[k + 1];
+                                intervals1[k + 1] = t;
+                            }
+                        }
+                    }
+                }
+                for (var i = 0; i < len; i++) {
+                    arr.innerHTML += '<li><span class="interval_score-li-name">Top' + (i + 1) + '<span class="typeStyle">     ' + intervals1[i].int_name + '</span></span><span class="interval_score-li-num">' + intervals1[i].security_tot + ' </span></li>'
+                }
+                arr.innerHTML += '</ul>';
+            }
+            else if (indicator == "畅通性") {
+                for (var i = 5; i < 5 + len; i++) {
+                    for (var j = 0; j < intervals1.length; j++) {
+                        for (var k = 0; k < intervals1.length - 1 - j; k++) {
+                            if (intervals1[k].patency_tot < intervals1[k + 1].patency_tot) {
+                                var t = intervals1[k];
+                                intervals1[k] = intervals1[k + 1];
+                                intervals1[k + 1] = t;
+                            }
+                        }
+                    }
+                }
+                for (var i = 0; i < len; i++) {
+                    arr.innerHTML += '<li><span class="interval_score-li-name">Top' + (i + 1) + '<span class="typeStyle">     ' + intervals1[i].int_name + '</span></span><span class="interval_score-li-num">' + intervals1[i].patency_tot + ' </span></li>'
+                }
+                arr.innerHTML += '</ul>';
+            }
+            else {
+                for (var i = 5; i < 5 + len; i++) {
+                    for (var j = 0; j < intervals1.length; j++) {
+                        for (var k = 0; k < intervals1.length - 1 - j; k++) {
+                            if (intervals1[k].convenience_tot < intervals1[k + 1].convenience_tot) {
+                                var t = intervals1[k];
+                                intervals1[k] = intervals1[k + 1];
+                                intervals1[k + 1] = t;
+                            }
+                        }
+                    }
+                }
+                for (var i = 0; i < len; i++) {
+                    arr.innerHTML += '<li><span class="interval_score-li-name">Top' + (i + 1) + '<span class="typeStyle">     ' + intervals1[i].int_name + '</span></span><span class="interval_score-li-num">' + intervals1[i].convenience_tot + ' </span></li>'
+                }
+                arr.innerHTML += '</ul>';
+            }
         }
-        setTimeout(function () {
-            $("#date").text(getTime()[0]);
-            $("#time").text(getTime()[1] +"  "+ getTime()[2]);
-            setTime();
-        },1000);
-    }
-    setTime();
-
-
-
-
-
-    //生成卡片
-    //排行
-    var interval_score =
-        '<ul id="road_rank">' +
-        '<li><span class="interval_score-li-name">Top1<span class="typeStyle">   新华路</span></span><span class="interval_score-li-num">69.41</span></li>' +
-        '<li><span class="interval_score-li-name">Top2<span class="typeStyle">   建设大道</span></span><span class="interval_score-li-num">55.88</span></li>' +
-        '<li><span class="interval_score-li-name">Top3<span class="typeStyle">   云飞路</span></span><span class="interval_score-li-num">54.64</span></li>' +
-        '<li><span class="interval_score-li-name">Top4<span class="typeStyle">   青年路</span></span><span class="interval_score-li-num">52.04</span></li>' +
-        '<li><span class="interval_score-li-name">Top5<span class="typeStyle">   万松园路</span></span><span class="interval_score-li-num">51.57</span></li>' +
-        '</ul>';
-
-    var interval_score_tip = new CreateTip({
-        id:"i_s_tip",
-        titleName:"道路安全性得分Top5",
-        icon:"icon/排行.png",
-        pos:{position:"fixed",top: window.innerHeight * 0.12,left: window.innerWidth * 0.01},
-        width:20,
-//        html:zhzb
-    });
-    interval_score_tip.setData(interval_score);
-
-
-
-
-    // 大屏
-
-    //legend 生成图例
-    function createLegend1() {
-        var html = '';
-        html += '<div class="legend-container1">';
-        html += '<div class="legend-content1"><span><img src="icon/legend.png"/>道路名称</span></div>';
-        html += '<div class="legend-content1"><span><select id="sel_road" onchange="road_choose()"></div>';
-        html += '<option value="0">万松园路</option>';
-        html += '<option value="1">建设大道</option>';
-        html += '<option value="2">新华路</option>';
-        html += '<option value="3">青年路</option>';
-        html += '<option value="4">常青路</option>';
-        html += '<option value="5">发展大道</option>';
-        html += '<option value="6">常青一路</option>';
-        html += '<option value="7">红旗渠路</option>';
-        html += '<option value="8">常青三路</option>';
-        html += '<option value="9">江发路</option>';
-        html += '<option value="10">江兴路</option>';
-        html += '<option value="11">常青五路</option>';
-        html += '<option value="12">新湾五路</option>';
-        html += '<option value="13">新湾三路</option>';
-        html += '<option value="14">新湾路</option>';
-        html += '<option value="15">新湾北路</option>';
-        html += '<option value="16">江达路</option>';
-        html += '<option value="17">长港路</option>';
-        html += '<option value="18">绿柳路</option>';
-        html += '<option value="19">姑嫂树路</option>';
-        html += '<option value="20">云飞路</option>';
-        html += '<option value="21">淮海路</option>';
-        html += '<option value="22">振兴路</option>';
-        html += '<option value="23">京汉大道</option>';
-        html += '<option value="24">中山大道</option>';
-        html += '<option value="25">民主一街</option>';
-        html += '<option value="26">沿江大道</option>';
-        html += '<option value="27">香港路</option>';
-        html += '<option value="28">三眼桥路</option>';
-        html += '<option value="29">马场路</option>';
-        //html += '<div class="legend-content"><span><span class="red-legend"></span><span style="font-size: 14px;">安全性</span><span><span class="green-legend"></span><span style="font-size: 14px;">畅通性</span><span><span style="margin-right: -10px;"><img src="icon/高亮图标小.png"></span><span style="font-size: 14px;">舒适性</span></span></span></div>';
-        html += '</div>';
-        $("body").append(html);
-        setLegendPos1();
-
-
-    }
-
-    //照片
-    var photo =
-       /* '<ul>' +
-        '<div align="center" id="picture">' +
-        '<img src="icon/1.jpeg" width="240" height="200" />' +
-        '</div>' +
-        '</ul>';*/
-'<style>' +
-    '#img{width: 18vw;height: 25vh;margin: 0;padding: 0;position: relative;}' +
-    '#img>.lleft{width: 1vw;height: 2vh;position: absolute;left: -1.64vw;top: 10vh;}' +
-    '#img>.rright{width: 1vw;height: 2vh;position: absolute;right: -0.4vw;top: 10vh;}' +
-'</style>' +
-'<div id="img">' + 
-        '<img id="imgs" src="picture/万松园路/0.jpeg" alt="无法显示" style="width:18vw;height:24vh;"> ' +
-    '<div class="lleft">' +
-        '<img src="icon/左箭头.png" alt="无法显示">' +        
-    '</div>' +
-    '<div class="rright">' +
-        '<img src="icon/右箭头.png" alt="无法显示">' +
-    '</div>' +
-'</div>';
-
-
-    var photo_tip = new CreateTip({
-        id:"photo",
-        titleName:"照片展示区",
-        icon:"icon/多素材.png",
-        pos:{position:"fixed",top: window.innerHeight * 0.62,left: window.innerWidth * 0.01},
-        width:20,
-        body:"icon/多素材.png",
-
-//        html:photo
-    });
-    photo_tip.setData(photo);
-
-    //let roads=[];
-    //let intervals=[];
-    /*$.getJSON('package.json',function (data){
-        roads=data.roads;
-        intervals=data.intervals;
-    })*/
-    function setLegendPos1() {
-        var $legendW = 200;
-        $(".legend-container1").css({
-            position: "fixed",
-            top:window.innerHeight * 0.12,
-            left:window.innerWidth * 0.22,
-            width:window.innerWidth * 0.545
-
-        });
-        //let roads=[
-        // {name:'万松园路',pictures:["road1/2_6_image.jpg","icon/2.jpeg"]},
-        // {name:'建设大道',pictures:["icon/3.jpeg","icon/4.jpeg"]},
-
-        // ]
-        var index;
-        //var imgs = document.getElementById("picture").getElementsByTagName("img");
-        var iframes = document.getElementById("mapContainer").getElementsByTagName("iframe");
-        road_choose = function () {
-            var img=document.getElementById("imgs");
+        function tot_score() {
+            var index;
             index = document.getElementById("sel_road").value;
-            //imgs[0].src=roads[index].pictures[0];
-            iframes[0].src = roads[index].ref;
-            img_url="picture/"+roads[index].name+"/0.jpeg";
-            picture_num=picture_nums[index];
-            img.src=img_url;
-            index_of_img=0;
-            img_change_int=0;
+            var t = document.getElementsByClassName("legend-container2");
+            t[0].innerHTML = '<div class="legend-content2"><span>道路总得分： <span style="color:#00CEFA">' + roads[index].total + '</span></span></div>';
+
+        }
+        function int_score() {
+            var indicator = document.getElementById("sel_indicator").value;
+            var index = document.getElementById("sel_road").value;
+            var t = document.getElementsByClassName("indicator-container1");
+            if (indicator == '安全性') {
+                t[0].innerHTML = '<div class="indicator-content1"><span>道路安全性得分：<span style="color:#00CEFA">' + roads[index].security_tot + '</span></div>';
+            }
+            else if (indicator == '畅通性') {
+                t[0].innerHTML = '<div class="indicator-content1"><span>道路通畅性得分：<span style="color:#00CEFA">' + roads[index].patency_tot + '</span></span></div>';
+            }
+            else {
+                t[0].innerHTML = '<div class="indicator-content1"><span>道路舒适性得分：<span style="color:#00CEFA">' + roads[index].convenience_tot + '</span></span></div>';
+            }
+        }
+
+        // 获得相应元素对象
+        var rright = document.getElementsByClassName("rright")[0];
+        var llef = document.getElementsByClassName("lleft")[0];
+        var img = document.getElementById("imgs");
+        //通过对象的单击事件触动函数调用函数实现图片切换
+        function changeImg() {
+            img_change_int++;
+            var road_index = document.getElementById("sel_road").value;
+            if (img_change_int == 3) {
+                index_of_img = (index_of_img + 1) % picture_num;
+                img_url = "picture/" + roads[road_index].name + '/' + index_of_img + ".jpeg";
+                img.setAttribute('src', img_url);
+                img_change_int = 0;
+            }
+        }
+        setInterval(changeImg, 1000);
+        rright.onclick = function () {
+            img_change_int = 0;
+            var road_index = document.getElementById("sel_road").value;
+            index_of_img = (index_of_img + 1) % picture_num;
+            img_url = "picture/" + roads[road_index].name + '/' + index_of_img + ".jpeg";
+            img.setAttribute('src', img_url);
+        }
+        llef.onclick = function () {
+            img_change_int = 0;
+            var road_index = document.getElementById("sel_road").value;
+            index_of_img--;
+            if (index_of_img < 0) index_of_img = picture_num - 1;
+            img_url = "picture/" + roads[road_index].name + '/' + index_of_img + ".jpeg";
+            img.setAttribute('src', img_url);
+        }
+
+        function option_choose() {
+            var sel = document.getElementById("sel_indicator");
+            var options = sel.getElementsByTagName("option");
+            var name = UrlParm.parm("name");
+            for (var i = 0; i < 3; i++) {
+                if (options[i].value == name) options[i].selected = true;
+            }
+        }
+
+        window.onload = function () {
+            option_choose();
             tot_score();
             int_score();
+            road_rank();
             interval_rank();
         }
-    }
-    createLegend1();
-    createLegend2();
-    function createLegend2(){
-        var html = '';
-        html += '<div class="legend-container2">';
-        html += '<div class="legend-content2"><span>道路总得分： <span >100</span></span></div>';
-        html+='</div>';
-        $("body").append(html);
-        setLegendPos2();
-    }
-    function setLegendPos2(){
-        $(".legend-container2").css({
-            position: "fixed",
-            top:window.innerHeight * 0.12,
-            left:window.innerWidth * 0.57,
-            width:window.innerWidth * 0.545
-        });
-    }
 
-
-    //指标图例
-       function createIndicator() {
-        var html = '';
-        html += '<div class="indicator-container">';
-        html += '<div class="indicator-content"><span><img src="icon/legend.png"/>性能指标</span></div>';
-        html += '<div class="indicator-content"><span><select id="sel_indicator" onchange="indicator_choose()" ></span></div>';
-        html += '<option value="安全性">安全性</option>';
-        html += '<option value="畅通性">畅通性</option>';
-        html += '<option value="舒适性">舒适性</option>';
-        html +='</div>'
-        $("body").append(html);
-        setIndicatorPos();
-    }
-    function setIndicatorPos(){
-        $(".indicator-container").css({
-            position:"fixed",
-            top:window.innerHeight * 0.80,
-            left:window.innerWidth * 0.22,
-            width:window.innerWidth * 0.545
-        });
-
-    }
-    let indicator_choose=function () {
-        var road_rank1 = document.getElementsByClassName("tip-title")[0].getElementsByTagName("span")[1];
-        var indicator = document.getElementById("sel_indicator");
-        road_rank1.innerText = "道路" + indicator.value + "得分Top5";
-        road_rank();
-        interval_rank();
-        int_score();
-    }
-
-    createIndicator();
-    createIndicator1();
-    function createIndicator1(){
-        var html = '';
-        html += '<div class="indicator-container1">';
-        html += '<div class="indicator-content1"><span>道路总得分： <span >100</span></span></div>';
-        html+='</div>';
-        $("body").append(html);
-        setIndicatorPos2();
-    }
-    function setIndicatorPos2(){
-        $(".indicator-container1").css({
-            position: "fixed",
-            top:window.innerHeight * 0.80,
-            left:window.innerWidth * 0.57,
-            width:window.innerWidth * 0.1,
-        });
-    }
-
-    //路
-    var road =
-        '<ul id="int_rank">' +
-        '<li><span class="interval_score-li-name">Top1<span class="typeStyle">     新华路</span></span><span class="interval_score-li-num">73.68 </span></li>' +
-        '<li><span class="interval_score-li-name">Top2<span class="typeStyle">     建设大道</span></span><span class="interval_score-li-num">61.28 </span></li>' +
-        '<li><span class="interval_score-li-name">Top3<span class="typeStyle">     云飞路</span></span><span class="interval_score-li-num">58.27 </span></li>' +
-        '<li><span class="interval_score-li-name">Top4<span class="typeStyle">     万松园路</span></span><span class="interval_score-li-num">56.10 </span></li>' +
-        '<li><span class="interval_score-li-name">Top5<span class="typeStyle">     淮海路</span></span><span class="interval_score-li-num">55.52 </span></li>' +
-        '<li><span class="interval_score-li-name">Top6<span class="typeStyle">     沿江大道</span></span><span class="interval_score-li-num">55.13 </span></li>' +
-        '<li><span class="interval_score-li-name">Top7<span class="typeStyle">     江发路</span></span><span class="interval_score-li-num">53.88 </span></li>' +
-        '<li><span class="interval_score-li-name">Top8<span class="typeStyle">     绿柳路</span></span><span class="interval_score-li-num">52.34 </span></li>' +
-        '<li><span class="interval_score-li-name">Top9<span class="typeStyle">     青年路</span></span><span class="interval_score-li-num">51.70 </span></li>' +
-        '<li><span class="interval_score-li-name">Top10<span class="typeStyle">   常青路</span></span><span class="interval_score-li-num">46.89 </span></li>' +
-        '</ul>';
-
-    var rtip = new CreateTip({
-        id:"road",
-        titleName:"道路区间得分Top5",
-        icon:"icon/排行.png",
-        pos:{position:"fixed",top:window.innerHeight * 0.125,right:window.innerWidth * 0.01},
-        width:20,
-    });
-    rtip.setData(road);
-    function road_rank()
-    {
-        var roads1=[];
-        for (var i = 0; i < roads.length; i++) {
-            roads1.push(roads[i]);
-        }
-        var indicator = document.getElementById("sel_indicator").value;
-        var roadnames=document.getElementsByClassName("typeStyle");
-        var ind_tot=document.getElementsByClassName("interval_score-li-num");
-        if(indicator=="安全性")
-        {
-            for(var i=0;i<5;i++) {
-                for (var j = 0; j < roads1.length; j++) {
-                    for(var k=0;k<roads1.length-1-j;k++)
-                    if(roads1[k].security_tot<roads1[k+1].security_tot){
-                        var t=roads1[k];
-                        roads1[k]=roads1[k+1];
-                        roads1[k+1]=t;
-                    }
-                }
-
-            }
-            for (var i = 0; i < 5; i++) {
-                roadnames[i].innerHTML= "<span className='typeStyle'>"+'     '+roads1[i].name+"</span>";
-                ind_tot[i].innerHTML= "<span className='interval_score-li-num'>"+roads1[i].security_tot+"</span>";
-            }
-        }
-        else if(indicator=="畅通性")
-        {
-            for(var i=0;i<5;i++) {
-                for (var j = 0; j < roads1.length; j++) {
-                    for(var k=0;k<roads1.length-1-j;k++)
-                        if(roads1[k].patency_tot<roads1[k+1].patency_tot){
-                            var t=roads1[k];
-                            roads1[k]=roads1[k+1];
-                            roads1[k+1]=t;
-                        }
-                }
-
-            }
-            for (var i = 0; i < 5; i++) {
-                roadnames[i].innerHTML= "<span className='typeStyle'>"+'     '+roads1[i].name+"</span>";
-                ind_tot[i].innerHTML= "<span className='interval_score-li-num'>"+roads1[i].patency_tot+"</span>";
-            }
-        }
-        else {
-            for(var i=0;i<5;i++) {
-                for (var j = 0; j < roads1.length; j++) {
-                    for(var k=0;k<roads1.length-1-j;k++)
-                        if(roads1[k].convenience_tot<roads1[k+1].convenience_tot){
-                            var t=roads1[k];
-                            roads1[k]=roads1[k+1];
-                            roads1[k+1]=t;
-                        }
-                }
-
-            }
-            for (var i = 0; i < 5; i++) {
-                roadnames[i].innerHTML= "<span className='typeStyle'>"+'     '+roads1[i].name+"</span>";
-                ind_tot[i].innerHTML= "<span className='interval_score-li-num'>"+roads1[i].convenience_tot+"</span>";
-            }
-        }
-
-    }
-    function interval_rank(){
-        var indicator = document.getElementById("sel_indicator").value;
-        var index=document.getElementById("sel_road").value;
-        var intervals1=[];
-        for (var i = 0; i <intervals.length ; i++) {
-            if(intervals[i].road_name==roads[index].name)intervals1.push(intervals[i]);
-        }
-        var arr=document.getElementById("int_rank")
-        arr.innerHTML='<ul id="int_rank">'
-        var len;
-        if(intervals1.length<5)len=intervals1.length;
-        else len=5;
-
-
-        if(indicator=="安全性")
-        {
-            for(var i=5;i<5+len;i++) {
-                for (var j = 0; j < intervals1.length; j++) {
-                    for(var k=0;k<intervals1.length-1-j;k++) {
-                        if (intervals1[k].security_tot<intervals1[k+1].security_tot) {
-                            var t=intervals1[k];
-                            intervals1[k]=intervals1[k+1];
-                            intervals1[k+1]=t;
+        UrlParm = function () { // url参数
+            var data, index;
+            (function init() {
+                data = [];
+                index = {};
+                var u = window.location.search.substr(1);
+                if (u != '') {
+                    var parms = decodeURIComponent(u).split('&');
+                    for (var i = 0, len = parms.length; i < len; i++) {
+                        if (parms[i] != '') {
+                            var p = parms[i].split("=");
+                            if (p.length == 1 || (p.length == 2 && p[1] == '')) {// p | p=
+                                data.push(['']);
+                                index[p[0]] = data.length - 1;
+                            } else if (typeof (p[0]) == 'undefined' || p[0] == '') { // =c | =
+                                data[0] = [p[1]];
+                            } else if (typeof (index[p[0]]) == 'undefined') { // c=aaa
+                                data.push([p[1]]);
+                                index[p[0]] = data.length - 1;
+                            } else {// c=aaa
+                                data[index[p[0]]].push(p[1]);
+                            }
                         }
                     }
                 }
-            }
-            for (var i = 0; i <len ; i++) {
-                arr.innerHTML+='<li><span class="interval_score-li-name">Top'+(i+1)+'<span class="typeStyle">     '+intervals1[i].int_name+'</span></span><span class="interval_score-li-num">'+intervals1[i].security_tot+' </span></li>'
-            }
-            arr.innerHTML+='</ul>';
-        }
-        else if(indicator=="畅通性")
-        {
-            for(var i=5;i<5+len;i++) {
-                for (var j = 0; j < intervals1.length; j++) {
-                    for(var k=0;k<intervals1.length-1-j;k++) {
-                        if (intervals1[k].patency_tot<intervals1[k+1].patency_tot) {
-                            var t=intervals1[k];
-                            intervals1[k]=intervals1[k+1];
-                            intervals1[k+1]=t;
-                        }
+            })();
+            return {
+                // 获得参数,类似request.getParameter()
+                parm: function (o) { // o: 参数名或者参数次序
+                    try {
+                        return (typeof (o) == 'number' ? data[o][0] : data[index[o]][0]);
+                    } catch (e) {
                     }
+                },
+                //获得参数组, 类似request.getParameterValues()
+                parmValues: function (o) { // o: 参数名或者参数次序
+                    try {
+                        return (typeof (o) == 'number' ? data[o] : data[index[o]]);
+                    } catch (e) { }
+                },
+                //是否含有parmName参数
+                hasParm: function (parmName) {
+                    return typeof (parmName) == 'string' ? typeof (index[parmName]) != 'undefined' : false;
+                },
+                // 获得参数Map ,类似request.getParameterMap()
+                parmMap: function () {
+                    var map = {};
+                    try {
+                        for (var p in index) { map[p] = data[index[p]]; }
+                    } catch (e) { }
+                    return map;
                 }
             }
-            for (var i = 0; i <len ; i++) {
-                arr.innerHTML+='<li><span class="interval_score-li-name">Top'+(i+1)+'<span class="typeStyle">     '+intervals1[i].int_name+'</span></span><span class="interval_score-li-num">'+intervals1[i].patency_tot+' </span></li>'
-            }
-            arr.innerHTML+='</ul>';
-        }
-        else {
-            for(var i=5;i<5+len;i++) {
-                for (var j = 0; j < intervals1.length; j++) {
-                    for(var k=0;k<intervals1.length-1-j;k++) {
-                        if (intervals1[k].convenience_tot<intervals1[k+1].convenience_tot) {
-                            var t=intervals1[k];
-                            intervals1[k]=intervals1[k+1];
-                            intervals1[k+1]=t;
-                        }
-                    }
-                }
-            }
-            for (var i = 0; i <len ; i++) {
-                arr.innerHTML+='<li><span class="interval_score-li-name">Top'+(i+1)+'<span class="typeStyle">     '+intervals1[i].int_name+'</span></span><span class="interval_score-li-num">'+intervals1[i].convenience_tot+' </span></li>'
-            }
-            arr.innerHTML+='</ul>';
-        }
-    }
-    function tot_score(){
-        var index;
-        index = document.getElementById("sel_road").value;
-        var t=document.getElementsByClassName("legend-container2");
-        t[0].innerHTML= '<div class="legend-content2"><span>道路总得分： <span style="color:#00CEFA">'+roads[index].total+'</span></span></div>';
-
-    }
-    function int_score(){
-        var indicator = document.getElementById("sel_indicator").value;
-        var index= document.getElementById("sel_road").value;
-        var t=document.getElementsByClassName("indicator-container1");
-        if(indicator=='安全性'){
-            t[0].innerHTML='<div class="indicator-content1"><span>道路安全性得分：<span style="color:#00CEFA">'+roads[index].security_tot+'</span></div>';
-        }
-        else if(indicator=='畅通性')
-        {
-            t[0].innerHTML='<div class="indicator-content1"><span>道路通畅性得分：<span style="color:#00CEFA">'+roads[index].patency_tot+'</span></span></div>';
-        }
-        else{
-            t[0].innerHTML='<div class="indicator-content1"><span>道路舒适性得分：<span style="color:#00CEFA">'+roads[index].convenience_tot+'</span></span></div>';
-        }
-    }
-
-// 获得相应元素对象
-var rright=document.getElementsByClassName("rright")[0];
-var llef=document.getElementsByClassName("lleft")[0];
-var img=document.getElementById("imgs");
-//通过对象的单击事件触动函数调用函数实现图片切换
-function changeImg(){
-    img_change_int++;
-    var road_index=document.getElementById("sel_road").value;
-    if(img_change_int == 3){
-        index_of_img=(index_of_img+1)%picture_num;
-        img_url="picture/"+roads[road_index].name+'/'+index_of_img+".jpeg";
-        img.setAttribute('src',img_url);
-        img_change_int = 0;
-    }    
-}
-setInterval(changeImg, 1000);
-rright.onclick=function(){
-    img_change_int = 0;
-    var road_index=document.getElementById("sel_road").value;
-    index_of_img=(index_of_img+1)%picture_num;
-    img_url="picture/"+roads[road_index].name+'/'+index_of_img+".jpeg";
-    img.setAttribute('src',img_url);
-}
-llef.onclick=function(){
-    img_change_int = 0;
-    var road_index=document.getElementById("sel_road").value;
-    index_of_img--;
-    if(index_of_img<0)index_of_img=picture_num-1;
-    img_url="picture/"+roads[road_index].name+'/'+index_of_img+".jpeg";
-    img.setAttribute('src',img_url);
-}
-
-function option_choose(){
-    var sel=document.getElementById("sel_indicator");
-    var options=sel.getElementsByTagName("option");
-    var name=UrlParm.parm("name");
-    for (var i = 0; i < 3; i++) {
-        if(options[i].value==name)options[i].selected=true;
-    }
-}
-
-window.onload=function (){
-        option_choose();
-        tot_score();
-        int_score();
-        road_rank();
-        interval_rank();
-}
-
-    UrlParm = function() { // url参数
-        var data, index;
-        (function init() {
-            data = [];
-            index = {};
-            var u = window.location.search.substr(1);
-            if (u != '') {
-                var parms = decodeURIComponent(u).split('&');
-                for (var i = 0, len = parms.length; i < len; i++) {
-                    if (parms[i] != '') {
-                        var p = parms[i].split("=");
-                        if (p.length == 1 || (p.length == 2 && p[1] == '')) {// p | p=
-                            data.push(['']);
-                            index[p[0]] = data.length - 1;
-                        } else if (typeof(p[0]) == 'undefined' || p[0] == '') { // =c | =
-                            data[0] = [p[1]];
-                        } else if (typeof(index[p[0]]) == 'undefined') { // c=aaa
-                            data.push([p[1]]);
-                            index[p[0]] = data.length - 1;
-                        } else {// c=aaa
-                            data[index[p[0]]].push(p[1]);
-                        }
-                    }
-                }
-            }
-        })();
-        return {
-            // 获得参数,类似request.getParameter()
-            parm : function(o) { // o: 参数名或者参数次序
-                try {
-                    return (typeof(o) == 'number' ? data[o][0] : data[index[o]][0]);
-                } catch (e) {
-                }
-            },
-            //获得参数组, 类似request.getParameterValues()
-            parmValues : function(o) { // o: 参数名或者参数次序
-                try {
-                    return (typeof(o) == 'number' ? data[o] : data[index[o]]);
-                } catch (e) {}
-            },
-            //是否含有parmName参数
-            hasParm : function(parmName) {
-                return typeof(parmName) == 'string' ? typeof(index[parmName]) != 'undefined' : false;
-            },
-            // 获得参数Map ,类似request.getParameterMap()
-            parmMap : function() {
-                var map = {};
-                try {
-                    for (var p in index) { map[p] = data[index[p]]; }
-                } catch (e) {}
-                return map;
-            }
-        }
-    }();
+        }();
 
 
-</script>
-<div class="color-explain">
-    <table align="center">
- <tr>
-  <td class="circle" bgcolor="red">&nbsp;</td>
-  <td><font color="white">&nbsp;&nbsp;[0,10)&nbsp;&nbsp;</font></td>
-  <td class="circle" bgcolor="orange">&nbsp;</td>
-  <td><font color="white">&nbsp;&nbsp;[10,20)&nbsp;&nbsp;</font></td>
-  <td class="circle" bgcolor="hotpink" >&nbsp;</td>
-  <td><font color="white">&nbsp;&nbsp;[20,30)&nbsp;&nbsp;</font></td>
-  <td class="circle" bgcolor="yellow" >&nbsp;</td>
-  <td><font color="white">&nbsp;&nbsp;[30,40)&nbsp;&nbsp;</font></td>
-  <td class="circle" bgcolor="#9932cc" >&nbsp;</td>
-  <td><font color="white">&nbsp;&nbsp;[40,50)&nbsp;&nbsp;</font></td>
-  <td class="circle" bgcolor="green" >&nbsp;</td>
-  <td><font color="white">&nbsp;&nbsp;[50,60)&nbsp;&nbsp;</font></td>
-  <td class="circle" bgcolor="darkseagreen" >&nbsp;</td>
-  <td><font color="white">&nbsp;&nbsp;[60,70)&nbsp;&nbsp;</font></td>
-  <td class="circle" bgcolor="mediumspringgreen" >&nbsp;</td>
-  <td><font color="white">&nbsp;&nbsp;[70,80)&nbsp;&nbsp;</font></td>
-  <td class="circle" bgcolor="deepskyblue" >&nbsp;</td>
-  <td><font color="white">&nbsp;&nbsp;[80,90)&nbsp;&nbsp;</font></td>
-  <td class="circle" bgcolor="blue" >&nbsp;</td>
-  <td><font color="white">&nbsp;&nbsp;[90,100]&nbsp;&nbsp;</font></td>
- </tr>
-</table>
-</div>  
+    </script>
+    <div class="color-explain">
+        <table align="center">
+            <tr>
+                <td class="circle" bgcolor="red">&nbsp;</td>
+                <td>
+                    <font color="white">&nbsp;&nbsp;[0,10)&nbsp;&nbsp;</font>
+                </td>
+                <td class="circle" bgcolor="orange">&nbsp;</td>
+                <td>
+                    <font color="white">&nbsp;&nbsp;[10,20)&nbsp;&nbsp;</font>
+                </td>
+                <td class="circle" bgcolor="hotpink">&nbsp;</td>
+                <td>
+                    <font color="white">&nbsp;&nbsp;[20,30)&nbsp;&nbsp;</font>
+                </td>
+                <td class="circle" bgcolor="yellow">&nbsp;</td>
+                <td>
+                    <font color="white">&nbsp;&nbsp;[30,40)&nbsp;&nbsp;</font>
+                </td>
+                <td class="circle" bgcolor="#9932cc">&nbsp;</td>
+                <td>
+                    <font color="white">&nbsp;&nbsp;[40,50)&nbsp;&nbsp;</font>
+                </td>
+                <td class="circle" bgcolor="green">&nbsp;</td>
+                <td>
+                    <font color="white">&nbsp;&nbsp;[50,60)&nbsp;&nbsp;</font>
+                </td>
+                <td class="circle" bgcolor="darkseagreen">&nbsp;</td>
+                <td>
+                    <font color="white">&nbsp;&nbsp;[60,70)&nbsp;&nbsp;</font>
+                </td>
+                <td class="circle" bgcolor="mediumspringgreen">&nbsp;</td>
+                <td>
+                    <font color="white">&nbsp;&nbsp;[70,80)&nbsp;&nbsp;</font>
+                </td>
+                <td class="circle" bgcolor="deepskyblue">&nbsp;</td>
+                <td>
+                    <font color="white">&nbsp;&nbsp;[80,90)&nbsp;&nbsp;</font>
+                </td>
+                <td class="circle" bgcolor="blue">&nbsp;</td>
+                <td>
+                    <font color="white">&nbsp;&nbsp;[90,100]&nbsp;&nbsp;</font>
+                </td>
+            </tr>
+        </table>
+    </div>
 </body>
+
 </html>

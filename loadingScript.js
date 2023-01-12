@@ -3,7 +3,7 @@
  * @author
  * @module 加载所以文件
  */
-(function() {
+(function () {
     /**
      * 获取当前文件的路径
      *
@@ -31,7 +31,7 @@
     ];
     var scriptTags = new Array(jsFiles.length);
     for (var i = 0, len = jsFiles.length; i < len; i++) {
-        scriptTags[i] = "<script type='text/javascript' src='"+ jsFiles[i] + "' ></script>";
+        scriptTags[i] = "<script type='text/javascript' src='" + jsFiles[i] + "' ></script>";
     }
-    
+
 })();
