@@ -378,7 +378,7 @@ img {
 }
 
 .indicator-container {
-    width: 35vw !important;
+    width: 35.05vw !important;
     height: 48px;
     background-color: rgba(22, 31, 38, 0.87);
 
@@ -450,7 +450,7 @@ img {
 }
 
 .legend-container1 {
-    width: 35vw ! important;
+    width: 35.05vw ! important;
     height: 48px;
     background-color: rgba(22, 31, 38, 0.87);
     overflow: hidden;
